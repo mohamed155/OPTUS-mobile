@@ -55,14 +55,15 @@ class APIInterceptors extends InterceptorContract {
       case 401:
         BuildContext? context = NavigationService.navigationKey.currentContext;
         if (context != null && SecurityService.isUserSignedIn) {
-          SecurityService.isUserSignedIn = false;
           ToastService.showErrorMessage("Session expired, please sign in again");
-          Navigator.of(context).pushAndRemoveUntil(
+          SecurityService.logout().then((_) => {
+            Navigator.of(context).pushAndRemoveUntil(
               MaterialPageRoute(
-                  builder: (BuildContext context) => const LoginScreen()
+                builder: (BuildContext context) => const LoginScreen()
               ),
               ModalRoute.withName('/login')
-          );
+            )
+          });
         }
         break;
       case 403:
