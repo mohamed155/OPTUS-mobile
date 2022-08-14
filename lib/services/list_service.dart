@@ -25,6 +25,7 @@ class ListService {
       }
     }).then((result) {
       if (result is Response) {
+        print(result.body);
         return List.of(JSONConverter.decode(result.body))
             .map((item) => ListDto<int, String>.fromJSON(item))
             .toList();

@@ -7,7 +7,9 @@ import 'package:http_interceptor/models/request_data.dart';
 import 'package:http_interceptor/models/response_data.dart';
 
 import 'package:tech2/config/app_config.dart';
+import 'package:tech2/modules/login/screens/index.dart';
 import 'package:tech2/services/navigation_service.dart';
+import 'package:tech2/services/security.dart';
 import 'package:tech2/services/storage.dart';
 import 'package:tech2/services/toast_service.dart';
 import 'package:tech2/utilities/json_converter.dart';
@@ -17,16 +19,15 @@ class APIInterceptors extends InterceptorContract {
   Future<RequestData> interceptRequest({required RequestData data}) async {
     try {
       CognitoAuthSession session =
-          await Amplify.Auth.fetchAuthSession(
-              options: CognitoSessionOptions(getAWSCredentials: true)
-          ) as CognitoAuthSession;
+      await Amplify.Auth.fetchAuthSession(
+          options: CognitoSessionOptions(getAWSCredentials: true)
+      ) as CognitoAuthSession;
       String? idToken = session.userPoolTokens?.idToken;
       // data.baseUrl = apiBaseUrl;
       data.headers["Authorization"] = "Bearer $idToken";
       data.headers["Content-Type"] = "application/json";
       data.headers["Cache-Control"] = "no-cache";
       data.headers["Pragma"] = "no-cache";
-      print(data.toString());
     } catch (e) {
       if (kDebugMode) {
         print('request error $e');
@@ -38,7 +39,7 @@ class APIInterceptors extends InterceptorContract {
   @override
   Future<ResponseData> interceptResponse({required ResponseData data}) async {
     switch (data.statusCode) {
-      // success cases
+    // success cases
       case 200:
         if (data.method == Method.GET) {
           StorageService.store(
@@ -46,17 +47,22 @@ class APIInterceptors extends InterceptorContract {
         }
         break;
 
-      // error cases
+    // error cases
       case 0:
         ToastService.showErrorMessage(
             "API is not running, please try again later");
         break;
       case 401:
-        ToastService.showErrorMessage("Session expired, please sign in again");
         BuildContext? context = NavigationService.navigationKey.currentContext;
-        if (context != null) {
-          Navigator.of(context)
-              .pushNamedAndRemoveUntil('/login', (route) => false);
+        if (context != null && SecurityService.isUserSignedIn) {
+          SecurityService.isUserSignedIn = false;
+          ToastService.showErrorMessage("Session expired, please sign in again");
+          Navigator.of(context).pushAndRemoveUntil(
+              MaterialPageRoute(
+                  builder: (BuildContext context) => const LoginScreen()
+              ),
+              ModalRoute.withName('/login')
+          );
         }
         break;
       case 403:
@@ -68,7 +74,7 @@ class APIInterceptors extends InterceptorContract {
           String body = data.body.toString();
           List<String> errors = [];
           Map<String, String> validationErrorDictionary =
-              JSONConverter.decode(body);
+          JSONConverter.decode(body);
           errors.addAll(validationErrorDictionary.values);
           if (errors.isNotEmpty) {
             String error = errors.join("\n");
