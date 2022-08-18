@@ -15,16 +15,18 @@ class _LoginScreenState extends State<LoginScreen> {
   bool isLoading = false;
 
   login() async {
-    setState(() => isLoading = true);
-    SecurityService.login(username: username, password: password)
-        .then((_) async {
-          if (SecurityService.isUserSignedIn) {
-            return SecurityService.getAppUser();
-          }
-        })
-        .then((_) =>
-            Navigator.pushNamedAndRemoveUntil(context, '/', (route) => false))
-        .whenComplete(() => setState(() => isLoading = false));
+    if (!isLoading) {
+      setState(() => isLoading = true);
+      SecurityService.login(username: username, password: password)
+          .then((_) async {
+        if (SecurityService.isUserSignedIn) {
+          return SecurityService.getAppUser();
+        }
+      })
+          .then((_) =>
+          Navigator.pushNamedAndRemoveUntil(context, '/', (route) => false))
+          .whenComplete(() => setState(() => isLoading = false));
+    }
   }
 
   @override

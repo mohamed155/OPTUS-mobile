@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:multi_select_flutter/multi_select_flutter.dart';
 
 import 'package:tech2/services/security.dart';
+import 'package:tech2/widgets/multiselect_dropdown.dart';
 import 'package:tech2/widgets/shared_app_bar.dart';
 import 'package:tech2/models/list_dto.dart';
 import 'package:tech2/services/list_service.dart';
@@ -18,12 +19,15 @@ class JobsScreen extends StatefulWidget {
 class _JobsScreenState extends State<JobsScreen> {
   List<ListDto<int, String>> listOfProjectRegion = [];
   List<ListDto<String, String>> listOfJobStatuses = [];
+  List<ListDto<int, String>> listOfSubRegions = [];
 
-  List<int>? selectedProjectRegionIds;
-  List<int>? selectedJobStatuses;
+  List<int> selectedProjectRegionIds = [];
+  List<String> selectedJobStatuses = [];
+  List<int> selectedSubRegions = [];
 
   bool isProjectRegionLoading = false;
   bool isJobStatusLoading = false;
+  bool isJobSubRegionsLoading = false;
 
   @override
   initState() {
@@ -55,10 +59,24 @@ class _JobsScreenState extends State<JobsScreen> {
             }));
   }
 
-  Widget buildDropDown(
+  onChangeProjectSelection(List<int> value) {
+    setState(() {
+      selectedProjectRegionIds = value;
+      isJobSubRegionsLoading = true;
+    });
+    if (selectedProjectRegionIds.isNotEmpty) {
+      ListService.loadSubRegionListByProjectRegionId(selectedProjectRegionIds)
+          .then((List<ListDto<int, String>> data) => setState(() {
+        listOfSubRegions = data;
+        isJobSubRegionsLoading = false;
+      }));
+    }
+  }
+
+  Widget buildDropDown<T>(
       {required String label,
       required List<ListDto> items,
-      required dynamic value,
+      required T value,
       required void Function(dynamic) onChanged,
       required bool isLoading,
       required bool multiSelect}) {
@@ -80,7 +98,7 @@ class _JobsScreenState extends State<JobsScreen> {
             child: Container(
               decoration: const BoxDecoration(color: Colors.white),
               padding: const EdgeInsets.symmetric(horizontal: 5),
-              child: multiSelect
+              child: multiSelect && value is List<dynamic>
                   ? MultiSelectDialogField(
                       buttonIcon: isLoading
                           ? const Icon(Icons.downloading)
@@ -138,20 +156,30 @@ class _JobsScreenState extends State<JobsScreen> {
         child: SingleChildScrollView(
           child: Column(
             children: [
-              buildDropDown(
+              MultiselectDropdown<int>(
                   label: "Project Region",
                   items: listOfProjectRegion,
                   value: selectedProjectRegionIds,
+                  valueProp: 'key',
+                  labelProp: 'value',
                   isLoading: isProjectRegionLoading,
-                  multiSelect: true,
+                  onChanged: onChangeProjectSelection),
+              MultiselectDropdown<int>(
+                  label: "Sub Region",
+                  items: listOfSubRegions,
+                  value: selectedSubRegions,
+                  valueProp: 'key',
+                  labelProp: 'value',
+                  isLoading: isJobSubRegionsLoading,
                   onChanged: (dynamic value) =>
-                      setState(() => selectedProjectRegionIds = value)),
-              buildDropDown(
+                      setState(() => selectedSubRegions = value)),
+              MultiselectDropdown<String>(
                   label: "Status",
                   items: listOfJobStatuses,
                   value: selectedJobStatuses,
+                  valueProp: 'key',
+                  labelProp: 'value',
                   isLoading: isJobStatusLoading,
-                  multiSelect: true,
                   onChanged: (dynamic value) =>
                       setState(() => selectedJobStatuses = value)),
             ],
