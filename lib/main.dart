@@ -43,6 +43,7 @@ class _AppState extends State<App> {
         title: 'Tech2',
         theme: ThemeData(
           primarySwatch: Colors.red,
+          unselectedWidgetColor: Colors.white
         ),
         initialRoute: '/',
         onGenerateRoute: RouteGenerator.generateRoute,
