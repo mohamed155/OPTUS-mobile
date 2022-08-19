@@ -1,6 +1,6 @@
 import 'package:tech2/interfaces/has_map.dart';
 
-class ListDto<T, U> implements HasMap {
+class ListDto<T, U> implements Mappable {
   T key;
   U value;
 

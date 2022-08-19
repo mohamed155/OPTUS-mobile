@@ -4,7 +4,7 @@ import 'package:multi_select_flutter/multi_select_flutter.dart';
 import 'package:tech2/interfaces/has_map.dart';
 
 class MultiselectDropdown<V> extends StatelessWidget {
-  List<HasMap> items;
+  List<Mappable> items;
   List<V> value;
   String valueProp;
   String labelProp;
@@ -41,17 +41,38 @@ class MultiselectDropdown<V> extends StatelessWidget {
           ClipRRect(
             borderRadius: BorderRadius.circular(10),
             child: Container(
-                decoration: const BoxDecoration(color: Colors.white),
-                padding: const EdgeInsets.symmetric(horizontal: 5),
-                child: MultiSelectDialogField<V>(
-                    buttonIcon: isLoading != null && isLoading!
-                        ? const Icon(Icons.downloading)
-                        : const Icon(Icons.arrow_drop_down),
-                    initialValue: value,
-                    items: items
-                        .map((item) => MultiSelectItem<V>(item.toMap()[valueProp], item.toMap()[labelProp]))
-                        .toList(),
-                    onConfirm: onChanged)),
+              decoration: const BoxDecoration(color: Colors.white),
+              padding: const EdgeInsets.symmetric(horizontal: 5),
+              child: Stack(
+                children: [
+                  MultiSelectDialogField<V>(
+                      buttonIcon: const Icon(Icons.arrow_drop_down),
+                      initialValue: value,
+                      items: items
+                          .map((item) => MultiSelectItem<V>(
+                              item.toMap()[valueProp], item.toMap()[labelProp]))
+                          .toList(),
+                      onConfirm: onChanged),
+                  ...isLoading != null && isLoading!
+                      ? [
+                          Positioned(
+                              top: 12,
+                              right: 10,
+                              child: SizedBox(
+                                  width: 20,
+                                  height: 20,
+                                  child: Container(
+                                    decoration: const BoxDecoration(
+                                        color: Colors.white),
+                                    child: const CircularProgressIndicator(
+                                      strokeWidth: 3,
+                                    ),
+                                  )))
+                        ]
+                      : []
+                ],
+              ),
+            ),
           ),
         ],
       ),

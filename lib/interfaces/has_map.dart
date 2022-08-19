@@ -1,3 +1,3 @@
-abstract class HasMap {
+abstract class Mappable {
   Map toMap();
 }
