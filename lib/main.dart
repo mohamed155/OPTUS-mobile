@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
-import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
 
 import 'package:tech2/config/amplify.dart';
 import 'package:tech2/services/navigation_service.dart';
@@ -43,11 +42,13 @@ class _AppState extends State<App> {
         title: 'Tech2',
         theme: ThemeData(
           primarySwatch: Colors.red,
-          unselectedWidgetColor: Colors.white
+          unselectedWidgetColor: Colors.white,
+          dividerColor: Colors.white
         ),
         initialRoute: '/',
         onGenerateRoute: RouteGenerator.generateRoute,
         navigatorKey: NavigationService.navigationKey,
+        debugShowCheckedModeBanner: false,
       );
     } else {
       return const Center(

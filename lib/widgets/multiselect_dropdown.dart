@@ -3,7 +3,7 @@ import 'package:multi_select_flutter/multi_select_flutter.dart';
 
 import 'package:tech2/interfaces/has_map.dart';
 
-class MultiselectDropdown<V> extends StatelessWidget {
+class MultiselectDropdown<V> extends StatefulWidget {
   List<Mappable> items;
   List<V> value;
   String valueProp;
@@ -24,6 +24,11 @@ class MultiselectDropdown<V> extends StatelessWidget {
       : super(key: key);
 
   @override
+  State<MultiselectDropdown<V>> createState() => _MultiselectDropdownState<V>();
+}
+
+class _MultiselectDropdownState<V> extends State<MultiselectDropdown<V>> {
+  @override
   Widget build(BuildContext context) {
     return Container(
       margin: const EdgeInsets.only(top: 10),
@@ -34,7 +39,7 @@ class MultiselectDropdown<V> extends StatelessWidget {
             padding: const EdgeInsets.only(right: 10),
             margin: const EdgeInsets.only(bottom: 10),
             child: Text(
-              label,
+              widget.label,
               style: const TextStyle(color: Colors.white, fontSize: 16),
             ),
           ),
@@ -46,14 +51,16 @@ class MultiselectDropdown<V> extends StatelessWidget {
               child: Stack(
                 children: [
                   MultiSelectDialogField<V>(
+                      key: GlobalKey(),
                       buttonIcon: const Icon(Icons.arrow_drop_down),
-                      initialValue: value,
-                      items: items
+                      initialValue: widget.value,
+                      items: widget.items
                           .map((item) => MultiSelectItem<V>(
-                              item.toMap()[valueProp], item.toMap()[labelProp]))
+                              item.toMap()[widget.valueProp],
+                              item.toMap()[widget.labelProp]))
                           .toList(),
-                      onConfirm: onChanged),
-                  ...isLoading != null && isLoading!
+                      onConfirm: widget.onChanged),
+                  ...widget.isLoading != null && widget.isLoading!
                       ? [
                           Positioned(
                               top: 12,

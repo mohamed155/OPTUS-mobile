@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:tech2/modules/jobs/models/bulk_routing_result.dart';
+import 'package:tech2/modules/jobs/screens/job_details.dart';
+import 'package:tech2/modules/jobs/screens/jobs_list.dart';
 
 import 'package:tech2/services/security.dart';
 import 'package:tech2/modules/login/screens/index.dart';
@@ -12,6 +15,16 @@ class RouteGenerator {
       switch (settings.name) {
         case '/':
           screen = const HiddenDrawer();
+          break;
+        case '/jobs':
+          if (settings.arguments is List<BulkRoutingResult>) {
+            screen = JobsListScreen(jobs: settings.arguments as List<BulkRoutingResult>);
+          }
+          break;
+        case '/job-details':
+          if (settings.arguments is int) {
+            screen = JobDetailsScreen(jobVisitId: settings.arguments as int);
+          }
           break;
       }
     } else {

@@ -1,3 +1,3 @@
 abstract class Mappable {
-  Map toMap();
+  Map<String, dynamic> toMap();
 }

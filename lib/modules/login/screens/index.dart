@@ -22,10 +22,8 @@ class _LoginScreenState extends State<LoginScreen> {
         if (SecurityService.isUserSignedIn) {
           return SecurityService.getAppUser();
         }
-      })
-          .then((_) =>
-          Navigator.pushNamedAndRemoveUntil(context, '/', (route) => false))
-          .whenComplete(() => setState(() => isLoading = false));
+      }).then((_) => Navigator.pushNamedAndRemoveUntil(context, '/', (route) => false))
+        .whenComplete(() => setState(() => isLoading = false));
     }
   }
 

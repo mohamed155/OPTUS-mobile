@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 
+import 'package:tech2/modules/jobs/models/bulk_routing_parameters.dart';
+import 'package:tech2/modules/jobs/models/bulk_routing_result.dart';
+import 'package:tech2/modules/jobs/services/jobs_services.dart';
 import 'package:tech2/services/security.dart';
 import 'package:tech2/widgets/date_range_input.dart';
 import 'package:tech2/widgets/multiselect_dropdown.dart';
@@ -20,6 +23,7 @@ class _JobsScreenState extends State<JobsScreen> {
   List<ListDto<int, String>> listOfProjectRegion = [];
   List<ListDto<String, String>> listOfJobStatuses = [];
   List<ListDto<int, String>> listOfSubRegions = [];
+  List<BulkRoutingResult> listOfJobs = [];
 
   List<int> selectedProjectRegionIds = [];
   List<String> selectedJobStatuses = [];
@@ -28,11 +32,12 @@ class _JobsScreenState extends State<JobsScreen> {
   bool isProjectRegionLoading = false;
   bool isJobStatusLoading = false;
   bool isJobSubRegionsLoading = false;
+  bool isJobsLoading = false;
 
   DateTime startDate = DateTime.now();
   DateTime endDate = DateTime.utc(2100);
 
-  bool? includeJobsWithoutDate = false;
+  bool? includeJobsWithoutDate = true;
   bool? includeUnreleasedJobs = false;
 
   @override
@@ -50,21 +55,38 @@ class _JobsScreenState extends State<JobsScreen> {
   loadWorkerProjectRegionList() async {
     setState(() => isProjectRegionLoading = true);
     ListService.loadWorkerProjectRegionList(SecurityService.workerId)
-        .then((List<ListDto<int, String>> data) =>
-        setState(() {
-          listOfProjectRegion = data;
-          isProjectRegionLoading = false;
-        }));
+        .then((List<ListDto<int, String>> data) => setState(() {
+              listOfProjectRegion = data;
+              isProjectRegionLoading = false;
+            }));
   }
 
   loadJobStatusList() {
     setState(() => isJobStatusLoading = true);
     ListService.loadJobStatusList()
-        .then((List<ListDto<String, String>> data) =>
-        setState(() {
-          listOfJobStatuses = data;
-          isJobStatusLoading = false;
-        }));
+        .then((List<ListDto<String, String>> data) => setState(() {
+              listOfJobStatuses = data;
+              isJobStatusLoading = false;
+            }));
+  }
+
+  loadJobs() {
+    setState(() => isJobsLoading = true);
+    BulkRoutingParameters model = BulkRoutingParameters(
+        SecurityService.workerId,
+        selectedProjectRegionIds,
+        selectedSubRegions,
+        selectedJobStatuses,
+        startDate,
+        endDate,
+        includeJobsWithoutDate!,
+        includeUnreleasedJobs!,
+        false);
+    JobsService.getListOfBulkRoutingJobs(model)
+        .then((List<BulkRoutingResult> data) {
+      setState(() => isJobsLoading = false);
+      Navigator.pushNamed(context, '/jobs', arguments: data);
+    });
   }
 
   onChangeProjectSelection(List<int> value) {
@@ -77,11 +99,11 @@ class _JobsScreenState extends State<JobsScreen> {
       });
 
       ListService.loadSubRegionListByProjectRegionId(selectedProjectRegionIds)
-          .then((List<ListDto<int, String>> data) =>
-          setState(() {
-            listOfSubRegions = data;
-            isJobSubRegionsLoading = false;
-          }));
+          .then((List<ListDto<int, String>> data) => setState(() {
+                listOfSubRegions = data;
+                selectedSubRegions = data.map((item) => item.key).toList();
+                isJobSubRegionsLoading = false;
+              }));
     }
   }
 
@@ -90,15 +112,17 @@ class _JobsScreenState extends State<JobsScreen> {
     return Scaffold(
       appBar: SharedAppBar(
         menuButtonHandler: widget.openDrawer,
-        refreshButtonHandler: () {},
+        refreshButtonHandler: loadControls,
       ),
       body: Container(
         decoration: const BoxDecoration(
             gradient: RadialGradient(radius: 1, colors: [
-              Colors.black87,
-              Colors.black,
-            ], stops: [0.1, 10])
-        ),
+          Colors.black87,
+          Colors.black,
+        ], stops: [
+          0.1,
+          10
+        ])),
         padding: const EdgeInsets.symmetric(horizontal: 10),
         width: double.infinity,
         height: double.infinity,
@@ -141,9 +165,9 @@ class _JobsScreenState extends State<JobsScreen> {
                     endDate: endDate,
                     onChange: (DateTime startDate, DateTime endDate) =>
                         setState(() {
-                          this.startDate = startDate;
-                          this.endDate = endDate;
-                        }),
+                      this.startDate = startDate;
+                      this.endDate = endDate;
+                    }),
                   ),
                 ),
                 // Row(
@@ -163,16 +187,36 @@ class _JobsScreenState extends State<JobsScreen> {
                         style: TextStyle(color: Colors.white)),
                     value: includeJobsWithoutDate,
                     onChanged: (value) =>
-                          setState(() => includeJobsWithoutDate = value)
-                ),
+                        setState(() => includeJobsWithoutDate = value)),
                 CheckboxListTile(
                     title: const Text('Include Unreleased Jobs',
                         style: TextStyle(color: Colors.white)),
                     value: includeUnreleasedJobs,
                     onChanged: (value) =>
-                        setState(() => includeUnreleasedJobs = value)
-                ),
-                ElevatedButton(onPressed: () {}, child: const Text('Search'))
+                        setState(() => includeUnreleasedJobs = value)),
+                ElevatedButton(
+                    onPressed: loadJobs,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        ...isJobsLoading
+                            ? [
+                                const SizedBox(
+                                  width: 20,
+                                  height: 20,
+                                  child: CircularProgressIndicator(
+                                    color: Colors.white,
+                                    strokeWidth: 3,
+                                  ),
+                                ),
+                                const SizedBox(
+                                  width: 10,
+                                )
+                              ]
+                            : [],
+                        const Text('Search'),
+                      ],
+                    ))
               ],
             ),
           ),
