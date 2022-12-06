@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
+
+import 'package:tech2/widgets/hidden_drawer.dart';
+import 'package:tech2/services/security.dart';
 import 'package:tech2/modules/jobs/models/bulk_routing_result.dart';
 import 'package:tech2/modules/jobs/screens/job_details.dart';
-import 'package:tech2/modules/jobs/screens/jobs_list.dart';
-
-import 'package:tech2/services/security.dart';
 import 'package:tech2/modules/login/screens/index.dart';
-import 'package:tech2/widgets/hidden_drawer.dart';
+import 'package:tech2/modules/jobs/screens/jobs_list.dart';
+import 'package:tech2/modules/jobs/screens/job_forms.dart';
 
 class RouteGenerator {
 
@@ -26,6 +27,10 @@ class RouteGenerator {
             screen = JobDetailsScreen(jobVisitId: settings.arguments as int);
           }
           break;
+        case '/job-forms':
+          if (settings.arguments is int) {
+            screen = JobFormsScreen(jobVisitId: settings.arguments as int);
+          }
       }
     } else {
       screen = const LoginScreen();

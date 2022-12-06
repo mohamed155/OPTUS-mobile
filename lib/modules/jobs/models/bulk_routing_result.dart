@@ -68,8 +68,8 @@ class BulkRoutingResult {
   bool? dbydRequested;
 
   // Double data-type
-  late double latitude;
-  late double longitude;
+  double? latitude;
+  double? longitude;
   double? warehouseLatitude;
   double? warehouseLongitude;
 

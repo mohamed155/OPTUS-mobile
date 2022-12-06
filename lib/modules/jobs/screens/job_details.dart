@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_speed_dial/flutter_speed_dial.dart';
 
 import 'package:tech2/modules/jobs/models/job_visit_model.dart';
+import 'package:tech2/modules/jobs/screens/job_location.dart';
 import 'package:tech2/modules/jobs/services/jobs_services.dart';
 import 'package:tech2/utilities/date_formatter.dart';
 
@@ -41,13 +43,39 @@ class _JobDetailsScreenState extends State<JobDetailsScreen> {
         }));
   }
 
+  openJobMap() {
+    if (jobVisit != null) {
+      Navigator.push(
+          context,
+          MaterialPageRoute(
+              builder: (_) => JobLocationScreen(
+                  latitude: jobVisit!.siteDetailsDto.latitude!,
+                  longitude: jobVisit!.siteDetailsDto.longitude!)));
+    }
+  }
+
+  openJobForms() {
+    Navigator.pushNamed(context, '/job-forms',
+        arguments: jobVisit!.jobVisitModelDetailsDto.jobVisitId);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-            title: Text(jobVisit != null
-                ? 'Job ${jobVisit!.jobDetailsDto.clientJobNumber}'
-                : 'Job')),
+          title: Text(jobVisit != null
+              ? 'Job ${jobVisit!.jobDetailsDto.clientJobNumber}'
+              : 'Job'),
+          actions: jobVisit != null &&
+                  jobVisit!.siteDetailsDto.latitude != null &&
+                  jobVisit!.siteDetailsDto.longitude != null
+              ? [
+                  IconButton(
+                      onPressed: openJobMap,
+                      icon: const Icon(Icons.map_rounded))
+                ]
+              : [],
+        ),
         body: Container(
           width: double.infinity,
           height: double.infinity,
@@ -238,6 +266,59 @@ class _JobDetailsScreenState extends State<JobDetailsScreen> {
                     ),
                   ),
                 ),
-        ));
+        ),
+        floatingActionButton: jobVisit != null
+            ? SpeedDial(
+                spaceBetweenChildren: 8,
+                icon: Icons.menu,
+                activeIcon: Icons.close,
+                overlayColor: Colors.black,
+                children: [
+                  SpeedDialChild(
+                      label: 'Start job',
+                      backgroundColor: Colors.green,
+                      child: const Icon(
+                        Icons.play_arrow_rounded,
+                        color: Colors.white,
+                      )),
+                  SpeedDialChild(
+                      label: 'Capture',
+                      backgroundColor: Colors.red,
+                      child: const Icon(
+                        Icons.camera_alt,
+                        color: Colors.white,
+                      )),
+                  SpeedDialChild(
+                      label: 'Attach',
+                      backgroundColor: Colors.red,
+                      child: const Icon(
+                        Icons.attach_file,
+                        color: Colors.white,
+                      )),
+                  SpeedDialChild(
+                      label: 'Docs',
+                      backgroundColor: Colors.red,
+                      child: const Icon(
+                        Icons.image,
+                        color: Colors.white,
+                      )),
+                  SpeedDialChild(
+                      label: 'Credit',
+                      backgroundColor: Colors.red,
+                      child: const Icon(
+                        Icons.credit_card,
+                        color: Colors.white,
+                      )),
+                  SpeedDialChild(
+                      label: 'Forms',
+                      backgroundColor: Colors.red,
+                      onTap: openJobForms,
+                      child: const Icon(
+                        Icons.edit,
+                        color: Colors.white,
+                      )),
+                ],
+              )
+            : null);
   }
 }

@@ -42,7 +42,6 @@ class APIInterceptors extends InterceptorContract {
     // success cases
       case 200:
         if (data.method == Method.GET) {
-          print(data.body);
           StorageService.store(
               key: data.url.toString(), value: data.body.toString());
         }
