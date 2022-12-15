@@ -1,16 +1,16 @@
 class JobFormDto {
-  late int formId;
-  late String formName;
+  int formId;
+  String formName;
   String? formDesc;
-  late int jobNumber;
+  int jobNumber;
   String? frequency;
-  late bool mandatory;
-  late int filled;
-  late String formCompleted;
-  late String formAction;
+  bool mandatory;
+  int filled;
+  String formCompleted;
+  String formAction;
   String? linkEvent;
-  late int formResponseId;
-  late DateTime? dateCreated;
+  int formResponseId;
+  DateTime? dateCreated;
 
   JobFormDto(
       this.formId,
@@ -39,7 +39,7 @@ class JobFormDto {
         json['formAction'],
         json['linkEvent'],
         json['formResponseId'],
-        json['dateCreated']
+        json['dateCreated'] != null ? DateTime.parse(json['dateCreated']) : null
     );
   }
 }

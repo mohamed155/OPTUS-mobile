@@ -1,12 +1,12 @@
 import 'package:tech2/interfaces/has_map.dart';
 
 class BulkRoutingParameters implements Mappable {
-  late int workerId;
-  late List<int> projectRegionId;
-  late List<int> subRegionId;
-  late List<String> jobStatusType;
-  late DateTime startDate;
-  late DateTime endDate;
+  int workerId;
+  List<int> projectRegionId;
+  List<int> subRegionId;
+  List<String> jobStatusType;
+  DateTime startDate;
+  DateTime endDate;
   bool includeUnreleased = false;
   bool includeNoDate = true;
   bool limitedUser = false;

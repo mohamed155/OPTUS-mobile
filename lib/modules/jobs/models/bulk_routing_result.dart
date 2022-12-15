@@ -1,16 +1,16 @@
 import 'package:tech2/enums/send_sms_pic.dart';
 
 class BulkRoutingResult {
-  late int projectId;
-  late int jobVisitId;
-  late int visitStatusId;
-  late int jobTypeId;
-  late int jobId;
-  late int jobNumber;
-  late int jobPoints;
-  late int siteId;
+  int projectId;
+  int jobVisitId;
+  int visitStatusId;
+  int jobTypeId;
+  int jobId;
+  int jobNumber;
+  int jobPoints;
+  int siteId;
   int? projectRegionId;
-  late int mapDisplayMode;
+  int mapDisplayMode;
   int? timeSlotId;
 
   // String data-type
@@ -20,7 +20,7 @@ class BulkRoutingResult {
   String? zoneCodeName;
   String? suburb;
   String? jobStatusType;
-  late String clientJobNumber;
+  String clientJobNumber;
   String? siteInfo;
   String? bookedTimeSlot;
   String? fullName;
@@ -77,7 +77,7 @@ class BulkRoutingResult {
   DateTime? pabdate;
   DateTime? requestDate;
   DateTime? requestDateStart;
-  late DateTime dateCreated;
+  DateTime dateCreated;
   DateTime? startTime;
   DateTime? completedDate;
   DateTime? finishTime;

@@ -2,24 +2,25 @@ import 'package:flutter/material.dart';
 
 import 'package:tech2/modules/jobs/models/bulk_routing_parameters.dart';
 import 'package:tech2/modules/jobs/models/bulk_routing_result.dart';
-import 'package:tech2/modules/jobs/services/jobs_services.dart';
+import 'package:tech2/modules/jobs/services/jobs_service.dart';
 import 'package:tech2/services/security.dart';
+import 'package:tech2/widgets/date_picker.dart';
 import 'package:tech2/widgets/date_range_input.dart';
 import 'package:tech2/widgets/multiselect_dropdown.dart';
 import 'package:tech2/widgets/shared_app_bar.dart';
 import 'package:tech2/models/list_dto.dart';
 import 'package:tech2/services/list_service.dart';
 
-class JobsScreen extends StatefulWidget {
+class JobsSearchScreen extends StatefulWidget {
   final VoidCallback openDrawer;
 
-  const JobsScreen({Key? key, required this.openDrawer}) : super(key: key);
+  const JobsSearchScreen({Key? key, required this.openDrawer}) : super(key: key);
 
   @override
-  State<JobsScreen> createState() => _JobsScreenState();
+  State<JobsSearchScreen> createState() => _JobsSearchScreenState();
 }
 
-class _JobsScreenState extends State<JobsScreen> {
+class _JobsSearchScreenState extends State<JobsSearchScreen> {
   List<ListDto<int, String>> listOfProjectRegion = [];
   List<ListDto<String, String>> listOfJobStatuses = [];
   List<ListDto<int, String>> listOfSubRegions = [];
@@ -34,8 +35,8 @@ class _JobsScreenState extends State<JobsScreen> {
   bool isJobSubRegionsLoading = false;
   bool isJobsLoading = false;
 
-  DateTime startDate = DateTime.now();
-  DateTime endDate = DateTime.utc(2100);
+  DateTime startDate = DateTime.now()..subtract(const Duration(days: 29));
+  DateTime endDate = DateTime.now()..add(const Duration(days: 4));
 
   bool? includeJobsWithoutDate = true;
   bool? includeUnreleasedJobs = false;
@@ -132,6 +133,7 @@ class _JobsScreenState extends State<JobsScreen> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
+                DatePicker(date: DateTime.now(), onChange: (value) => print(value)),
                 MultiselectDropdown<int>(
                     label: "Project Region",
                     items: listOfProjectRegion,

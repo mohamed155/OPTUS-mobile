@@ -1,14 +1,14 @@
 class JobVisitModel {
-  late JobDetailsDto jobDetailsDto;
-  late SiteDetailsDto siteDetailsDto;
-  late JobTypeDetailsDto jobTypeDetailsDto;
-  late ProjectDetailsDto projectDetailsDto;
-  late JobStatusDetailsDto jobStatusDetailsDto;
-  late JobClassDetailsDto jobClassDetailsDto;
-  late RegionDetailsDto regionDetailsDto;
-  late WorkerJobDetailsDto workerJobDetailsDto;
-  late JobVisitModelDetailsDto jobVisitModelDetailsDto;
-  late OriginalValuesDto originalValuesDto;
+  JobDetailsDto jobDetailsDto;
+  SiteDetailsDto siteDetailsDto;
+  JobTypeDetailsDto jobTypeDetailsDto;
+  ProjectDetailsDto projectDetailsDto;
+  JobStatusDetailsDto jobStatusDetailsDto;
+  JobClassDetailsDto jobClassDetailsDto;
+  RegionDetailsDto regionDetailsDto;
+  WorkerJobDetailsDto workerJobDetailsDto;
+  JobVisitModelDetailsDto jobVisitModelDetailsDto;
+  OriginalValuesDto originalValuesDto;
 
   // added
   String? lockClass;
@@ -247,7 +247,7 @@ class JobDetailsDto {
   int? jobSourceProductId;
   int? jobNumber;
   DateTime? cancelDate;
-  late String clientJobNumber;
+  String clientJobNumber;
   DateTime? completedDate;
   String? contactName;
   String? custContactName;
@@ -257,7 +257,7 @@ class JobDetailsDto {
   String? custContact2;
   DateTime? requestDate;
   String? requestDateStr;
-  late String jobDesc;
+  String jobDesc;
   DateTime? followUpDate;
   DateTime? followUpTime;
   String? followUpTimeStr;
@@ -279,8 +279,8 @@ class JobDetailsDto {
   DateTime? nbnCivilsStartDate;
   int? jobLeadWorkerId;
   String? jobLeadWorkerIdStr;
-  late String routedTo;
-  late String bal;
+  String routedTo;
+  String bal;
   String balance;
   bool? sameVisit;
   bool? isLockedJob;
@@ -604,7 +604,7 @@ class JobTypeDetailsDto {
   int? cancelWizardId;
   int? closingWizardId;
   bool? flexibleScheduling;
-  late String jobTypeCode;
+  String jobTypeCode;
   bool? truckRoll;
   bool? mainJobType;
   bool? contractSupportQueue;
@@ -658,7 +658,7 @@ class ProjectDetailsDto {
   String? projectCode;
   int? projectId;
   bool? isTpgProject;
-  late String projectCodeRegionName;
+  String projectCodeRegionName;
 
   // Project Fields Desc
   String? jobVisitField1Desc;
@@ -895,12 +895,12 @@ class ProjectDetailsDto {
 
 class JobStatusDetailsDto {
   bool? allowChangeInJobDetails;
-  late String jobStatusType;
-  late String jobStatusDesc;
-  late String jobStatusCode;
-  late String jobStatus;
+  String jobStatusType;
+  String jobStatusDesc;
+  String jobStatusCode;
+  String jobStatus;
   String? quotedProvided;
-  late String mainJobStatusType;
+  String mainJobStatusType;
 
   JobStatusDetailsDto(
       this.allowChangeInJobDetails,
@@ -1009,10 +1009,10 @@ class JobVisitModelDetailsDto {
   int? projectRegionId;
   int? jobVisitId;
   String? createdByProcess;
-  late DateTime dateCreated;
+  DateTime dateCreated;
   DateTime? dateReconciled;
   String? technicianId;
-  late String bookedTimeSlot;
+  String bookedTimeSlot;
   String? routeSequence;
   String? jobViewedDate;
   String? acceptedDate;

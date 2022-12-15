@@ -3,7 +3,7 @@ import 'package:tech2/services/security.dart';
 
 import '../models/drawer_items.dart';
 import '../models/drawer_item.dart';
-import '../modules/jobs/screens/index.dart';
+import '../modules/jobs/screens/job_search.dart';
 import '../modules/map/map.dart';
 
 class HiddenDrawer extends StatefulWidget {
@@ -132,11 +132,11 @@ class _HiddenDrawerState extends State<HiddenDrawer> {
   Widget buildSelectedScreen(BuildContext context) {
     switch (selectedItem) {
       case DrawerItems.jobs:
-        return JobsScreen(openDrawer: openDrawer);
+        return JobsSearchScreen(openDrawer: openDrawer);
       case DrawerItems.map:
         return MapScreen(openDrawer: openDrawer,);
       default:
-        return JobsScreen(openDrawer: openDrawer);
+        return JobsSearchScreen(openDrawer: openDrawer);
     }
   }
 }

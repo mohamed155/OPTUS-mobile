@@ -27,11 +27,12 @@ class _AppState extends State<App> {
   @override
   initState() {
     super.initState();
-    AmplifyConfiguration.configureAmplify()
+    StorageService.init()
+        .then((_) => AmplifyConfiguration.configureAmplify())
         .then((_) => Amplify.Auth.fetchAuthSession())
         .then((AuthSession session) =>
             SecurityService.isUserSignedIn = session.isSignedIn)
-        .then((_) => StorageService.init())
+        .catchError((_) => SecurityService.isUserSignedIn = false)
         .then((_) => setState(() => appInitialized = true));
   }
 

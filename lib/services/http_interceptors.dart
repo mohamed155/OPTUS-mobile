@@ -19,12 +19,12 @@ class APIInterceptors extends InterceptorContract {
   Future<RequestData> interceptRequest({required RequestData data}) async {
     try {
       CognitoAuthSession session =
-      await Amplify.Auth.fetchAuthSession(
-          options: CognitoSessionOptions(getAWSCredentials: true)
-      ) as CognitoAuthSession;
-      String? idToken = session.userPoolTokens?.idToken;
+          await Amplify.Auth.fetchAuthSession() as CognitoAuthSession;
       // data.baseUrl = apiBaseUrl;
-      data.headers["Authorization"] = "Bearer $idToken";
+      JsonWebToken? idToken = session.userPoolTokens?.idToken;
+      if (idToken != null) {
+        data.headers["Authorization"] = "Bearer ${idToken.raw}";
+      }
       data.headers["Content-Type"] = "application/json";
       data.headers["Cache-Control"] = "no-cache";
       data.headers["Pragma"] = "no-cache";
@@ -39,7 +39,7 @@ class APIInterceptors extends InterceptorContract {
   @override
   Future<ResponseData> interceptResponse({required ResponseData data}) async {
     switch (data.statusCode) {
-    // success cases
+      // success cases
       case 200:
         if (data.method == Method.GET) {
           StorageService.store(
@@ -47,7 +47,7 @@ class APIInterceptors extends InterceptorContract {
         }
         break;
 
-    // error cases
+      // error cases
       case 0:
         ToastService.showErrorMessage(
             "API is not running, please try again later");
@@ -55,15 +55,14 @@ class APIInterceptors extends InterceptorContract {
       case 401:
         BuildContext? context = NavigationService.navigationKey.currentContext;
         if (context != null && SecurityService.isUserSignedIn) {
-          ToastService.showErrorMessage("Session expired, please sign in again");
+          ToastService.showErrorMessage(
+              "Session expired, please sign in again");
           SecurityService.logout().then((_) => {
-            Navigator.of(context).pushAndRemoveUntil(
-              MaterialPageRoute(
-                builder: (BuildContext context) => const LoginScreen()
-              ),
-              ModalRoute.withName('/login')
-            )
-          });
+                Navigator.of(context).pushAndRemoveUntil(
+                    MaterialPageRoute(
+                        builder: (BuildContext context) => const LoginScreen()),
+                    ModalRoute.withName('/login'))
+              });
         }
         break;
       case 403:
@@ -75,7 +74,7 @@ class APIInterceptors extends InterceptorContract {
           String body = data.body.toString();
           List<String> errors = [];
           Map<String, String> validationErrorDictionary =
-          JSONConverter.decode(body);
+              JSONConverter.decode(body);
           errors.addAll(validationErrorDictionary.values);
           if (errors.isNotEmpty) {
             String error = errors.join("\n");

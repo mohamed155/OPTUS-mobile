@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:tech2/modules/jobs/models/forms.dart';
+import 'package:tech2/modules/jobs/screens/form_details.dart';
 
 import 'package:tech2/widgets/hidden_drawer.dart';
 import 'package:tech2/services/security.dart';
@@ -9,7 +11,6 @@ import 'package:tech2/modules/jobs/screens/jobs_list.dart';
 import 'package:tech2/modules/jobs/screens/job_forms.dart';
 
 class RouteGenerator {
-
   static Route<MaterialPageRoute> generateRoute(RouteSettings settings) {
     late Widget screen;
     if (SecurityService.isUserSignedIn) {
@@ -19,7 +20,8 @@ class RouteGenerator {
           break;
         case '/jobs':
           if (settings.arguments is List<BulkRoutingResult>) {
-            screen = JobsListScreen(jobs: settings.arguments as List<BulkRoutingResult>);
+            screen = JobsListScreen(
+                jobs: settings.arguments as List<BulkRoutingResult>);
           }
           break;
         case '/job-details':
@@ -31,6 +33,13 @@ class RouteGenerator {
           if (settings.arguments is int) {
             screen = JobFormsScreen(jobVisitId: settings.arguments as int);
           }
+          break;
+        case '/form-details':
+          if (settings.arguments is FormDetailInput) {
+            screen = FormDetailsScreen(
+                formDetailsInput: settings.arguments as FormDetailInput);
+          }
+          break;
       }
     } else {
       screen = const LoginScreen();

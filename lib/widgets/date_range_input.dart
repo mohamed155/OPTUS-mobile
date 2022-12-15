@@ -3,11 +3,11 @@ import 'package:intl/intl.dart';
 import 'package:syncfusion_flutter_datepicker/datepicker.dart';
 
 class DateRangeInput extends StatefulWidget {
-  DateTime startDate;
-  DateTime endDate;
-  void Function(DateTime startDate, DateTime endDate) onChange;
+  final DateTime startDate;
+  final DateTime endDate;
+  final void Function(DateTime startDate, DateTime endDate) onChange;
 
-  DateRangeInput({
+  const DateRangeInput({
     Key? key,
     required this.startDate,
     required this.endDate,
@@ -50,7 +50,7 @@ class _DateRangeInputState extends State<DateRangeInput> {
     });
   }
 
-  void _openDateDialog(BuildContext context) {
+  void _openDateDialog() {
     Navigator.of(context).push(DialogRoute(
     context: context,
     builder: (_) {
@@ -58,8 +58,11 @@ class _DateRangeInputState extends State<DateRangeInput> {
         child: Container(
           width: 300,
           height: 350,
-          decoration: const BoxDecoration(color: Colors.white),
+          decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(10)),
           child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
               SfDateRangePicker(
                 selectionMode: DateRangePickerSelectionMode.range,
@@ -108,11 +111,11 @@ class _DateRangeInputState extends State<DateRangeInput> {
                   backgroundColor: MaterialStateProperty.all(Colors.white),
                   shape: MaterialStateProperty.all(RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(10)))),
+              onPressed: _openDateDialog,
               child: Text(
                 '${_formatter.format(widget.startDate)} - ${_formatter.format(widget.endDate)}',
                 style: const TextStyle(color: Colors.black),
               ),
-              onPressed: () => _openDateDialog(context),
             ),
           ),
         ],

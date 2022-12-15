@@ -3,7 +3,7 @@ import 'package:flutter_speed_dial/flutter_speed_dial.dart';
 
 import 'package:tech2/modules/jobs/models/job_visit_model.dart';
 import 'package:tech2/modules/jobs/screens/job_location.dart';
-import 'package:tech2/modules/jobs/services/jobs_services.dart';
+import 'package:tech2/modules/jobs/services/jobs_service.dart';
 import 'package:tech2/utilities/date_formatter.dart';
 
 class JobDetailsScreen extends StatefulWidget {
@@ -18,11 +18,10 @@ class JobDetailsScreen extends StatefulWidget {
 
 class _JobDetailsScreenState extends State<JobDetailsScreen> {
   JobVisitModel? jobVisit;
-  bool loading = false;
 
-  TextStyle textStyle = const TextStyle(color: Colors.white, fontSize: 18);
+  TextStyle textStyle = const TextStyle(color: Colors.white, fontSize: 16);
   TextStyle labelFontStyle = const TextStyle(
-      fontSize: 18, color: Colors.white, fontWeight: FontWeight.bold);
+      fontSize: 16, color: Colors.white, fontWeight: FontWeight.bold);
 
   BoxDecoration containerDecoration = BoxDecoration(
       border: Border.all(width: 1, color: Colors.white),
@@ -36,9 +35,7 @@ class _JobDetailsScreenState extends State<JobDetailsScreen> {
   }
 
   loadJobVisitModel() {
-    setState(() => loading = true);
     JobsService.getJobVisitModel(widget.jobVisitId).then((data) => setState(() {
-          loading = false;
           jobVisit = data;
         }));
   }
