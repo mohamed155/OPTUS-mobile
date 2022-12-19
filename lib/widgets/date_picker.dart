@@ -37,6 +37,10 @@ class _DatePickerState extends State<DatePicker> {
     textController.text = DateFormatter.formatDate(value);
   }
 
+  _validateDateString(String text) =>
+      RegExp(r'^([0-2][0-9]|(3)[0-1])(/)(((0)[0-9])|((1)[0-2]))(/)\d{4}$')
+          .hasMatch(text);
+
   void _cancelHandler(BuildContext context) {
     Navigator.of(context).pop();
   }
@@ -91,8 +95,7 @@ class _DatePickerState extends State<DatePicker> {
   }
 
   _onChangeText(String text) {
-    if (RegExp(r'^([0-2][0-9]|(3)[0-1])(/)(((0)[0-9])|((1)[0-2]))(/)\d{4}$')
-        .hasMatch(text)) {
+    if (_validateDateString(text)) {
       List<int> dateArr = text.split('/').map((str) => int.parse(str)).toList();
       setState(() {
         value = DateTime(dateArr[2], dateArr[1], dateArr[0]);
@@ -127,7 +130,7 @@ class _DatePickerState extends State<DatePicker> {
           validator: (String? value) {
             if (value != null &&
                 value.isNotEmpty &&
-                !RegExp(r'^\d*(?:[/\d]*)?$').hasMatch(value)) {
+                !_validateDateString(value)) {
               return 'Invalid date value';
             }
             return null;

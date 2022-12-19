@@ -39,25 +39,47 @@ class FormTextField extends FormField<IDynamicFieldConfigModel> {
                 borderRadius: BorderRadius.circular(10),
               );
 
-              InputDecoration inputDecoration({required String label}) =>
-                  InputDecoration(
-                      label: Text(
-                        label,
-                        style: const TextStyle(color: Colors.white),
-                      ),
-                      border: inputBorder,
-                      enabledBorder: inputBorder,
-                      focusedBorder: inputBorder);
+              InputDecoration inputDecoration = InputDecoration(
+                  border: inputBorder,
+                  enabledBorder: inputBorder,
+                  focusedBorder: inputBorder);
 
               if (fieldModel.value != null) {
                 controller.text = fieldModel.value;
               }
               return Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const SizedBox(height: 20,),
+                  const SizedBox(
+                    height: 20,
+                  ),
+                  Row(
+                    children: [
+                      Flexible(
+                        child: Text(
+                          field.value!.label!,
+                          style: const TextStyle(color: Colors.white),
+                        ),
+                      ),
+                      const SizedBox(
+                        width: 5,
+                      ),
+                      ...field.value!.mandatory
+                          ? [
+                              const Text(
+                                '(Mandatory)',
+                                style: TextStyle(color: Colors.red),
+                              )
+                            ]
+                          : []
+                    ],
+                  ),
+                  const SizedBox(
+                    height: 10,
+                  ),
                   TextField(
                     cursorColor: Colors.white,
-                    decoration: inputDecoration(label: field.value!.label!),
+                    decoration: inputDecoration,
                     style: const TextStyle(color: Colors.white),
                     minLines: 3,
                     maxLines: null,
@@ -72,25 +94,31 @@ class FormTextField extends FormField<IDynamicFieldConfigModel> {
                       TextEditingController commentController =
                           TextEditingController();
                       commentController.text =
-                          field.value!.additionalComments!.value;
+                          field.value!.additionalComments!.value ?? '';
                       return Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           const SizedBox(
-                            height: 50,
+                            height: 20,
+                          ),
+                          Text(
+                            field.value!.additionalComments!.placeholder ?? '',
+                            style: const TextStyle(color: Colors.white),
+                          ),
+                          const SizedBox(
+                            height: 10,
                           ),
                           TextField(
                             cursorColor: Colors.white,
-                            decoration: inputDecoration(
-                                label:
-                                    field.value!.additionalComments!.placeholder ??
-                                        ''),
+                            decoration: inputDecoration,
                             style: const TextStyle(color: Colors.white),
+                            minLines: 3,
                             maxLines: null,
                             keyboardType: TextInputType.multiline,
                             controller: commentController,
                             onChanged: (String text) {
-                              field.didChange(
-                                  field.value!..additionalComments!.value = text);
+                              field.didChange(field.value!
+                                ..additionalComments!.value = text);
                             },
                           ),
                         ],
@@ -109,9 +137,4 @@ class FormTextField extends FormField<IDynamicFieldConfigModel> {
 class _FormTextFieldState extends FormFieldState<IDynamicFieldConfigModel> {
   @override
   FormTextField get widget => super.widget as FormTextField;
-
-  @override
-  void didChange(IDynamicFieldConfigModel? value) {
-    super.didChange(value);
-  }
 }
