@@ -3,6 +3,9 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:tech2/modules/jobs/models/forms.dart';
 import 'package:tech2/modules/jobs/services/forms_service.dart';
 import 'package:tech2/modules/jobs/widgets/form_text_field.dart';
+import 'package:tech2/modules/jobs/widgets/form_date_field.dart';
+import 'package:tech2/modules/jobs/widgets/form_number_field.dart';
+import 'package:tech2/modules/jobs/widgets/form_select_field.dart';
 
 class FormDetailsScreen extends StatefulWidget {
   final FormDetailInput formDetailsInput;
@@ -93,7 +96,20 @@ class _FormDetailsScreenState extends State<FormDetailsScreen> {
                                   const NeverScrollableScrollPhysics(),
                               onPageChanged: handleOnPageChanged),
                           items: model!.listOfFields
-                              .map((field) => FormTextField(fieldModel: field))
+                              .map((field) {
+                                switch(field.type) {
+                                  case 'Input':
+                                    return FormTextField(fieldModel: field);
+                                  case 'Date':
+                                    return FormDateField(fieldModel: field);
+                                  case 'Number':
+                                    return FormNumberField(fieldModel: field);
+                                  case 'Select':
+                                    return FormSelectField(fieldModel: field);
+                                  default:
+                                    return FormTextField(fieldModel: field);
+                                }
+                              })
                               .toList(),
                         ),
                         ...currentIndex < model!.listOfFields.length - 1
@@ -135,7 +151,7 @@ class _FormDetailsScreenState extends State<FormDetailsScreen> {
                                     child: FloatingActionButton.extended(
                                       label: Row(
                                         children: const [
-                                          Text('Finish'),
+                                          Text('Save'),
                                           SizedBox(
                                             width: 8,
                                           ),
@@ -160,6 +176,18 @@ class _FormDetailsScreenState extends State<FormDetailsScreen> {
                                 case 'Input':
                                   field = FormTextField(
                                       fieldModel: model!.listOfFields[index]);
+                                  break;
+                                case 'Date':
+                                  field = FormDateField(
+                                      fieldModel: model!.listOfFields[index]);
+                                  break;
+                                case 'Number':
+                                  field = FormNumberField(
+                                      fieldModel: model!.listOfFields[index]);
+                                  break;
+                                case 'Select':
+                                  field = FormSelectField(
+                                      fieldModel: model!.listOfFields[index]);
                               }
                               return Column(
                                 children: [
@@ -180,7 +208,7 @@ class _FormDetailsScreenState extends State<FormDetailsScreen> {
                             child: FloatingActionButton.extended(
                               label: Row(
                                 children: const [
-                                  Text('Finish'),
+                                  Text('Save'),
                                   SizedBox(
                                     width: 8,
                                   ),

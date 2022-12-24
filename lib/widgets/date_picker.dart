@@ -5,10 +5,10 @@ import 'package:syncfusion_flutter_datepicker/datepicker.dart';
 import 'package:tech2/utilities/date_formatter.dart';
 
 class DatePicker extends StatefulWidget {
-  final DateTime date;
-  final void Function(DateTime value) onChange;
+  final DateTime? value;
+  final void Function(DateTime value) onChanged;
 
-  const DatePicker({Key? key, required this.date, required this.onChange})
+  const DatePicker({Key? key, required this.value, required this.onChanged})
       : super(key: key);
 
   @override
@@ -16,7 +16,7 @@ class DatePicker extends StatefulWidget {
 }
 
 class _DatePickerState extends State<DatePicker> {
-  late DateTime value;
+  late DateTime? value;
   bool valid = true;
 
   TextEditingController textController = TextEditingController();
@@ -33,8 +33,10 @@ class _DatePickerState extends State<DatePicker> {
   void initState() {
     super.initState();
 
-    value = widget.date;
-    textController.text = DateFormatter.formatDate(value);
+    value = widget.value;
+    if (value != null) {
+      textController.text = DateFormatter.formatDate(value!);
+    }
   }
 
   _validateDateString(String text) =>
@@ -46,15 +48,14 @@ class _DatePickerState extends State<DatePicker> {
   }
 
   void _okHandler(BuildContext buildContext) {
-    widget.onChange(value);
+    widget.onChanged(value!);
     Navigator.of(context).pop();
   }
 
   void _onSelectionChanged(DateRangePickerSelectionChangedArgs args) {
     setState(() {
       value = args.value;
-      textController.text =
-          '${value.day}/${value.month > 9 ? value.month : "0${value.month}"}/${value.year}';
+      textController.text = DateFormatter.formatDate(args.value);
     });
   }
 
@@ -99,7 +100,7 @@ class _DatePickerState extends State<DatePicker> {
       List<int> dateArr = text.split('/').map((str) => int.parse(str)).toList();
       setState(() {
         value = DateTime(dateArr[2], dateArr[1], dateArr[0]);
-        widget.onChange(value);
+        widget.onChanged(value!);
       });
     }
   }

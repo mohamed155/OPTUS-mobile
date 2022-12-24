@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:tech2/services/security.dart';
 
-import '../models/drawer_items.dart';
-import '../models/drawer_item.dart';
-import '../modules/jobs/screens/job_search.dart';
-import '../modules/map/map.dart';
+import 'package:tech2/services/security.dart';
+import 'package:tech2/models/drawer_items.dart';
+import 'package:tech2/models/drawer_item.dart';
+import 'package:tech2/modules/jobs/screens/job_search.dart';
+import 'package:tech2/modules/map/map.dart';
 
 class HiddenDrawer extends StatefulWidget {
 

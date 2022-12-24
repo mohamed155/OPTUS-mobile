@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:tech2/models/list_dto.dart';
 import 'package:tech2/modules/jobs/models/forms.dart';
+import 'package:tech2/widgets/dropdown.dart';
 
-class FormTextField extends FormField<IDynamicFieldConfigModel> {
+class FormSelectField extends FormField<IDynamicFieldConfigModel> {
   final IDynamicFieldConfigModel fieldModel;
 
-  FormTextField({Key? key, required this.fieldModel})
+  FormSelectField({Key? key, required this.fieldModel})
       : super(
             key: key,
             initialValue: fieldModel,
@@ -77,16 +79,15 @@ class FormTextField extends FormField<IDynamicFieldConfigModel> {
                   const SizedBox(
                     height: 10,
                   ),
-                  TextField(
-                    cursorColor: Colors.white,
-                    decoration: inputDecoration,
-                    style: const TextStyle(color: Colors.white),
-                    minLines: 3,
-                    maxLines: null,
-                    keyboardType: TextInputType.multiline,
-                    controller: controller,
-                    onChanged: (String text) {
-                      field.didChange(field.value!..value = text);
+                  Dropdown<String>(
+                    items: fieldModel.options!
+                        .map((item) => ListDto(item.key, item.value))
+                        .toList(),
+                    valueProp: 'value',
+                    labelProp: 'value',
+                    value: fieldModel.value,
+                    onChanged: (String? value) {
+                      field.didChange(field.value!..value = value);
                     },
                   ),
                   Builder(builder: (_) {
@@ -136,5 +137,5 @@ class FormTextField extends FormField<IDynamicFieldConfigModel> {
 
 class _FormTextFieldState extends FormFieldState<IDynamicFieldConfigModel> {
   @override
-  FormTextField get widget => super.widget as FormTextField;
+  FormSelectField get widget => super.widget as FormSelectField;
 }

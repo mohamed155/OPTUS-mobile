@@ -69,13 +69,19 @@ class IDynamicFieldConfigModel {
       this.name,
       this.type,
       this.placeholder,
-      this.value,
+      value,
       this.mandatory,
       this.visited,
       this.additionalComments,
       this.options,
       this.checkboxes,
-      this.validations);
+      this.validations) {
+    if (type == 'Date') {
+      this.value = DateTime.tryParse(value);
+    } else {
+      this.value = value;
+    }
+  }
 
   factory IDynamicFieldConfigModel.fromJson(Map<String, dynamic> json) {
     return IDynamicFieldConfigModel(

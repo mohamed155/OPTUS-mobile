@@ -223,7 +223,7 @@ class _JobDetailsScreenState extends State<JobDetailsScreen> {
                       ),
                       Container(
                         decoration: containerDecoration,
-                        margin: const EdgeInsets.all(10),
+                        margin: const EdgeInsets.symmetric(horizontal: 10),
                         padding: const EdgeInsets.all(10),
                         constraints: const BoxConstraints(minHeight: 100),
                         child: Text(
@@ -231,6 +231,7 @@ class _JobDetailsScreenState extends State<JobDetailsScreen> {
                           style: textStyle,
                         ),
                       ),
+                      const SizedBox(height: 10,),
                       const Padding(
                         padding: EdgeInsets.all(10),
                         child: Text(
@@ -241,13 +242,14 @@ class _JobDetailsScreenState extends State<JobDetailsScreen> {
                       Container(
                         decoration: containerDecoration,
                         constraints: const BoxConstraints(minHeight: 100),
-                        margin: const EdgeInsets.all(10),
+                        margin: const EdgeInsets.symmetric(horizontal: 10),
                         padding: const EdgeInsets.all(10),
                         child: Text(
                           jobVisit!.jobVisitModelDetailsDto.routingAlert ?? '',
                           style: textStyle,
                         ),
                       ),
+                      const SizedBox(height: 80,)
                     ],
                   ),
                 )

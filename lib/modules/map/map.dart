@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
-import '../../widgets/shared_app_bar.dart';
+import 'package:tech2/widgets/shared_app_bar.dart';
 
 class MapScreen extends StatelessWidget {
   final VoidCallback openDrawer;
