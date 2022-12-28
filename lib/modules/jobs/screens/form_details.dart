@@ -6,6 +6,7 @@ import 'package:tech2/modules/jobs/widgets/form_text_field.dart';
 import 'package:tech2/modules/jobs/widgets/form_date_field.dart';
 import 'package:tech2/modules/jobs/widgets/form_number_field.dart';
 import 'package:tech2/modules/jobs/widgets/form_select_field.dart';
+import 'package:tech2/modules/jobs/widgets/form_checkbox_field.dart';
 
 class FormDetailsScreen extends StatefulWidget {
   final FormDetailInput formDetailsInput;
@@ -106,6 +107,8 @@ class _FormDetailsScreenState extends State<FormDetailsScreen> {
                                     return FormNumberField(fieldModel: field);
                                   case 'Select':
                                     return FormSelectField(fieldModel: field);
+                                  case 'Checkbox':
+                                    return FormCheckBoxField(fieldModel: field);
                                   default:
                                     return FormTextField(fieldModel: field);
                                 }
@@ -188,6 +191,11 @@ class _FormDetailsScreenState extends State<FormDetailsScreen> {
                                 case 'Select':
                                   field = FormSelectField(
                                       fieldModel: model!.listOfFields[index]);
+                                  break;
+                                case 'Checkbox':
+                                  field = FormCheckBoxField(
+                                      fieldModel: model!.listOfFields[index]);
+                                  break;
                               }
                               return Column(
                                 children: [

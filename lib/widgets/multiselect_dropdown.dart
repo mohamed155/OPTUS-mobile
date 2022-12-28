@@ -4,15 +4,15 @@ import 'package:multi_select_flutter/multi_select_flutter.dart';
 import 'package:tech2/interfaces/has_map.dart';
 
 class MultiselectDropdown<V> extends StatefulWidget {
-  List<Mappable> items;
-  List<V> value;
-  String valueProp;
-  String labelProp;
-  String label;
-  bool? isLoading;
-  void Function(List<V>) onChanged;
+  final List<Mappable> items;
+  final List<V> value;
+  final String valueProp;
+  final String labelProp;
+  final String label;
+  final bool? isLoading;
+  final void Function(List<V>) onChanged;
 
-  MultiselectDropdown(
+  const MultiselectDropdown(
       {Key? key,
       required this.items,
       required this.value,

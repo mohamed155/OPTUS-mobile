@@ -5,6 +5,7 @@ import 'package:tech2/modules/jobs/models/bulk_routing_result.dart';
 import 'package:tech2/modules/jobs/services/jobs_service.dart';
 import 'package:tech2/services/security.dart';
 import 'package:tech2/widgets/date_range_input.dart';
+import 'package:tech2/widgets/image_picker.dart';
 import 'package:tech2/widgets/multiselect_dropdown.dart';
 import 'package:tech2/widgets/shared_app_bar.dart';
 import 'package:tech2/models/list_dto.dart';
@@ -123,12 +124,11 @@ class _JobsSearchScreenState extends State<JobsSearchScreen> {
           0.1,
           10
         ])),
-        padding: const EdgeInsets.symmetric(horizontal: 10),
         width: double.infinity,
         height: double.infinity,
         child: SingleChildScrollView(
           child: Container(
-            padding: const EdgeInsets.only(bottom: 10),
+            padding: const EdgeInsets.only(bottom: 10, left: 10, right: 10),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
@@ -170,18 +170,6 @@ class _JobsSearchScreenState extends State<JobsSearchScreen> {
                     }),
                   ),
                 ),
-                // Row(
-                //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                //   crossAxisAlignment: CrossAxisAlignment.center,
-                //   children: [
-                //     const Text('Include Jobs without date',
-                //       style: TextStyle(color: Colors.white),),
-                //     Checkbox(
-                //         value: includeJobsWithoutDate,
-                //         onChanged: (value) =>
-                //             setState(() => includeJobsWithoutDate = value))
-                //   ],
-                // ),
                 CheckboxListTile(
                     title: const Text('Include Jobs without date',
                         style: TextStyle(color: Colors.white)),
