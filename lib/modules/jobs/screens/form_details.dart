@@ -2,11 +2,37 @@ import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:tech2/modules/jobs/models/forms.dart';
 import 'package:tech2/modules/jobs/services/forms_service.dart';
+import 'package:tech2/modules/jobs/widgets/form_photo_field.dart';
 import 'package:tech2/modules/jobs/widgets/form_text_field.dart';
 import 'package:tech2/modules/jobs/widgets/form_date_field.dart';
 import 'package:tech2/modules/jobs/widgets/form_number_field.dart';
 import 'package:tech2/modules/jobs/widgets/form_select_field.dart';
 import 'package:tech2/modules/jobs/widgets/form_checkbox_field.dart';
+
+class FormFieldMapper {
+  static final Map<
+      String,
+      FormField<IDynamicFieldConfigModel> Function(
+          IDynamicFieldConfigModel)> _fields = {
+    'Input': (IDynamicFieldConfigModel model) =>
+        FormTextField(fieldModel: model),
+    'Date': (IDynamicFieldConfigModel model) =>
+        FormDateField(fieldModel: model),
+    'Number': (IDynamicFieldConfigModel model) =>
+        FormNumberField(fieldModel: model),
+    'Select': (IDynamicFieldConfigModel model) =>
+        FormSelectField(fieldModel: model),
+    'Checkbox': (IDynamicFieldConfigModel model) =>
+        FormCheckBoxField(fieldModel: model),
+    'Photo': (IDynamicFieldConfigModel model) =>
+        FormPhotoField(fieldModel: model),
+  };
+
+  static FormField<IDynamicFieldConfigModel> map(
+      IDynamicFieldConfigModel model) {
+    return _fields[model.type]!(model);
+  }
+}
 
 class FormDetailsScreen extends StatefulWidget {
   final FormDetailInput formDetailsInput;
@@ -97,22 +123,7 @@ class _FormDetailsScreenState extends State<FormDetailsScreen> {
                                   const NeverScrollableScrollPhysics(),
                               onPageChanged: handleOnPageChanged),
                           items: model!.listOfFields
-                              .map((field) {
-                                switch(field.type) {
-                                  case 'Input':
-                                    return FormTextField(fieldModel: field);
-                                  case 'Date':
-                                    return FormDateField(fieldModel: field);
-                                  case 'Number':
-                                    return FormNumberField(fieldModel: field);
-                                  case 'Select':
-                                    return FormSelectField(fieldModel: field);
-                                  case 'Checkbox':
-                                    return FormCheckBoxField(fieldModel: field);
-                                  default:
-                                    return FormTextField(fieldModel: field);
-                                }
-                              })
+                              .map((field) => FormFieldMapper.map(field))
                               .toList(),
                         ),
                         ...currentIndex < model!.listOfFields.length - 1
@@ -175,31 +186,11 @@ class _FormDetailsScreenState extends State<FormDetailsScreen> {
                             itemCount: model!.listOfFields.length,
                             itemBuilder: (_, index) {
                               Widget? field;
-                              switch (model!.listOfFields[index].type) {
-                                case 'Input':
-                                  field = FormTextField(
-                                      fieldModel: model!.listOfFields[index]);
-                                  break;
-                                case 'Date':
-                                  field = FormDateField(
-                                      fieldModel: model!.listOfFields[index]);
-                                  break;
-                                case 'Number':
-                                  field = FormNumberField(
-                                      fieldModel: model!.listOfFields[index]);
-                                  break;
-                                case 'Select':
-                                  field = FormSelectField(
-                                      fieldModel: model!.listOfFields[index]);
-                                  break;
-                                case 'Checkbox':
-                                  field = FormCheckBoxField(
-                                      fieldModel: model!.listOfFields[index]);
-                                  break;
-                              }
+                              field = FormFieldMapper.map(
+                                  model!.listOfFields[index]);
                               return Column(
                                 children: [
-                                  field ?? Container(),
+                                  field,
                                   ...index == model!.listOfFields.length - 1
                                       ? [
                                           const SizedBox(

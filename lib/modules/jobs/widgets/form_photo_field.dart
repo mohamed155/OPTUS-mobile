@@ -75,10 +75,8 @@ class FormPhotoField extends FormField<IDynamicFieldConfigModel> {
               height: 10,
             ),
             ImagePicker(
-              image: Image.network(fieldModel.value),
-              onSelectImage: (Image? image) {
-
-              },),
+              image: fieldModel.value != null ? Image.network(fieldModel.value) : null,
+              onSelectImage: (Image? image) {},),
             Builder(builder: (_) {
               if (field.value!.additionalComments != null) {
                 TextEditingController commentController =
