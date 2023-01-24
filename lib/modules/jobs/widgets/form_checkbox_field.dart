@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:tech2/models/list_dto.dart';
 import 'package:tech2/modules/jobs/models/forms.dart';
-import 'package:tech2/widgets/dropdown.dart';
 
 class FormCheckBoxField extends FormField<IDynamicFieldConfigModel> {
   final IDynamicFieldConfigModel fieldModel;
@@ -34,6 +32,10 @@ class FormCheckBoxField extends FormField<IDynamicFieldConfigModel> {
               return null;
             },
             builder: (field) {
+              final _FormTextFieldState state = field as _FormTextFieldState;
+
+              final bool showErrors = !field.isValid && state.isTouched;
+
               TextEditingController controller = TextEditingController();
 
               OutlineInputBorder inputBorder = OutlineInputBorder(
@@ -68,11 +70,11 @@ class FormCheckBoxField extends FormField<IDynamicFieldConfigModel> {
                       ),
                       ...field.value!.mandatory
                           ? [
-                              const Text(
-                                '(Mandatory)',
-                                style: TextStyle(color: Colors.red),
-                              )
-                            ]
+                        const Text(
+                          '(Mandatory)',
+                          style: TextStyle(color: Colors.red),
+                        )
+                      ]
                           : []
                     ],
                   ),
@@ -89,12 +91,25 @@ class FormCheckBoxField extends FormField<IDynamicFieldConfigModel> {
                               field.value!.checkboxes![index].label,
                               style: const TextStyle(color: Colors.white),
                             ),
+                            tileColor: Colors.transparent,
+                            // checkboxShape: const RoundedRectangleBorder(
+                            //   side: BorderSide(color: Colors.red)
+                            // ),
                             value: field.value!.checkboxes![index].value,
                             onChanged: (value) {
                               field.value!.checkboxes![index].value = value!;
                               field.didChange(field.value);
                             });
                       }),
+                  ...showErrors
+                      ? [
+                          const SizedBox(
+                            height: 10,
+                          ),
+                          Text(state.errorMessage!,
+                              style: const TextStyle(color: Colors.red))
+                        ]
+                      : [],
                   Builder(builder: (_) {
                     if (field.value!.additionalComments != null) {
                       TextEditingController commentController =
@@ -141,6 +156,18 @@ class FormCheckBoxField extends FormField<IDynamicFieldConfigModel> {
 }
 
 class _FormTextFieldState extends FormFieldState<IDynamicFieldConfigModel> {
+  bool isTouched = false;
+  String? errorMessage;
+
   @override
   FormCheckBoxField get widget => super.widget as FormCheckBoxField;
+
+  @override
+  bool validate() {
+    setState(() {
+      isTouched = true;
+      errorMessage = widget.validator!(widget.fieldModel);
+    });
+    return super.validate();
+  }
 }

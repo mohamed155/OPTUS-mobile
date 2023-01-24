@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-
 import 'package:tech2/interfaces/has_map.dart';
 
 class Dropdown<T> extends StatelessWidget {
@@ -10,6 +9,7 @@ class Dropdown<T> extends StatelessWidget {
   final String? label;
   final bool? isLoading;
   final void Function(T?)? onChanged;
+  final bool? hasErrors;
 
   const Dropdown(
       {Key? key,
@@ -19,7 +19,8 @@ class Dropdown<T> extends StatelessWidget {
       this.value,
       this.label,
       this.onChanged,
-      this.isLoading})
+      this.isLoading,
+      this.hasErrors})
       : super(key: key);
 
   @override
@@ -40,30 +41,39 @@ class Dropdown<T> extends StatelessWidget {
                   )
                 ]
               : [],
-          ClipRRect(
-            borderRadius: BorderRadius.circular(10),
-            child: Container(
-              decoration: const BoxDecoration(color: Colors.white),
-              padding: const EdgeInsets.symmetric(horizontal: 5),
-              child: DropdownButtonHideUnderline(
-                child: DropdownButton<T>(
-                    icon: isLoading != null && isLoading!
-                        ? Container(
-                            width: 28,
-                            height: 28,
-                            margin: const EdgeInsets.all(10),
-                            child: const CircularProgressIndicator())
-                        : const Icon(Icons.arrow_drop_down),
-                    value: value,
-                    items: items
-                        .map((Mappable item) => DropdownMenuItem<T>(
-                              value: item.toMap()[valueProp],
-                              child: Text(item.toMap()[labelProp]),
-                            ))
-                        .toList(),
-                    isExpanded: true,
-                    underline: null,
-                    onChanged: onChanged),
+          Container(
+            decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(12),
+                border: Border.all(
+                    width: 2,
+                    color: (hasErrors != null && hasErrors!)
+                        ? Colors.red
+                        : Colors.transparent)),
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(10),
+              child: Container(
+                decoration: const BoxDecoration(color: Colors.white),
+                padding: const EdgeInsets.symmetric(horizontal: 5),
+                child: DropdownButtonHideUnderline(
+                  child: DropdownButton<T>(
+                      icon: isLoading != null && isLoading!
+                          ? Container(
+                              width: 28,
+                              height: 28,
+                              margin: const EdgeInsets.all(10),
+                              child: const CircularProgressIndicator())
+                          : const Icon(Icons.arrow_drop_down),
+                      value: value,
+                      items: items
+                          .map((Mappable item) => DropdownMenuItem<T>(
+                                value: item.toMap()[valueProp],
+                                child: Text(item.toMap()[labelProp]),
+                              ))
+                          .toList(),
+                      isExpanded: true,
+                      underline: null,
+                      onChanged: onChanged),
+                ),
               ),
             ),
           ),

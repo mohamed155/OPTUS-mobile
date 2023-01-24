@@ -1,14 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:syncfusion_flutter_datepicker/datepicker.dart';
-
 import 'package:tech2/utilities/date_formatter.dart';
 
 class DatePicker extends StatefulWidget {
   final DateTime? value;
   final void Function(DateTime value) onChanged;
+  final bool? hasErrors;
 
-  const DatePicker({Key? key, required this.value, required this.onChanged})
+  const DatePicker(
+      {Key? key, required this.value, required this.onChanged, this.hasErrors})
       : super(key: key);
 
   @override
@@ -24,10 +25,10 @@ class _DatePickerState extends State<DatePicker> {
 
   TextDateFormatter dateFormatter = TextDateFormatter();
 
-  OutlineInputBorder inputBorder = OutlineInputBorder(
-    borderSide: const BorderSide(color: Colors.white),
-    borderRadius: BorderRadius.circular(10),
-  );
+  OutlineInputBorder inputBorder(bool hasError) => OutlineInputBorder(
+        borderSide: BorderSide(color: hasError ? Colors.red : Colors.white),
+        borderRadius: BorderRadius.circular(10),
+      );
 
   @override
   void initState() {
@@ -124,9 +125,11 @@ class _DatePickerState extends State<DatePicker> {
               ),
               onPressed: _openDateDialog,
             ),
-            border: inputBorder,
-            enabledBorder: inputBorder,
-            focusedBorder: inputBorder,
+            border: inputBorder(widget.hasErrors != null && widget.hasErrors!),
+            enabledBorder:
+                inputBorder(widget.hasErrors != null && widget.hasErrors!),
+            focusedBorder:
+                inputBorder(widget.hasErrors != null && widget.hasErrors!),
           ),
           validator: (String? value) {
             if (value != null &&

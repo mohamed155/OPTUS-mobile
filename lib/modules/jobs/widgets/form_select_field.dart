@@ -34,7 +34,9 @@ class FormSelectField extends FormField<IDynamicFieldConfigModel> {
               return null;
             },
             builder: (field) {
-              TextEditingController controller = TextEditingController();
+              final _FormTextFieldState state = field as _FormTextFieldState;
+
+              final bool showErrors = !field.isValid && state.isTouched;
 
               OutlineInputBorder inputBorder = OutlineInputBorder(
                 borderSide: const BorderSide(color: Colors.white),
@@ -46,9 +48,6 @@ class FormSelectField extends FormField<IDynamicFieldConfigModel> {
                   enabledBorder: inputBorder,
                   focusedBorder: inputBorder);
 
-              if (fieldModel.value != null) {
-                controller.text = fieldModel.value;
-              }
               return Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -89,7 +88,17 @@ class FormSelectField extends FormField<IDynamicFieldConfigModel> {
                     onChanged: (String? value) {
                       field.didChange(field.value!..value = value);
                     },
+                    hasErrors: showErrors,
                   ),
+                  ...showErrors
+                      ? [
+                          const SizedBox(
+                            height: 10,
+                          ),
+                          Text(state.errorMessage!,
+                              style: const TextStyle(color: Colors.red))
+                        ]
+                      : [],
                   Builder(builder: (_) {
                     if (field.value!.additionalComments != null) {
                       TextEditingController commentController =
@@ -136,6 +145,18 @@ class FormSelectField extends FormField<IDynamicFieldConfigModel> {
 }
 
 class _FormTextFieldState extends FormFieldState<IDynamicFieldConfigModel> {
+  bool isTouched = false;
+  String? errorMessage;
+
   @override
   FormSelectField get widget => super.widget as FormSelectField;
+
+  @override
+  bool validate() {
+    setState(() {
+      isTouched = true;
+      errorMessage = widget.validator!(widget.fieldModel);
+    });
+    return super.validate();
+  }
 }

@@ -31,11 +31,16 @@ class FormTextField extends FormField<IDynamicFieldConfigModel> {
               }
               return null;
             },
-            builder: (field) {
+            builder: (FormFieldState<IDynamicFieldConfigModel> field) {
+              final _FormTextFieldState state = field as _FormTextFieldState;
+
+              final bool showErrors = !field.isValid && state.isTouched;
+
               TextEditingController controller = TextEditingController();
 
               OutlineInputBorder inputBorder = OutlineInputBorder(
-                borderSide: const BorderSide(color: Colors.white),
+                borderSide:
+                    BorderSide(color: showErrors ? Colors.red : Colors.white),
                 borderRadius: BorderRadius.circular(10),
               );
 
@@ -89,7 +94,26 @@ class FormTextField extends FormField<IDynamicFieldConfigModel> {
                       field.didChange(field.value!..value = text);
                     },
                   ),
+                  ...showErrors
+                      ? [
+                          const SizedBox(
+                            height: 10,
+                          ),
+                          Text(state.errorMessage!,
+                              style: const TextStyle(color: Colors.red))
+                        ]
+                      : [],
                   Builder(builder: (_) {
+                    OutlineInputBorder inputBorder = OutlineInputBorder(
+                      borderSide: const BorderSide(color: Colors.white),
+                      borderRadius: BorderRadius.circular(10),
+                    );
+
+                    InputDecoration inputDecoration = InputDecoration(
+                        border: inputBorder,
+                        enabledBorder: inputBorder,
+                        focusedBorder: inputBorder);
+
                     if (field.value!.additionalComments != null) {
                       TextEditingController commentController =
                           TextEditingController();
@@ -135,6 +159,18 @@ class FormTextField extends FormField<IDynamicFieldConfigModel> {
 }
 
 class _FormTextFieldState extends FormFieldState<IDynamicFieldConfigModel> {
+  bool isTouched = false;
+  String? errorMessage;
+
   @override
   FormTextField get widget => super.widget as FormTextField;
+
+  @override
+  bool validate() {
+    setState(() {
+      isTouched = true;
+      errorMessage = widget.validator!(widget.fieldModel);
+    });
+    return super.validate();
+  }
 }
