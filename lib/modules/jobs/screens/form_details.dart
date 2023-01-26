@@ -86,7 +86,12 @@ class _FormDetailsScreenState extends State<FormDetailsScreen> {
   }
 
   saveForm() {
-    if (validateForm()) {}
+    if (validateForm()) {
+      _formKey.currentState?.save();
+      FormsService.saveFormResponse(model!).then((_) {
+        Navigator.pop(context);
+      });
+    }
   }
 
   validateForm() {
