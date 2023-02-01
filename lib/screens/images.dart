@@ -9,8 +9,6 @@ class ImagesScreen extends StatefulWidget {
 
 class _ImagesScreenState extends State<ImagesScreen> {
 
-
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(

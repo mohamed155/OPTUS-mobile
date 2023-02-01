@@ -5,8 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:http_interceptor/http/http.dart';
 import 'package:http_interceptor/models/request_data.dart';
 import 'package:http_interceptor/models/response_data.dart';
-
-import 'package:tech2/config/app_config.dart';
 import 'package:tech2/modules/login/screens/index.dart';
 import 'package:tech2/services/navigation_service.dart';
 import 'package:tech2/services/security.dart';
@@ -21,10 +19,8 @@ class APIInterceptors extends InterceptorContract {
       CognitoAuthSession session =
           await Amplify.Auth.fetchAuthSession() as CognitoAuthSession;
       // data.baseUrl = apiBaseUrl;
-      JsonWebToken? idToken = session.userPoolTokens?.idToken;
-      if (idToken != null) {
-        data.headers["Authorization"] = "Bearer ${idToken.raw}";
-      }
+      JsonWebToken? idToken = session.userPoolTokensResult.value.idToken;
+      data.headers["Authorization"] = "Bearer ${idToken.raw}";
       data.headers["Content-Type"] = "application/json";
       data.headers["Cache-Control"] = "no-cache";
       data.headers["Pragma"] = "no-cache";
@@ -73,9 +69,11 @@ class APIInterceptors extends InterceptorContract {
         if (data.body != null) {
           String body = data.body.toString();
           List<String> errors = [];
-          Map<String, String> validationErrorDictionary =
+          Map<String, dynamic> validationErrorDictionary =
               JSONConverter.decode(body);
-          errors.addAll(validationErrorDictionary.values);
+          errors.addAll(validationErrorDictionary.values
+              .map((item) => item.toString())
+              .toList());
           if (errors.isNotEmpty) {
             String error = errors.join("\n");
             ToastService.showErrorMessage(error);

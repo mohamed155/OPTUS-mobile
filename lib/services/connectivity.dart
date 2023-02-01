@@ -4,6 +4,7 @@ import 'package:http_interceptor/http/http.dart';
 import 'package:tech2/interfaces/has_map.dart';
 import 'package:tech2/services/http_interceptors.dart';
 import 'package:tech2/services/storage.dart';
+import 'package:tech2/utilities/json_converter.dart';
 
 class ConnectivityService {
   static final _http = InterceptedHttp.build(interceptors: [APIInterceptors()]);
@@ -32,10 +33,12 @@ class ConnectivityService {
         .then((ConnectivityResult connectivityResult) {
       if (connectivityResult == ConnectivityResult.none) {
         return StorageService.store(
-            key: 'post_requests', value: '$url${body.toString()}');
+            key: 'post_requests', value: '$url?${body?.toMap().toString()}');
       } else {
         if (body != null) {
-          return _http.post(url.toUri(), body: body.toMap());
+          var json = JSONConverter.encode(body.toMap());
+          print(json);
+          return _http.post(url.toUri(), body: json);
         } else {
           return _http.post(url.toUri());
         }

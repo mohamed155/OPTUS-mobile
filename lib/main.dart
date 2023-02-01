@@ -1,6 +1,5 @@
-import 'package:flutter/material.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
-
+import 'package:flutter/material.dart';
 import 'package:tech2/config/amplify.dart';
 import 'package:tech2/services/navigation_service.dart';
 import 'package:tech2/services/route_generator.dart';
@@ -42,10 +41,13 @@ class _AppState extends State<App> {
       return MaterialApp(
         title: 'Tech2',
         theme: ThemeData(
-          primarySwatch: Colors.red,
-          unselectedWidgetColor: Colors.white,
-          dividerColor: Colors.white
-        ),
+            primarySwatch: Colors.red,
+            unselectedWidgetColor: Colors.white,
+            dividerColor: Colors.white,
+            elevatedButtonTheme: ElevatedButtonThemeData(
+                style: ElevatedButton.styleFrom(
+                    disabledForegroundColor: Colors.white.withOpacity(0.8),
+                    disabledBackgroundColor: Colors.red.withOpacity(0.8)))),
         initialRoute: '/',
         onGenerateRoute: RouteGenerator.generateRoute,
         navigatorKey: NavigationService.navigationKey,

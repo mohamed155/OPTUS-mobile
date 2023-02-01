@@ -14,6 +14,7 @@ class JobFormsScreen extends StatefulWidget {
 
 class _JobFormsScreenState extends State<JobFormsScreen> {
   List<JobFormDto>? formsList;
+  bool loading = false;
 
   @override
   void initState() {
@@ -23,18 +24,20 @@ class _JobFormsScreenState extends State<JobFormsScreen> {
   }
 
   loadJobFormsList() {
+    setState(() => loading = true);
     JobsService.getJobForms(widget.jobVisitId)
-        .then((List<JobFormDto> data) => setState(() => formsList = data));
+        .then((List<JobFormDto> data) => setState(() => formsList = data))
+        .whenComplete(() => setState(() => loading = false));
   }
 
   onSelectForm(int index) {
     FormDetailInput formInput = FormDetailInput(
-      formId: formsList![index].formId,
-      formResponseId: formsList![index].formResponseId,
-      formName: formsList![index].formName,
-      jobVisitId: widget.jobVisitId
-    );
-    Navigator.pushNamed(context, '/form-details', arguments: formInput);
+        formId: formsList![index].formId,
+        formResponseId: formsList![index].formResponseId,
+        formName: formsList![index].formName,
+        jobVisitId: widget.jobVisitId);
+    Navigator.pushNamed(context, '/form-details', arguments: formInput)
+        .then((_) => loadJobFormsList());
   }
 
   @override
@@ -53,14 +56,14 @@ class _JobFormsScreenState extends State<JobFormsScreen> {
           0.1,
           10
         ])),
-        child: formsList != null
+        child: !loading && formsList != null
             ? ListView.builder(
                 scrollDirection: Axis.vertical,
                 shrinkWrap: true,
                 itemCount: formsList!.length,
                 itemBuilder: (_, index) => InkWell(
-                  onTap: () => onSelectForm(index),
-                  child: Card(
+                      onTap: () => onSelectForm(index),
+                      child: Card(
                         margin: const EdgeInsets.all(10),
                         child: Padding(
                           padding: const EdgeInsets.all(10),
@@ -83,20 +86,22 @@ class _JobFormsScreenState extends State<JobFormsScreen> {
                                 formsList![index].formName,
                                 style: const TextStyle(fontSize: 16),
                               ),
-                              ...formsList![index].formDesc != null ? [
-                                const SizedBox(
-                                  height: 5,
-                                ),
-                                Text(
-                                  formsList![index].formDesc!,
-                                  style: const TextStyle(fontSize: 14),
-                                ),
-                              ] : []
+                              ...formsList![index].formDesc != null
+                                  ? [
+                                      const SizedBox(
+                                        height: 5,
+                                      ),
+                                      Text(
+                                        formsList![index].formDesc!,
+                                        style: const TextStyle(fontSize: 14),
+                                      ),
+                                    ]
+                                  : []
                             ],
                           ),
                         ),
                       ),
-                ))
+                    ))
             : Center(
                 child: SizedBox(
                   width: 90,

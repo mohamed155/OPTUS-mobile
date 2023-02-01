@@ -1,11 +1,9 @@
 import 'package:amplify_flutter/amplify_flutter.dart';
-import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart';
 import 'package:http_interceptor/extensions/extensions.dart';
 import 'package:http_interceptor/http/http.dart';
-
 import 'package:tech2/config/app_config.dart';
 import 'package:tech2/services/http_interceptors.dart';
 import 'package:tech2/services/navigation_service.dart';
@@ -43,16 +41,17 @@ class SecurityService {
     if (username.isNotEmpty && password.isNotEmpty) {
       try {
         SignInResult res =
-          await Amplify.Auth.signIn(username: username, password: password);
+            await Amplify.Auth.signIn(username: username, password: password);
         isUserSignedIn = res.isSignedIn;
-      } on NotAuthorizedException catch(_) {
+      } on AuthNotAuthorizedException catch (_) {
         ToastService.showErrorMessage("Invalid username or password");
       } catch (exception) {
         ToastService.showErrorMessage("Unknown Error");
         if (kDebugMode) {
           print('Unknown Error');
           print(exception);
-        }}
+        }
+      }
     } else {
       ToastService.showErrorMessage("Username and password are required");
     }

@@ -1,20 +1,19 @@
 import 'package:flutter/material.dart';
-
+import 'package:tech2/models/list_dto.dart';
 import 'package:tech2/modules/jobs/models/bulk_routing_parameters.dart';
 import 'package:tech2/modules/jobs/models/bulk_routing_result.dart';
 import 'package:tech2/modules/jobs/services/jobs_service.dart';
+import 'package:tech2/services/list_service.dart';
 import 'package:tech2/services/security.dart';
 import 'package:tech2/widgets/date_range_input.dart';
-import 'package:tech2/widgets/image_picker.dart';
 import 'package:tech2/widgets/multiselect_dropdown.dart';
 import 'package:tech2/widgets/shared_app_bar.dart';
-import 'package:tech2/models/list_dto.dart';
-import 'package:tech2/services/list_service.dart';
 
 class JobsSearchScreen extends StatefulWidget {
   final VoidCallback openDrawer;
 
-  const JobsSearchScreen({Key? key, required this.openDrawer}) : super(key: key);
+  const JobsSearchScreen({Key? key, required this.openDrawer})
+      : super(key: key);
 
   @override
   State<JobsSearchScreen> createState() => _JobsSearchScreenState();
@@ -183,7 +182,7 @@ class _JobsSearchScreenState extends State<JobsSearchScreen> {
                     onChanged: (value) =>
                         setState(() => includeUnreleasedJobs = value)),
                 ElevatedButton(
-                    onPressed: loadJobs,
+                    onPressed: isJobsLoading ? null : loadJobs,
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [

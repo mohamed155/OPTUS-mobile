@@ -47,6 +47,7 @@ class FormDetailsScreen extends StatefulWidget {
 class _FormDetailsScreenState extends State<FormDetailsScreen> {
   FormResponseModelDto? model;
   int currentIndex = 0;
+  bool loading = false;
 
   final _formKey = GlobalKey<FormState>();
 
@@ -87,10 +88,11 @@ class _FormDetailsScreenState extends State<FormDetailsScreen> {
 
   saveForm() {
     if (validateForm()) {
+      setState(() => loading = true);
       _formKey.currentState?.save();
-      FormsService.saveFormResponse(model!).then((_) {
-        Navigator.pop(context);
-      });
+      FormsService.saveFormResponse(model!)
+          .then((_) => Navigator.pop(context))
+          .whenComplete(() => setState(() => loading = false));
     }
   }
 
@@ -223,15 +225,24 @@ class _FormDetailsScreenState extends State<FormDetailsScreen> {
                               right: 0,
                               child: FloatingActionButton.extended(
                                 label: Row(
-                                  children: const [
-                                    Text('Save'),
-                                    SizedBox(
+                                  children: [
+                                    const Text('Save'),
+                                    const SizedBox(
                                       width: 8,
                                     ),
-                                    Icon(Icons.check)
+                                    loading
+                                        ? const SizedBox(
+                                            width: 20,
+                                            height: 20,
+                                            child: CircularProgressIndicator(
+                                              color: Colors.white,
+                                              strokeWidth: 3,
+                                            ),
+                                          )
+                                        : const Icon(Icons.check)
                                   ],
                                 ),
-                                onPressed: saveForm,
+                                onPressed: loading ? null : saveForm,
                               ))
                         ],
                       )
