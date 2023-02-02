@@ -1,5 +1,6 @@
 import 'package:tech2/interfaces/has_map.dart';
 
+//TODO: refactor these models from factory constructors to named constructors
 class BulkRoutingParameters implements Mappable {
   int workerId;
   List<int> projectRegionId;

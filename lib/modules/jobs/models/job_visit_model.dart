@@ -1,3 +1,5 @@
+//TODO: refactor these models from factory constructors to named constructors
+
 class JobVisitModel {
   JobDetailsDto jobDetailsDto;
   SiteDetailsDto siteDetailsDto;
@@ -88,8 +90,7 @@ class JobVisitModel {
 
   DateTime? lastUpdated;
 
-  JobVisitModel(
-      this.jobDetailsDto,
+  JobVisitModel(this.jobDetailsDto,
       this.siteDetailsDto,
       this.jobTypeDetailsDto,
       this.projectDetailsDto,
@@ -342,8 +343,7 @@ class JobDetailsDto {
 
   DateTime? lastUpdated;
 
-  JobDetailsDto(
-      this.jobId,
+  JobDetailsDto(this.jobId,
       this.sourceCustomerId,
       this.jobSourceProductId,
       this.jobNumber,
@@ -556,8 +556,7 @@ class SiteDetailsDto {
   String? customField9;
   String? customField10;
 
-  SiteDetailsDto(
-      this.siteId,
+  SiteDetailsDto(this.siteId,
       this.latitude,
       this.longitude,
       this.simpleAddress,
@@ -612,8 +611,7 @@ class JobTypeDetailsDto {
   bool? operationSupportQueue;
   bool? revenueJobType;
 
-  JobTypeDetailsDto(
-      this.custMarkerColor,
+  JobTypeDetailsDto(this.custMarkerColor,
       this.rescheduleWizardId,
       this.scheduleWizardId,
       this.cancelWizardId,
@@ -732,8 +730,7 @@ class ProjectDetailsDto {
   String? jobField18Desc;
   String? jobField19Desc;
 
-  ProjectDetailsDto(
-      this.requireCommentOnStockRemove,
+  ProjectDetailsDto(this.requireCommentOnStockRemove,
       this.preInstallMaxCalls,
       this.allowCustomerCommunicationTrace,
       this.projectCustomerId,
@@ -902,8 +899,7 @@ class JobStatusDetailsDto {
   String? quotedProvided;
   String mainJobStatusType;
 
-  JobStatusDetailsDto(
-      this.allowChangeInJobDetails,
+  JobStatusDetailsDto(this.allowChangeInJobDetails,
       this.jobStatusType,
       this.jobStatusDesc,
       this.jobStatusCode,
@@ -1012,7 +1008,7 @@ class JobVisitModelDetailsDto {
   DateTime dateCreated;
   DateTime? dateReconciled;
   String? technicianId;
-  String bookedTimeSlot;
+  String? bookedTimeSlot;
   String? routeSequence;
   String? jobViewedDate;
   String? acceptedDate;
@@ -1073,8 +1069,7 @@ class JobVisitModelDetailsDto {
 
   String? overrideRoutingWarningMessage;
 
-  JobVisitModelDetailsDto(
-      this.paymentMethodId,
+  JobVisitModelDetailsDto(this.paymentMethodId,
       this.visitWorkerId,
       this.createdByWorkerId,
       this.workerStartTimeAgree,
@@ -1336,8 +1331,7 @@ class OriginalValuesDto {
   String? jobField18;
   String? jobField19;
 
-  OriginalValuesDto(
-      this.jobVisitField1,
+  OriginalValuesDto(this.jobVisitField1,
       this.jobVisitField2,
       this.jobVisitField3,
       this.jobVisitField4,
@@ -1503,8 +1497,7 @@ class SavePicInformationReqDto {
   int? loggedWorkerId;
   bool? isPICInfoCreated;
 
-  SavePicInformationReqDto(
-      this.updatedRoutingAlert,
+  SavePicInformationReqDto(this.updatedRoutingAlert,
       this.goodsAtHome,
       this.timeSlotConfirmed,
       this.addressConfirmed,
@@ -1603,8 +1596,7 @@ class LogDto {
   double? amount;
   int? silcarId;
 
-  LogDto(
-      this.logId,
+  LogDto(this.logId,
       this.id,
       this.idtype,
       this.logType,

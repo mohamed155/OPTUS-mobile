@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:tech2/modules/jobs/models/bulk_routing_result.dart';
 import 'package:tech2/modules/jobs/models/forms.dart';
 import 'package:tech2/modules/jobs/screens/form_details.dart';
-
-import 'package:tech2/widgets/hidden_drawer.dart';
-import 'package:tech2/services/security.dart';
-import 'package:tech2/modules/jobs/models/bulk_routing_result.dart';
 import 'package:tech2/modules/jobs/screens/job_details.dart';
-import 'package:tech2/modules/login/screens/index.dart';
-import 'package:tech2/modules/jobs/screens/jobs_list.dart';
+import 'package:tech2/modules/jobs/screens/job_docs.dart';
 import 'package:tech2/modules/jobs/screens/job_forms.dart';
+import 'package:tech2/modules/jobs/screens/jobs_list.dart';
+import 'package:tech2/modules/login/screens/index.dart';
+import 'package:tech2/services/security.dart';
+import 'package:tech2/widgets/hidden_drawer.dart';
 
 class RouteGenerator {
   static Route<MaterialPageRoute> generateRoute(RouteSettings settings) {
@@ -38,6 +38,11 @@ class RouteGenerator {
           if (settings.arguments is FormDetailInput) {
             screen = FormDetailsScreen(
                 formDetailsInput: settings.arguments as FormDetailInput);
+          }
+          break;
+        case '/docs':
+          if (settings.arguments is int) {
+            screen = JobDocuments(jobId: settings.arguments as int);
           }
           break;
       }

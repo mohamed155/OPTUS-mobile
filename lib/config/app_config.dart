@@ -1,1 +1,1 @@
-const String apiBaseUrl = 'http://web5.infinitesoftwaregroup.net/api/';
+const String apiBaseUrl = 'https://web5.infinitesoftwaregroup.net/api/';

@@ -1,3 +1,5 @@
+//TODO: refactor these models from factory constructors to named constructors
+
 class JobFormDto {
   int formId;
   String formName;
@@ -12,8 +14,7 @@ class JobFormDto {
   int formResponseId;
   DateTime? dateCreated;
 
-  JobFormDto(
-      this.formId,
+  JobFormDto(this.formId,
       this.formName,
       this.formDesc,
       this.jobNumber,

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_speed_dial/flutter_speed_dial.dart';
-
 import 'package:tech2/modules/jobs/models/job_visit_model.dart';
 import 'package:tech2/modules/jobs/screens/job_location.dart';
 import 'package:tech2/modules/jobs/services/jobs_service.dart';
@@ -54,6 +53,11 @@ class _JobDetailsScreenState extends State<JobDetailsScreen> {
   openJobForms() {
     Navigator.pushNamed(context, '/job-forms',
         arguments: jobVisit!.jobVisitModelDetailsDto.jobVisitId);
+  }
+
+  openJobDocs() {
+    Navigator.pushNamed(context, '/docs',
+        arguments: jobVisit!.jobDetailsDto.jobId);
   }
 
   @override
@@ -153,16 +157,24 @@ class _JobDetailsScreenState extends State<JobDetailsScreen> {
                                     )
                                   ]
                                 : [],
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Text('Time slot:', style: labelFontStyle),
-                                Text(
-                                    jobVisit!
-                                        .jobVisitModelDetailsDto.bookedTimeSlot,
-                                    style: textStyle),
-                              ],
-                            ),
+                            ...jobVisit!.jobVisitModelDetailsDto
+                                        .bookedTimeSlot !=
+                                    null
+                                ? [
+                                    Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        Text('Time slot:',
+                                            style: labelFontStyle),
+                                        Text(
+                                            jobVisit!.jobVisitModelDetailsDto
+                                                .bookedTimeSlot!,
+                                            style: textStyle),
+                                      ],
+                                    )
+                                  ]
+                                : [],
                             Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
@@ -231,7 +243,9 @@ class _JobDetailsScreenState extends State<JobDetailsScreen> {
                           style: textStyle,
                         ),
                       ),
-                      const SizedBox(height: 10,),
+                      const SizedBox(
+                        height: 10,
+                      ),
                       const Padding(
                         padding: EdgeInsets.all(10),
                         child: Text(
@@ -249,7 +263,9 @@ class _JobDetailsScreenState extends State<JobDetailsScreen> {
                           style: textStyle,
                         ),
                       ),
-                      const SizedBox(height: 80,)
+                      const SizedBox(
+                        height: 80,
+                      )
                     ],
                   ),
                 )
@@ -297,6 +313,7 @@ class _JobDetailsScreenState extends State<JobDetailsScreen> {
                   SpeedDialChild(
                       label: 'Docs',
                       backgroundColor: Colors.red,
+                      onTap: openJobDocs,
                       child: const Icon(
                         Icons.image,
                         color: Colors.white,

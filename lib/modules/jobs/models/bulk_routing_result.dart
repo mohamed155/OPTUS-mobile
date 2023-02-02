@@ -1,5 +1,4 @@
-import 'package:tech2/enums/send_sms_pic.dart';
-
+//TODO: refactor these models from factory constructors to named constructors
 class BulkRoutingResult {
   int projectId;
   int jobVisitId;

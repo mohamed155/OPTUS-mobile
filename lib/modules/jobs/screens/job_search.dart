@@ -26,7 +26,7 @@ class _JobsSearchScreenState extends State<JobsSearchScreen> {
   List<BulkRoutingResult> listOfJobs = [];
 
   List<int> selectedProjectRegionIds = [];
-  List<String> selectedJobStatuses = [];
+  List<String> selectedJobStatuses = ['Open', 'Pending'];
   List<int> selectedSubRegions = [];
 
   bool isProjectRegionLoading = false;

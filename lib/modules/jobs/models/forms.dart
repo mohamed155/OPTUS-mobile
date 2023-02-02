@@ -1,16 +1,19 @@
 import 'package:tech2/interfaces/has_map.dart';
 import 'package:tech2/models/list_dto.dart';
 
+//TODO: refactor these models from factory constructors to named constructors
+
 class FormDetailInput {
   int formId;
   int formResponseId;
   int jobVisitId;
   String formName;
 
-  FormDetailInput({required this.formId,
-    required this.formResponseId,
-    required this.jobVisitId,
-    required this.formName});
+  FormDetailInput(
+      {required this.formId,
+      required this.formResponseId,
+      required this.jobVisitId,
+      required this.formName});
 }
 
 class FormResponseModelDto implements Mappable {
