@@ -46,44 +46,51 @@ class _JobDocumentsState extends State<JobDocuments> {
             10
           ])),
           child: !loading && docsList != null
-              ? ListView.builder(
-                  scrollDirection: Axis.vertical,
-                  shrinkWrap: true,
-                  itemCount: docsList!.length,
-                  itemBuilder: (_, index) {
-                    return Column(
-                      children: [
-                        ListTile(
-                          onTap: () {},
-                          visualDensity:
-                              const VisualDensity(horizontal: 1, vertical: 2),
-                          leading: Container(
-                            width: 50,
-                            height: 50,
-                            decoration: BoxDecoration(
-                                shape: BoxShape.circle,
-                                color: Theme.of(context).primaryColor),
-                            child: const Icon(Icons.file_copy,
-                                color: Colors.white),
-                          ),
-                          title: Text(
-                            docsList![index].docFileName,
-                            style: const TextStyle(
-                                color: Colors.white, fontSize: 14),
-                          ),
-                          subtitle: Text(
-                            docsList![index].docDescription,
-                            style: const TextStyle(
-                                color: Colors.white70, fontSize: 12),
-                          ),
-                        ),
-                        const Divider(
-                          color: Colors.white24,
-                          height: 1,
-                        )
-                      ],
-                    );
-                  })
+              ? docsList!.isNotEmpty
+                  ? ListView.builder(
+                      scrollDirection: Axis.vertical,
+                      shrinkWrap: true,
+                      itemCount: docsList!.length,
+                      itemBuilder: (_, index) {
+                        return Column(
+                          children: [
+                            ListTile(
+                              onTap: () {},
+                              visualDensity: const VisualDensity(
+                                  horizontal: 1, vertical: 2),
+                              leading: Container(
+                                width: 50,
+                                height: 50,
+                                decoration: BoxDecoration(
+                                    shape: BoxShape.circle,
+                                    color: Theme.of(context).primaryColor),
+                                child: const Icon(Icons.file_copy,
+                                    color: Colors.white),
+                              ),
+                              title: Text(
+                                docsList![index].docFileName,
+                                style: const TextStyle(
+                                    color: Colors.white, fontSize: 14),
+                              ),
+                              subtitle: Text(
+                                docsList![index].docDescription,
+                                style: const TextStyle(
+                                    color: Colors.white70, fontSize: 12),
+                              ),
+                            ),
+                            const Divider(
+                              color: Colors.white24,
+                              height: 1,
+                            )
+                          ],
+                        );
+                      })
+                  : const Center(
+                      child: Text(
+                        'No documents for this job',
+                        style: TextStyle(color: Colors.white),
+                      ),
+                    )
               : Center(
                   child: SizedBox(
                     width: 90,

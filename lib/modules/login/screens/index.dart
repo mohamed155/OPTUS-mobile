@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-
 import 'package:tech2/services/security.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -88,18 +87,18 @@ class _LoginScreenState extends State<LoginScreen> {
                 width: double.infinity,
                 height: 40,
                 child: ElevatedButton(
-                    onPressed: login,
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        ...isLoading
-                            ? [
-                                const SizedBox(
-                                  width: 20,
-                                  height: 20,
-                                  child: CircularProgressIndicator(
-                                    color: Colors.white,
-                                    strokeWidth: 3,
+                    onPressed: isLoading ? null : login,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    ...isLoading
+                        ? [
+                            const SizedBox(
+                              width: 20,
+                              height: 20,
+                              child: CircularProgressIndicator(
+                                color: Colors.white,
+                                strokeWidth: 3,
                                   ),
                                 ),
                                 const SizedBox(

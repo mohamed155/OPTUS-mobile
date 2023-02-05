@@ -60,6 +60,11 @@ class _JobDetailsScreenState extends State<JobDetailsScreen> {
         arguments: jobVisit!.jobDetailsDto.jobId);
   }
 
+  openJobItems() {
+    Navigator.pushNamed(context, '/job-items',
+        arguments: jobVisit!.jobDetailsDto.jobId);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -319,10 +324,11 @@ class _JobDetailsScreenState extends State<JobDetailsScreen> {
                         color: Colors.white,
                       )),
                   SpeedDialChild(
-                      label: 'Credit',
+                      label: 'Items',
                       backgroundColor: Colors.red,
+                      onTap: openJobItems,
                       child: const Icon(
-                        Icons.credit_card,
+                        Icons.settings_applications_outlined,
                         color: Colors.white,
                       )),
                   SpeedDialChild(

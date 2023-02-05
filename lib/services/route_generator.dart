@@ -5,6 +5,7 @@ import 'package:tech2/modules/jobs/screens/form_details.dart';
 import 'package:tech2/modules/jobs/screens/job_details.dart';
 import 'package:tech2/modules/jobs/screens/job_docs.dart';
 import 'package:tech2/modules/jobs/screens/job_forms.dart';
+import 'package:tech2/modules/jobs/screens/job_items.dart';
 import 'package:tech2/modules/jobs/screens/jobs_list.dart';
 import 'package:tech2/modules/login/screens/index.dart';
 import 'package:tech2/services/security.dart';
@@ -43,6 +44,11 @@ class RouteGenerator {
         case '/docs':
           if (settings.arguments is int) {
             screen = JobDocuments(jobId: settings.arguments as int);
+          }
+          break;
+        case '/job-items':
+          if (settings.arguments is int) {
+            screen = JobItems(jobId: settings.arguments as int);
           }
           break;
       }

@@ -34,8 +34,8 @@ class _JobsSearchScreenState extends State<JobsSearchScreen> {
   bool isJobSubRegionsLoading = false;
   bool isJobsLoading = false;
 
-  DateTime startDate = DateTime.now()..subtract(const Duration(days: 29));
-  DateTime endDate = DateTime.now()..add(const Duration(days: 4));
+  DateTime startDate = DateTime.now().subtract(const Duration(days: 29));
+  DateTime endDate = DateTime.now().add(const Duration(days: 4));
 
   bool? includeJobsWithoutDate = true;
   bool? includeUnreleasedJobs = false;
