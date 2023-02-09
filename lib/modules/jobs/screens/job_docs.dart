@@ -1,4 +1,9 @@
+import 'dart:io';
+import 'dart:typed_data';
+
 import 'package:flutter/material.dart';
+import 'package:open_filex/open_filex.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:tech2/modules/jobs/models/docs.dart';
 import 'package:tech2/modules/jobs/services/docs_service.dart';
 
@@ -29,6 +34,23 @@ class _JobDocumentsState extends State<JobDocuments> {
         .whenComplete(() => setState(() => loading = false));
   }
 
+  Future downloadDocument(int linkedDocumentId, String filename) {
+    return DocsService.downloadLinkedDocument(linkedDocumentId)
+        .then((Uint8List fileContent) async {
+      Directory appDir = await getApplicationDocumentsDirectory();
+      String filePath = '${appDir.path}/$filename';
+      File file = File(filePath);
+      file.writeAsBytesSync(fileContent);
+    });
+  }
+
+  openDocument(int linkedDocumentId, String filename) async {
+    downloadDocument(linkedDocumentId, filename).then((_) async {
+      Directory appDir = await getApplicationDocumentsDirectory();
+      OpenFilex.open('${appDir.path}/$filename');
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -39,23 +61,25 @@ class _JobDocumentsState extends State<JobDocuments> {
           height: double.infinity,
           decoration: const BoxDecoration(
               gradient: RadialGradient(radius: 1, colors: [
-            Colors.black87,
-            Colors.black,
-          ], stops: [
-            0.1,
-            10
-          ])),
+                Colors.black87,
+                Colors.black,
+              ], stops: [
+                0.1,
+                10
+              ])),
           child: !loading && docsList != null
               ? docsList!.isNotEmpty
-                  ? ListView.builder(
-                      scrollDirection: Axis.vertical,
-                      shrinkWrap: true,
-                      itemCount: docsList!.length,
-                      itemBuilder: (_, index) {
-                        return Column(
-                          children: [
-                            ListTile(
-                              onTap: () {},
+              ? ListView.builder(
+              scrollDirection: Axis.vertical,
+              shrinkWrap: true,
+              itemCount: docsList!.length,
+              itemBuilder: (_, index) {
+                return Column(
+                  children: [
+                    ListTile(
+                              onTap: () => openDocument(
+                                  docsList![index].linkedDocumentId,
+                                  docsList![index].docFileName),
                               visualDensity: const VisualDensity(
                                   horizontal: 1, vertical: 2),
                               leading: Container(
@@ -67,42 +91,42 @@ class _JobDocumentsState extends State<JobDocuments> {
                                 child: const Icon(Icons.file_copy,
                                     color: Colors.white),
                               ),
-                              title: Text(
-                                docsList![index].docFileName,
-                                style: const TextStyle(
-                                    color: Colors.white, fontSize: 14),
-                              ),
-                              subtitle: Text(
-                                docsList![index].docDescription,
-                                style: const TextStyle(
-                                    color: Colors.white70, fontSize: 12),
-                              ),
-                            ),
-                            const Divider(
-                              color: Colors.white24,
-                              height: 1,
-                            )
-                          ],
-                        );
-                      })
-                  : const Center(
-                      child: Text(
-                        'No documents for this job',
-                        style: TextStyle(color: Colors.white),
+                      title: Text(
+                        docsList![index].docFileName,
+                        style: const TextStyle(
+                            color: Colors.white, fontSize: 14),
                       ),
-                    )
-              : Center(
-                  child: SizedBox(
-                    width: 90,
-                    height: 90,
-                    child: SizedBox.expand(
-                      child: CircularProgressIndicator(
-                        strokeWidth: 5,
-                        color: Theme.of(context).primaryColor,
+                      subtitle: Text(
+                        docsList![index].docDescription,
+                        style: const TextStyle(
+                            color: Colors.white70, fontSize: 12),
                       ),
                     ),
-                  ),
+                    const Divider(
+                      color: Colors.white24,
+                      height: 1,
+                    )
+                  ],
+                );
+              })
+              : const Center(
+            child: Text(
+              'No documents for this job',
+              style: TextStyle(color: Colors.white),
+            ),
+          )
+              : Center(
+            child: SizedBox(
+              width: 90,
+              height: 90,
+              child: SizedBox.expand(
+                child: CircularProgressIndicator(
+                  strokeWidth: 5,
+                  color: Theme.of(context).primaryColor,
                 ),
+              ),
+            ),
+          ),
         ));
   }
 }
