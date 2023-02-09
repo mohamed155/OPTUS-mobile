@@ -20,4 +20,25 @@ class ItemsService {
           .toList();
     });
   }
+
+  static Future<List<JobItemTaskCodesDto>> getJobTypeItemByWorkerPermission(
+      JobTypeItemByWorkerPermissionDto model) {
+    String url = '${apiBaseUrl}Job/GetJobTypeItemByWorkerPermission';
+    return ConnectivityService.getData(url, model).then((result) {
+      dynamic body;
+      if (result is Response) {
+        body = result.body;
+      } else if (result is String) {
+        body = result;
+      }
+      return List.of(JSONConverter.decode(body))
+          .map((item) => JobItemTaskCodesDto(item))
+          .toList();
+    });
+  }
+
+  static Future addTaskCodeItem(AddTaskCodeItemDto model) {
+    String url = '${apiBaseUrl}Job/AddTaskCodeItem';
+    return ConnectivityService.sendData(url, model);
+  }
 }

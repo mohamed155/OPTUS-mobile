@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:tech2/modules/jobs/models/bulk_routing_result.dart';
 import 'package:tech2/modules/jobs/models/forms.dart';
+import 'package:tech2/modules/jobs/models/items.dart';
 import 'package:tech2/modules/jobs/screens/form_details.dart';
 import 'package:tech2/modules/jobs/screens/job_details.dart';
 import 'package:tech2/modules/jobs/screens/job_docs.dart';
@@ -47,8 +48,14 @@ class RouteGenerator {
           }
           break;
         case '/job-items':
-          if (settings.arguments is int) {
-            screen = JobItems(jobId: settings.arguments as int);
+          if (settings.arguments is JobItemsArgs) {
+            var args = settings.arguments as JobItemsArgs;
+            screen = JobItems(
+              jobId: args.jobId,
+              jobTypeId: args.jobTypeId,
+              jobVisitId: args.jobVisitId,
+              projectId: args.projectId,
+            );
           }
           break;
       }

@@ -34,6 +34,7 @@ class APIInterceptors extends InterceptorContract {
 
   @override
   Future<ResponseData> interceptResponse({required ResponseData data}) async {
+    print(data);
     switch (data.statusCode) {
       // success cases
       case 200:
@@ -50,9 +51,13 @@ class APIInterceptors extends InterceptorContract {
         break;
       case 401:
         BuildContext? context = NavigationService.navigationKey.currentContext;
-        if (context != null && SecurityService.isUserSignedIn) {
-          ToastService.showErrorMessage(
-              "Session expired, please sign in again");
+        if (context != null) {
+          if (SecurityService.isUserSignedIn) {
+            ToastService.showErrorMessage(
+                "Session expired, please sign in again");
+          } else {
+            ToastService.showErrorMessage("Invalid username or password");
+          }
           SecurityService.logout().then((_) => {
                 Navigator.of(context).pushAndRemoveUntil(
                     MaterialPageRoute(
@@ -70,7 +75,7 @@ class APIInterceptors extends InterceptorContract {
           String body = data.body.toString();
           List<String> errors = [];
           Map<String, dynamic> validationErrorDictionary =
-              JSONConverter.decode(body);
+          JSONConverter.decode(body);
           errors.addAll(validationErrorDictionary.values
               .map((item) => item.toString())
               .toList());

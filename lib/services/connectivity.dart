@@ -37,7 +37,6 @@ class ConnectivityService {
       } else {
         if (body != null) {
           var json = JSONConverter.encode(body.toMap());
-          print(json);
           return _http.post(url.toUri(), body: json);
         } else {
           return _http.post(url.toUri());

@@ -7,7 +7,9 @@ class Dropdown<T> extends StatelessWidget {
   final String valueProp;
   final String labelProp;
   final String? label;
+  final Color? labelColor;
   final bool? isLoading;
+  final Color? borderColor;
   final void Function(T?)? onChanged;
   final bool? hasErrors;
 
@@ -18,8 +20,10 @@ class Dropdown<T> extends StatelessWidget {
       required this.labelProp,
       this.value,
       this.label,
+      this.labelColor,
       this.onChanged,
       this.isLoading,
+      this.borderColor,
       this.hasErrors})
       : super(key: key);
 
@@ -36,7 +40,8 @@ class Dropdown<T> extends StatelessWidget {
                     margin: const EdgeInsets.only(bottom: 10),
                     child: Text(
                       label!,
-                      style: const TextStyle(color: Colors.white, fontSize: 16),
+                      style: TextStyle(
+                          color: labelColor ?? Colors.white, fontSize: 16),
                     ),
                   )
                 ]
@@ -52,10 +57,16 @@ class Dropdown<T> extends StatelessWidget {
             child: ClipRRect(
               borderRadius: BorderRadius.circular(10),
               child: Container(
-                decoration: const BoxDecoration(color: Colors.white),
+                decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(10),
+                    border: borderColor != null
+                        ? Border.all(color: borderColor!)
+                        : null),
                 padding: const EdgeInsets.symmetric(horizontal: 5),
                 child: DropdownButtonHideUnderline(
                   child: DropdownButton<T>(
+                      style: const TextStyle(color: Colors.black),
                       icon: isLoading != null && isLoading!
                           ? Container(
                               width: 28,
@@ -67,8 +78,8 @@ class Dropdown<T> extends StatelessWidget {
                       items: items
                           .map((Mappable item) => DropdownMenuItem<T>(
                                 value: item.toMap()[valueProp],
-                                child: Text(item.toMap()[labelProp]),
-                              ))
+                            child: Text(item.toMap()[labelProp]),
+                          ))
                           .toList(),
                       isExpanded: true,
                       underline: null,

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_speed_dial/flutter_speed_dial.dart';
+import 'package:tech2/modules/jobs/models/items.dart';
 import 'package:tech2/modules/jobs/models/job_visit_model.dart';
 import 'package:tech2/modules/jobs/screens/job_location.dart';
 import 'package:tech2/modules/jobs/services/jobs_service.dart';
@@ -62,7 +63,11 @@ class _JobDetailsScreenState extends State<JobDetailsScreen> {
 
   openJobItems() {
     Navigator.pushNamed(context, '/job-items',
-        arguments: jobVisit!.jobDetailsDto.jobId);
+        arguments: JobItemsArgs(
+            jobVisit!.jobDetailsDto.jobId!,
+            jobVisit!.jobVisitModelDetailsDto.jobTypeId!,
+            jobVisit!.jobVisitModelDetailsDto.jobVisitId!,
+            jobVisit!.projectDetailsDto.projectId!));
   }
 
   @override
