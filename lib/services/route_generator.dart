@@ -55,6 +55,8 @@ class RouteGenerator {
               jobTypeId: args.jobTypeId,
               jobVisitId: args.jobVisitId,
               projectId: args.projectId,
+              projectRegionId: args.projectRegionId,
+              sourceCustomerId: args.sourceCustomerId,
             );
           }
           break;

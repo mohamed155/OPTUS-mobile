@@ -67,7 +67,9 @@ class _JobDetailsScreenState extends State<JobDetailsScreen> {
             jobVisit!.jobDetailsDto.jobId!,
             jobVisit!.jobVisitModelDetailsDto.jobTypeId!,
             jobVisit!.jobVisitModelDetailsDto.jobVisitId!,
-            jobVisit!.projectDetailsDto.projectId!));
+            jobVisit!.projectDetailsDto.projectId!,
+            jobVisit!.jobVisitModelDetailsDto.projectRegionId!,
+            jobVisit!.jobDetailsDto.sourceCustomerId!));
   }
 
   @override

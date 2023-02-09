@@ -176,8 +176,11 @@ class JobItemsArgs {
   int jobTypeId;
   int jobVisitId;
   int projectId;
+  int projectRegionId;
+  int sourceCustomerId;
 
-  JobItemsArgs(this.jobId, this.jobTypeId, this.jobVisitId, this.projectId);
+  JobItemsArgs(this.jobId, this.jobTypeId, this.jobVisitId, this.projectId,
+      this.projectRegionId, this.sourceCustomerId);
 }
 
 class AddTaskCodeItemDto implements Mappable {
@@ -211,6 +214,47 @@ class AddTaskCodeItemDto implements Mappable {
       'loggedWorkerId': loggedWorkerId,
       'isCheckMandatory': isCheckMandatory,
       'quantityTasks': quantityTasks
+    };
+  }
+}
+
+class DeleteItemDto implements Mappable {
+  bool isDeleted;
+  bool isCheckMandatory;
+  int jobItemId;
+  int jobId;
+  int jobVisitId;
+  int projectId;
+  int projectRegionId;
+  int sourceCustomerId;
+  int loggedWorkerId;
+  bool isShowDeleted;
+
+  DeleteItemDto(
+      this.isDeleted,
+      this.isCheckMandatory,
+      this.jobItemId,
+      this.jobId,
+      this.jobVisitId,
+      this.projectId,
+      this.projectRegionId,
+      this.sourceCustomerId,
+      this.loggedWorkerId,
+      this.isShowDeleted);
+
+  @override
+  Map<String, dynamic> toMap() {
+    return {
+      'isDeleted': isDeleted,
+      'isCheckMandatory': isCheckMandatory,
+      'jobItemId': jobItemId,
+      'jobId': jobId,
+      'jobVisitId': jobVisitId,
+      'projectId': projectId,
+      'projectRegionId': projectRegionId,
+      'sourceCustomerId': sourceCustomerId,
+      'loggedWorkerId': loggedWorkerId,
+      'isShowDeleted': isShowDeleted
     };
   }
 }

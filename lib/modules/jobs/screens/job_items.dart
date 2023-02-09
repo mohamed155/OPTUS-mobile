@@ -9,14 +9,18 @@ class JobItems extends StatefulWidget {
   final int jobTypeId;
   final int jobVisitId;
   final int projectId;
+  final int projectRegionId;
+  final int sourceCustomerId;
 
-  const JobItems(
-      {Key? key,
-      required this.jobId,
-      required this.jobTypeId,
-      required this.jobVisitId,
-      required this.projectId})
-      : super(key: key);
+  const JobItems({
+    Key? key,
+    required this.jobId,
+    required this.jobTypeId,
+    required this.jobVisitId,
+    required this.projectId,
+    required this.projectRegionId,
+    required this.sourceCustomerId,
+  }) : super(key: key);
 
   @override
   State<JobItems> createState() => _JobItemsState();
@@ -66,6 +70,22 @@ class _JobItemsState extends State<JobItems> {
                 projectId: widget.projectId,
               ),
             )).then((_) => loadJobItems());
+  }
+
+  deleteItem(JobItemTaskCodesDto item) {
+    setState(() => loading = true);
+    var model = DeleteItemDto(
+        true,
+        true,
+        item.jobItemId!,
+        widget.jobId,
+        widget.jobVisitId,
+        widget.projectId,
+        widget.projectRegionId,
+        widget.sourceCustomerId,
+        SecurityService.workerId,
+        true);
+    ItemsService.deleteTaskCodeItem(model).then((_) => loadJobItems());
   }
 
   @override
@@ -189,6 +209,7 @@ class _JobItemsState extends State<JobItems> {
                                   itemBuilder: (BuildContext context) => [
                                     PopupMenuItem(
                                         value: 'delete',
+                                        onTap: () => deleteItem(items![index]),
                                         child: Row(
                                           children: const [
                                             Icon(Icons.delete),

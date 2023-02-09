@@ -41,4 +41,9 @@ class ItemsService {
     String url = '${apiBaseUrl}Job/AddTaskCodeItem';
     return ConnectivityService.sendData(url, model);
   }
+
+  static Future deleteTaskCodeItem(DeleteItemDto model) {
+    String url = '${apiBaseUrl}Job/DeleteTaskCodeItem';
+    return ConnectivityService.sendData(url, model);
+  }
 }
