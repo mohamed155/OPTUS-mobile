@@ -45,9 +45,22 @@ class _JobDocumentsState extends State<JobDocuments> {
   }
 
   openDocument(int linkedDocumentId, String filename) async {
+    int index =
+        docsList!.indexWhere((doc) => doc.linkedDocumentId == linkedDocumentId);
+    setState(() {
+      var docs = docsList!;
+      docs[index].loading = true;
+      docsList = docs;
+    });
     downloadDocument(linkedDocumentId, filename).then((_) async {
       Directory appDir = await getApplicationDocumentsDirectory();
       OpenFilex.open('${appDir.path}/$filename');
+    }).whenComplete(() {
+      setState(() {
+        var docs = docsList!;
+        docs[index].loading = false;
+        docsList = docs;
+      });
     });
   }
 
@@ -61,22 +74,22 @@ class _JobDocumentsState extends State<JobDocuments> {
           height: double.infinity,
           decoration: const BoxDecoration(
               gradient: RadialGradient(radius: 1, colors: [
-                Colors.black87,
-                Colors.black,
-              ], stops: [
-                0.1,
-                10
-              ])),
+            Colors.black87,
+            Colors.black,
+          ], stops: [
+            0.1,
+            10
+          ])),
           child: !loading && docsList != null
               ? docsList!.isNotEmpty
-              ? ListView.builder(
-              scrollDirection: Axis.vertical,
-              shrinkWrap: true,
-              itemCount: docsList!.length,
-              itemBuilder: (_, index) {
-                return Column(
-                  children: [
-                    ListTile(
+                  ? ListView.builder(
+                      scrollDirection: Axis.vertical,
+                      shrinkWrap: true,
+                      itemCount: docsList!.length,
+                      itemBuilder: (_, index) {
+                        return Column(
+                          children: [
+                            ListTile(
                               onTap: () => openDocument(
                                   docsList![index].linkedDocumentId,
                                   docsList![index].docFileName),
@@ -88,45 +101,62 @@ class _JobDocumentsState extends State<JobDocuments> {
                                 decoration: BoxDecoration(
                                     shape: BoxShape.circle,
                                     color: Theme.of(context).primaryColor),
-                                child: const Icon(Icons.file_copy,
-                                    color: Colors.white),
+                                child: Stack(
+                                  children: [
+                                    Center(
+                                      child: docsList![index].loading
+                                          ? const CircularProgressIndicator(
+                                              color: Colors.white,
+                                            )
+                                          : const Icon(Icons.file_copy,
+                                              color: Colors.white),
+                                    ),
+                                  ],
+                                ),
                               ),
-                      title: Text(
-                        docsList![index].docFileName,
-                        style: const TextStyle(
-                            color: Colors.white, fontSize: 14),
+                              title: Text(
+                                docsList![index].docFileName,
+                                style: const TextStyle(
+                                    color: Colors.white, fontSize: 14),
+                              ),
+                              subtitle: Text(
+                                docsList![index].docDescription,
+                                style: const TextStyle(
+                                    color: Colors.white70, fontSize: 12),
+                              ),
+                              trailing: PopupMenuButton(
+                                color: Colors.white,
+                                itemBuilder: (_) => [
+                                  PopupMenuItem(child: Text('Download')),
+                                  PopupMenuItem(child: Text('Delete')),
+                                ],
+                              ),
+                            ),
+                            const Divider(
+                              color: Colors.white24,
+                              height: 1,
+                            )
+                          ],
+                        );
+                      })
+                  : const Center(
+                      child: Text(
+                        'No documents for this job',
+                        style: TextStyle(color: Colors.white),
                       ),
-                      subtitle: Text(
-                        docsList![index].docDescription,
-                        style: const TextStyle(
-                            color: Colors.white70, fontSize: 12),
+                    )
+              : Center(
+                  child: SizedBox(
+                    width: 90,
+                    height: 90,
+                    child: SizedBox.expand(
+                      child: CircularProgressIndicator(
+                        strokeWidth: 5,
+                        color: Theme.of(context).primaryColor,
                       ),
                     ),
-                    const Divider(
-                      color: Colors.white24,
-                      height: 1,
-                    )
-                  ],
-                );
-              })
-              : const Center(
-            child: Text(
-              'No documents for this job',
-              style: TextStyle(color: Colors.white),
-            ),
-          )
-              : Center(
-            child: SizedBox(
-              width: 90,
-              height: 90,
-              child: SizedBox.expand(
-                child: CircularProgressIndicator(
-                  strokeWidth: 5,
-                  color: Theme.of(context).primaryColor,
+                  ),
                 ),
-              ),
-            ),
-          ),
         ));
   }
 }

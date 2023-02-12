@@ -13,6 +13,8 @@ class LinkedDocumentDto {
   int createdByWorkerId;
   dynamic doc;
 
+  bool loading = false;
+
   LinkedDocumentDto(Map<String, dynamic> json)
       : linkedDocumentId = json['linkedDocumentId'],
         linkId = json['linkId'],
