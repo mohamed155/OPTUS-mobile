@@ -37,4 +37,18 @@ class DocsService {
       return body;
     });
   }
+
+  static Future<bool> deleteLinkedDocument(int linkedDocumentId) {
+    String url =
+        '${s3ApiBaseUrl}Delete/DeleteFileById?LinkedDocumetID=$linkedDocumentId';
+    return ConnectivityService.deleteData(url).then((result) {
+      dynamic body;
+      if (result is Response) {
+        body = result.body;
+      } else if (result is bool) {
+        body = result;
+      }
+      return body;
+    });
+  }
 }

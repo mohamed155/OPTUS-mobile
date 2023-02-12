@@ -6,6 +6,7 @@ import 'package:open_filex/open_filex.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:tech2/modules/jobs/models/docs.dart';
 import 'package:tech2/modules/jobs/services/docs_service.dart';
+import 'package:tech2/services/toast_service.dart';
 
 class JobDocuments extends StatefulWidget {
   final int jobId;
@@ -35,16 +36,6 @@ class _JobDocumentsState extends State<JobDocuments> {
   }
 
   Future downloadDocument(int linkedDocumentId, String filename) {
-    return DocsService.downloadLinkedDocument(linkedDocumentId)
-        .then((Uint8List fileContent) async {
-      Directory appDir = await getApplicationDocumentsDirectory();
-      String filePath = '${appDir.path}/$filename';
-      File file = File(filePath);
-      file.writeAsBytesSync(fileContent);
-    });
-  }
-
-  openDocument(int linkedDocumentId, String filename) async {
     int index =
         docsList!.indexWhere((doc) => doc.linkedDocumentId == linkedDocumentId);
     setState(() {
@@ -52,9 +43,12 @@ class _JobDocumentsState extends State<JobDocuments> {
       docs[index].loading = true;
       docsList = docs;
     });
-    downloadDocument(linkedDocumentId, filename).then((_) async {
+    return DocsService.downloadLinkedDocument(linkedDocumentId)
+        .then((Uint8List fileContent) async {
       Directory appDir = await getApplicationDocumentsDirectory();
-      OpenFilex.open('${appDir.path}/$filename');
+      String filePath = '${appDir.path}/$filename';
+      File file = File(filePath);
+      file.writeAsBytesSync(fileContent);
     }).whenComplete(() {
       setState(() {
         var docs = docsList!;
@@ -62,6 +56,25 @@ class _JobDocumentsState extends State<JobDocuments> {
         docsList = docs;
       });
     });
+  }
+
+  openDocument(int linkedDocumentId, String filename) async {
+    downloadDocument(linkedDocumentId, filename).then((_) async {
+      Directory appDir = await getApplicationDocumentsDirectory();
+      OpenFilex.open('${appDir.path}/$filename');
+    });
+  }
+
+  downloadDocumentHandler(int linkedDocumentId, String filename) {
+    downloadDocument(linkedDocumentId, filename).then((_) {
+      ToastService.showSuccessMessage('Document downloaded successfully');
+    });
+  }
+
+  deleteDocument(int linkedDocumentId) {
+    setState(() => loading = true);
+    DocsService.deleteLinkedDocument(linkedDocumentId)
+        .whenComplete(() => setState(() => loading = false));
   }
 
   @override
@@ -126,9 +139,17 @@ class _JobDocumentsState extends State<JobDocuments> {
                               ),
                               trailing: PopupMenuButton(
                                 color: Colors.white,
-                                itemBuilder: (_) => [
-                                  PopupMenuItem(child: Text('Download')),
-                                  PopupMenuItem(child: Text('Delete')),
+                                itemBuilder: (_) =>
+                                [
+                                  PopupMenuItem(
+                                      onTap: () => downloadDocumentHandler(
+                                          docsList![index].linkedDocumentId,
+                                          docsList![index].docFileName),
+                                      child: const Text('Download')),
+                                  PopupMenuItem(
+                                      onTap: () => deleteDocument(
+                                          docsList![index].linkedDocumentId),
+                                      child: const Text('Delete')),
                                 ],
                               ),
                             ),

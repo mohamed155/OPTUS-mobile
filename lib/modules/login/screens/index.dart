@@ -31,7 +31,7 @@ class _LoginScreenState extends State<LoginScreen> {
 
   @override
   Widget build(BuildContext context) {
-    inputDecoration({required String labelText, bool? showPass}) {
+    inputDecoration({required String labelText, bool? obscure}) {
       OutlineInputBorder textFieldBorder = OutlineInputBorder(
           borderSide: BorderSide(color: Theme.of(context).primaryColor));
 
@@ -41,13 +41,13 @@ class _LoginScreenState extends State<LoginScreen> {
           border: textFieldBorder,
           enabledBorder: textFieldBorder,
           focusedBorder: textFieldBorder,
-          suffix: showPass != null
+          suffix: obscure != null
               ? Transform.translate(
-                  offset: const Offset(0, 5),
+                  offset: const Offset(0, 4),
                   child: IconButton(
-                      onPressed: () => setState(() => showPassword = !showPass),
+                      onPressed: () => setState(() => showPassword = !obscure),
                       icon: Icon(
-                        showPass ? Icons.visibility_off : Icons.visibility,
+                        obscure ? Icons.visibility_off : Icons.visibility,
                         color: Colors.white,
                       )),
                 )
@@ -89,8 +89,8 @@ class _LoginScreenState extends State<LoginScreen> {
             height: 57,
             child: TextField(
               style: const TextStyle(color: Colors.white),
-              decoration: inputDecoration(
-                  labelText: "Password", showPass: showPassword),
+              decoration:
+                  inputDecoration(labelText: "Password", obscure: showPassword),
               obscureText: !showPassword,
               enableSuggestions: false,
               autocorrect: false,

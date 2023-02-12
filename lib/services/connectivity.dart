@@ -44,4 +44,15 @@ class ConnectivityService {
       }
     });
   }
+
+  static Future deleteData(String url) {
+    return ConnectivityService.checkConnectivity()
+        .then((ConnectivityResult connectivityResult) {
+      if (connectivityResult == ConnectivityResult.none) {
+        return StorageService.remove(key: url);
+      } else {
+        return _http.delete(url.toUri());
+      }
+    });
+  }
 }

@@ -12,7 +12,11 @@ class StorageService {
   }
 
   static Future<void> store({required String key, required String value}) {
-      return _storage.setString(key, value);
+    return _storage.setString(key, value);
+  }
+
+  static Future<void> remove({required String key}) {
+    return _storage.remove(key);
   }
 
   static Future<void> clear() {
