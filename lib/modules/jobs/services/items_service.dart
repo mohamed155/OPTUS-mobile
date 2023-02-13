@@ -46,4 +46,9 @@ class ItemsService {
     String url = '${apiBaseUrl}Job/DeleteTaskCodeItem';
     return ConnectivityService.sendData(url, model);
   }
+
+  static Future saveJobItem(SaveJobItemDto model) {
+    String url = '${apiBaseUrl}Job/UpdateJobItem';
+    return ConnectivityService.sendData(url, model);
+  }
 }

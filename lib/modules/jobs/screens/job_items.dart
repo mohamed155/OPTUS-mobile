@@ -88,6 +88,23 @@ class _JobItemsState extends State<JobItems> {
     ItemsService.deleteTaskCodeItem(model).then((_) => loadJobItems());
   }
 
+  updateItem(JobItemTaskCodesDto item) {
+    var model = SaveJobItemDto(
+        item.jobItemId!,
+        item.qty!,
+        false,
+        item.oktoPay!,
+        item.oktoBill!,
+        double.parse(item.discountAmount.replaceFirst('\$', '')),
+        widget.jobVisitId,
+        item.skipNextClaim!,
+        item.skipNextPayment!,
+        false,
+        widget.jobId,
+        item.itemId!);
+    ItemsService.saveJobItem(model);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -180,8 +197,14 @@ class _JobItemsState extends State<JobItems> {
                                         children: [
                                           Text('Pay: ', style: labelFontStyle),
                                           Checkbox(
+                                            side: const BorderSide(
+                                                color: Colors.black),
                                             value: items![index].oktoPay,
-                                            onChanged: (bool? value) {},
+                                            onChanged: (bool? value) {
+                                              setState(() => items![index]
+                                                  .oktoPay = value);
+                                              updateItem(items![index]);
+                                            },
                                           )
                                         ],
                                       ),
@@ -192,8 +215,14 @@ class _JobItemsState extends State<JobItems> {
                                         children: [
                                           Text('Bill: ', style: labelFontStyle),
                                           Checkbox(
+                                            side: const BorderSide(
+                                                color: Colors.black),
                                             value: items![index].oktoBill,
-                                            onChanged: (bool? value) {},
+                                            onChanged: (bool? value) {
+                                              setState(() => items![index]
+                                                  .oktoBill = value);
+                                              updateItem(items![index]);
+                                            },
                                           )
                                         ],
                                       ),

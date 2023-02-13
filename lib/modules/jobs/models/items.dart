@@ -258,3 +258,50 @@ class DeleteItemDto implements Mappable {
     };
   }
 }
+
+class SaveJobItemDto implements Mappable {
+  int jobItemId;
+  double quantity;
+  bool isJobAddNegativeQuantity;
+  bool okToPay;
+  bool okToBill;
+  double discountAmount;
+  int jobVisitId;
+  bool skipNextClaim;
+  bool skipNextPayment;
+  bool isCheckMandatory;
+  int jobId;
+  int itemId;
+
+  SaveJobItemDto(
+      this.jobItemId,
+      this.quantity,
+      this.isJobAddNegativeQuantity,
+      this.okToPay,
+      this.okToBill,
+      this.discountAmount,
+      this.jobVisitId,
+      this.skipNextClaim,
+      this.skipNextPayment,
+      this.isCheckMandatory,
+      this.jobId,
+      this.itemId);
+
+  @override
+  Map<String, dynamic> toMap() {
+    return {
+      'jobItemId': jobItemId,
+      'quantity': quantity,
+      'isJobAddNegativeQuantity': isJobAddNegativeQuantity,
+      'okToPay': okToPay,
+      'okToBill': okToBill,
+      'discountAmount': discountAmount,
+      'jobVisitId': jobVisitId,
+      'skipNextClaim': skipNextClaim,
+      'skipNextPayment': skipNextPayment,
+      'isCheckMandatory': isCheckMandatory,
+      'jobId': jobId,
+      'itemId': itemId,
+    };
+  }
+}
