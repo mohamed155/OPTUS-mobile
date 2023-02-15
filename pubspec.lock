@@ -396,10 +396,10 @@ packages:
     dependency: transitive
     description:
       name: google_maps_flutter_android
-      sha256: f238a04c378df6fbe7d84a3ea19362e9db19ea1717d06deffa9edaa17973e916
+      sha256: "4152d1ddf6393cb7de73c406e1a4feba343f15f7b85494354ebee69730daee53"
       url: "https://pub.dev"
     source: hosted
-    version: "2.4.4"
+    version: "2.4.5"
   google_maps_flutter_ios:
     dependency: transitive
     description:
@@ -837,6 +837,22 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.9.1"
+  sqflite:
+    dependency: "direct main"
+    description:
+      name: sqflite
+      sha256: "78324387dc81df14f78df06019175a86a2ee0437624166c382e145d0a7fd9a4f"
+      url: "https://pub.dev"
+    source: hosted
+    version: "2.2.4+1"
+  sqflite_common:
+    dependency: transitive
+    description:
+      name: sqflite_common
+      sha256: bfd6973aaeeb93475bc0d875ac9aefddf7965ef22ce09790eb963992ffc5183f
+      url: "https://pub.dev"
+    source: hosted
+    version: "2.4.2+2"
   stack_trace:
     dependency: transitive
     description:
@@ -873,18 +889,26 @@ packages:
     dependency: transitive
     description:
       name: syncfusion_flutter_core
-      sha256: b5cb2525beb38fae36a363f72f8a2db92ed3995d6f0695968412cc6836e3a7b7
+      sha256: "33141f9073c607bd113898d241aa6a03ccc1856a314bd061015180c35d47012f"
       url: "https://pub.dev"
     source: hosted
-    version: "20.4.49"
+    version: "20.4.50"
   syncfusion_flutter_datepicker:
     dependency: "direct main"
     description:
       name: syncfusion_flutter_datepicker
-      sha256: "61b2ea99d45a8ecf9f01ea0ea614bf3f5a247432765fc9d3d04fc78abb66362e"
+      sha256: "19f90a9e70c9edf5c23f900af224dea1e12fd9b2108ab528098c3cfd7508c57a"
       url: "https://pub.dev"
     source: hosted
-    version: "20.4.49"
+    version: "20.4.50"
+  synchronized:
+    dependency: transitive
+    description:
+      name: synchronized
+      sha256: "33b31b6beb98100bf9add464a36a8dd03eb10c7a8cf15aeec535e9b054aaf04b"
+      url: "https://pub.dev"
+    source: hosted
+    version: "3.0.1"
   term_glyph:
     dependency: transitive
     description:
@@ -975,4 +999,4 @@ packages:
     version: "6.2.2"
 sdks:
   dart: ">=2.19.0 <3.0.0"
-  flutter: ">=3.0.0"
+  flutter: ">=3.3.0"

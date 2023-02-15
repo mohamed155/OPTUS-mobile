@@ -33,6 +33,7 @@ dependencies:
   image_picker_for_web: ^2.1.10
   open_filex: ^4.3.2
   file_picker: ^5.2.5
+  sqflite: ^2.2.4+1
 
 dev_dependencies:
   flutter_test:

@@ -5,7 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:http_interceptor/http/http.dart';
 import 'package:http_interceptor/models/request_data.dart';
 import 'package:http_interceptor/models/response_data.dart';
-import 'package:tech2/modules/login/screens/index.dart';
 import 'package:tech2/services/navigation_service.dart';
 import 'package:tech2/services/security.dart';
 import 'package:tech2/services/storage.dart';
@@ -58,12 +57,7 @@ class APIInterceptors extends InterceptorContract {
           } else {
             ToastService.showErrorMessage("Invalid username or password");
           }
-          SecurityService.logout().then((_) => {
-                Navigator.of(context).pushAndRemoveUntil(
-                    MaterialPageRoute(
-                        builder: (BuildContext context) => const LoginScreen()),
-                    ModalRoute.withName('/login'))
-              });
+          SecurityService.logout();
         }
         break;
       case 403:
