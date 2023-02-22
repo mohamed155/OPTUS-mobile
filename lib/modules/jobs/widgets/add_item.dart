@@ -6,18 +6,18 @@ import 'package:tech2/widgets/dropdown.dart';
 import 'package:tech2/widgets/number_input.dart';
 
 class AddItem extends StatefulWidget {
+  const AddItem({
+    super.key,
+    required this.items,
+    required this.jobId,
+    required this.jobVisitId,
+    required this.projectId,
+  });
+
   final List<JobItemTaskCodesDto> items;
   final int jobId;
   final int jobVisitId;
   final int projectId;
-
-  const AddItem(
-      {Key? key,
-      required this.items,
-      required this.jobId,
-      required this.jobVisitId,
-      required this.projectId})
-      : super(key: key);
 
   @override
   State<AddItem> createState() => _AddItemState();
@@ -28,22 +28,23 @@ class _AddItemState extends State<AddItem> {
   int qty = 0;
   bool loading = false;
 
-  cancelHandler() {
+  void cancelHandler() {
     Navigator.pop(context);
   }
 
-  okHandler() {
+  void okHandler() {
     setState(() => loading = true);
-    var model = AddTaskCodeItemDto(
-        selectedItemId,
-        widget.jobId,
-        qty,
-        widget.jobVisitId,
-        widget.projectId,
-        SecurityService.workerId,
-        true,
-        qty);
-    ItemsService.addTaskCodeItem(model).whenComplete(() {
+    final model = AddTaskCodeItemDto(
+      selectedItemId,
+      widget.jobId,
+      qty,
+      widget.jobVisitId,
+      widget.projectId,
+      SecurityService.workerId,
+      qty,
+      isCheckMandatory: true,
+    );
+    ItemsService().addTaskCodeItem(model).whenComplete(() {
       setState(() => loading = false);
       Navigator.pop(context);
     });
@@ -57,7 +58,9 @@ class _AddItemState extends State<AddItem> {
         height: 272,
         padding: const EdgeInsets.all(10),
         decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(10), color: Colors.white),
+          borderRadius: BorderRadius.circular(10),
+          color: Colors.white,
+        ),
         child: Column(
           children: [
             Dropdown<int>(
@@ -86,15 +89,17 @@ class _AddItemState extends State<AddItem> {
             Row(
               children: [
                 Expanded(
-                    child: TextButton(
-                  onPressed: cancelHandler,
-                  child: const Text('Cancel'),
-                )),
+                  child: TextButton(
+                    onPressed: cancelHandler,
+                    child: const Text('Cancel'),
+                  ),
+                ),
                 Expanded(
-                    child: TextButton(
-                  onPressed: (loading || qty <= 0) ? null : okHandler,
-                  child: Text(loading ? 'Loading...' : 'OK'),
-                )),
+                  child: TextButton(
+                    onPressed: (loading || qty <= 0) ? null : okHandler,
+                    child: Text(loading ? 'Loading...' : 'OK'),
+                  ),
+                ),
               ],
             )
           ],

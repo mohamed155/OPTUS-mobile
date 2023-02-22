@@ -3,16 +3,16 @@ import 'package:intl/intl.dart';
 import 'package:syncfusion_flutter_datepicker/datepicker.dart';
 
 class DateRangeInput extends StatefulWidget {
+  const DateRangeInput({
+    super.key,
+    required this.startDate,
+    required this.endDate,
+    required this.onChange,
+  });
+
   final DateTime startDate;
   final DateTime endDate;
   final void Function(DateTime startDate, DateTime endDate) onChange;
-
-  const DateRangeInput({
-    Key? key,
-    required this.startDate,
-    required this.endDate,
-    required this.onChange
-  }) : super(key: key);
 
   @override
   State<DateRangeInput> createState() => _DateRangeInputState();
@@ -43,48 +43,57 @@ class _DateRangeInputState extends State<DateRangeInput> {
 
   void _onSelectionChanged(DateRangePickerSelectionChangedArgs args) {
     setState(() {
-      startDate = args.value.startDate;
-      if (args.value.endDate != null) {
-        endDate = args.value.endDate;
+      final value = args.value as PickerDateRange;
+      startDate = value.startDate!;
+      if (value.endDate != null) {
+        endDate = value.endDate!;
       }
     });
   }
 
   void _openDateDialog() {
-    Navigator.of(context).push(DialogRoute(
-    context: context,
-    builder: (_) {
-      return Center(
-        child: Container(
-          width: 300,
-          height: 350,
-          decoration: BoxDecoration(
-            color: Colors.white,
-            borderRadius: BorderRadius.circular(10)),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: [
-              SfDateRangePicker(
-                selectionMode: DateRangePickerSelectionMode.range,
-                onSelectionChanged: _onSelectionChanged,
+    Navigator.of(context).push(
+      DialogRoute<Widget>(
+        context: context,
+        builder: (_) {
+          return Center(
+            child: Container(
+              width: 300,
+              height: 350,
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(10),
               ),
-              Row(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
-                  Expanded(
-                      child: TextButton(
-                      onPressed: () => _cancelHandler(context),
-                      child: const Text('Cancel'))
+                  SfDateRangePicker(
+                    selectionMode: DateRangePickerSelectionMode.range,
+                    onSelectionChanged: _onSelectionChanged,
                   ),
-                  Expanded(
-                      child: TextButton(
-                      onPressed: () => _okHandler(context),
-                      child: const Text('OK'))),
+                  Row(
+                    children: [
+                      Expanded(
+                        child: TextButton(
+                          onPressed: () => _cancelHandler(context),
+                          child: const Text('Cancel'),
+                        ),
+                      ),
+                      Expanded(
+                        child: TextButton(
+                          onPressed: () => _okHandler(context),
+                          child: const Text('OK'),
+                        ),
+                      ),
+                    ],
+                  )
                 ],
-              )
-            ],
-        ),
-      ));
-    }));
+              ),
+            ),
+          );
+        },
+      ),
+    );
   }
 
   @override
@@ -100,7 +109,7 @@ class _DateRangeInputState extends State<DateRangeInput> {
             padding: const EdgeInsets.only(right: 10),
             margin: const EdgeInsets.only(bottom: 10),
             child: const Text(
-              "Date Range",
+              'Date Range',
               style: TextStyle(color: Colors.white, fontSize: 16),
             ),
           ),
@@ -108,12 +117,17 @@ class _DateRangeInputState extends State<DateRangeInput> {
             height: 45,
             child: ElevatedButton(
               style: ButtonStyle(
-                  backgroundColor: MaterialStateProperty.all(Colors.white),
-                  shape: MaterialStateProperty.all(RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10)))),
+                backgroundColor: MaterialStateProperty.all(Colors.white),
+                shape: MaterialStateProperty.all(
+                  RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                ),
+              ),
               onPressed: _openDateDialog,
               child: Text(
-                '${_formatter.format(widget.startDate)} - ${_formatter.format(widget.endDate)}',
+                '${_formatter.format(widget.startDate)} - '
+                '${_formatter.format(widget.endDate)}',
                 style: const TextStyle(color: Colors.black),
               ),
             ),

@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:tech2/models/list_dto.dart';
 import 'package:tech2/modules/jobs/models/bulk_routing_parameters.dart';
@@ -10,10 +12,9 @@ import 'package:tech2/widgets/multiselect_dropdown.dart';
 import 'package:tech2/widgets/shared_app_bar.dart';
 
 class JobsSearchScreen extends StatefulWidget {
-  final VoidCallback openDrawer;
+  const JobsSearchScreen({super.key, required this.openDrawer});
 
-  const JobsSearchScreen({Key? key, required this.openDrawer})
-      : super(key: key);
+  final VoidCallback openDrawer;
 
   @override
   State<JobsSearchScreen> createState() => _JobsSearchScreenState();
@@ -41,55 +42,61 @@ class _JobsSearchScreenState extends State<JobsSearchScreen> {
   bool? includeUnreleasedJobs = false;
 
   @override
-  initState() {
+  void initState() {
     super.initState();
 
     loadControls();
   }
 
-  loadControls() {
+  void loadControls() {
     loadWorkerProjectRegionList();
     loadJobStatusList();
   }
 
-  loadWorkerProjectRegionList() async {
+  Future<void> loadWorkerProjectRegionList() async {
     setState(() => isProjectRegionLoading = true);
-    ListService.loadWorkerProjectRegionList(SecurityService.workerId)
-        .then((List<ListDto<int, String>> data) => setState(() {
+    unawaited(
+      ListService().loadWorkerProjectRegionList(SecurityService.workerId).then(
+            (List<ListDto<int, String>> data) => setState(() {
               listOfProjectRegion = data;
               isProjectRegionLoading = false;
-            }));
+            }),
+          ),
+    );
   }
 
-  loadJobStatusList() {
+  void loadJobStatusList() {
     setState(() => isJobStatusLoading = true);
-    ListService.loadJobStatusList()
-        .then((List<ListDto<String, String>> data) => setState(() {
-              listOfJobStatuses = data;
-              isJobStatusLoading = false;
-            }));
+    ListService().loadJobStatusList().then(
+          (List<ListDto<String, String>> data) => setState(() {
+            listOfJobStatuses = data;
+            isJobStatusLoading = false;
+          }),
+        );
   }
 
-  loadJobs() {
+  void loadJobs() {
     setState(() => isJobsLoading = true);
-    BulkRoutingParameters model = BulkRoutingParameters(
-        SecurityService.workerId,
-        selectedProjectRegionIds,
-        selectedSubRegions,
-        selectedJobStatuses,
-        startDate,
-        endDate,
-        includeJobsWithoutDate!,
-        includeUnreleasedJobs!,
-        false);
-    JobsService.getListOfBulkRoutingJobs(model)
+    final model = BulkRoutingParameters(
+      SecurityService.workerId,
+      selectedProjectRegionIds,
+      selectedSubRegions,
+      selectedJobStatuses,
+      startDate,
+      endDate,
+      includeNoDate: includeJobsWithoutDate!,
+      includeUnreleased: includeUnreleasedJobs!,
+      limitedUser: false,
+    );
+    JobsService()
+        .getListOfBulkRoutingJobs(model)
         .then((List<BulkRoutingResult> data) {
       setState(() => isJobsLoading = false);
       Navigator.pushNamed(context, '/jobs', arguments: data);
     });
   }
 
-  onChangeProjectSelection(List<int> value) {
+  void onChangeProjectSelection(List<int> value) {
     setState(() {
       selectedProjectRegionIds = value;
     });
@@ -98,12 +105,15 @@ class _JobsSearchScreenState extends State<JobsSearchScreen> {
         isJobSubRegionsLoading = true;
       });
 
-      ListService.loadSubRegionListByProjectRegionId(selectedProjectRegionIds)
-          .then((List<ListDto<int, String>> data) => setState(() {
-                listOfSubRegions = data;
-                selectedSubRegions = data.map((item) => item.key).toList();
-                isJobSubRegionsLoading = false;
-              }));
+      ListService()
+          .loadSubRegionListByProjectRegionId(selectedProjectRegionIds)
+          .then(
+            (List<ListDto<int, String>> data) => setState(() {
+              listOfSubRegions = data;
+              selectedSubRegions = data.map((item) => item.key).toList();
+              isJobSubRegionsLoading = false;
+            }),
+          );
     }
   }
 
@@ -116,13 +126,15 @@ class _JobsSearchScreenState extends State<JobsSearchScreen> {
       ),
       body: Container(
         decoration: const BoxDecoration(
-            gradient: RadialGradient(radius: 1, colors: [
-          Colors.black87,
-          Colors.black,
-        ], stops: [
-          0.1,
-          10
-        ])),
+          gradient: RadialGradient(
+            radius: 1,
+            colors: [
+              Colors.black87,
+              Colors.black,
+            ],
+            stops: [0.1, 10],
+          ),
+        ),
         width: double.infinity,
         height: double.infinity,
         child: SingleChildScrollView(
@@ -132,31 +144,34 @@ class _JobsSearchScreenState extends State<JobsSearchScreen> {
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
                 MultiselectDropdown<int>(
-                    label: "Project Region",
-                    items: listOfProjectRegion,
-                    value: selectedProjectRegionIds,
-                    valueProp: 'key',
-                    labelProp: 'value',
-                    isLoading: isProjectRegionLoading,
-                    onChanged: onChangeProjectSelection),
+                  label: 'Project Region',
+                  items: listOfProjectRegion,
+                  value: selectedProjectRegionIds,
+                  valueProp: 'key',
+                  labelProp: 'value',
+                  isLoading: isProjectRegionLoading,
+                  onChanged: onChangeProjectSelection,
+                ),
                 MultiselectDropdown<int>(
-                    label: "Sub Region",
-                    items: listOfSubRegions,
-                    value: selectedSubRegions,
-                    valueProp: 'key',
-                    labelProp: 'value',
-                    isLoading: isJobSubRegionsLoading,
-                    onChanged: (dynamic value) =>
-                        setState(() => selectedSubRegions = value)),
+                  label: 'Sub Region',
+                  items: listOfSubRegions,
+                  value: selectedSubRegions,
+                  valueProp: 'key',
+                  labelProp: 'value',
+                  isLoading: isJobSubRegionsLoading,
+                  onChanged: (List<int> value) =>
+                      setState(() => selectedSubRegions = value),
+                ),
                 MultiselectDropdown<String>(
-                    label: "Status",
-                    items: listOfJobStatuses,
-                    value: selectedJobStatuses,
-                    valueProp: 'key',
-                    labelProp: 'value',
-                    isLoading: isJobStatusLoading,
-                    onChanged: (dynamic value) =>
-                        setState(() => selectedJobStatuses = value)),
+                  label: 'Status',
+                  items: listOfJobStatuses,
+                  value: selectedJobStatuses,
+                  valueProp: 'key',
+                  labelProp: 'value',
+                  isLoading: isJobStatusLoading,
+                  onChanged: (List<String> value) =>
+                      setState(() => selectedJobStatuses = value),
+                ),
                 Container(
                   margin: const EdgeInsets.only(bottom: 10),
                   child: DateRangeInput(
@@ -170,40 +185,47 @@ class _JobsSearchScreenState extends State<JobsSearchScreen> {
                   ),
                 ),
                 CheckboxListTile(
-                    title: const Text('Include Jobs without date',
-                        style: TextStyle(color: Colors.white)),
-                    value: includeJobsWithoutDate,
-                    onChanged: (value) =>
-                        setState(() => includeJobsWithoutDate = value)),
+                  title: const Text(
+                    'Include Jobs without date',
+                    style: TextStyle(color: Colors.white),
+                  ),
+                  value: includeJobsWithoutDate,
+                  onChanged: (value) =>
+                      setState(() => includeJobsWithoutDate = value),
+                ),
                 CheckboxListTile(
-                    title: const Text('Include Unreleased Jobs',
-                        style: TextStyle(color: Colors.white)),
-                    value: includeUnreleasedJobs,
-                    onChanged: (value) =>
-                        setState(() => includeUnreleasedJobs = value)),
+                  title: const Text(
+                    'Include Unreleased Jobs',
+                    style: TextStyle(color: Colors.white),
+                  ),
+                  value: includeUnreleasedJobs,
+                  onChanged: (value) =>
+                      setState(() => includeUnreleasedJobs = value),
+                ),
                 ElevatedButton(
-                    onPressed: isJobsLoading ? null : loadJobs,
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        ...isJobsLoading
-                            ? [
-                                const SizedBox(
-                                  width: 20,
-                                  height: 20,
-                                  child: CircularProgressIndicator(
-                                    color: Colors.white,
-                                    strokeWidth: 3,
-                                  ),
+                  onPressed: isJobsLoading ? null : loadJobs,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      ...isJobsLoading
+                          ? [
+                              const SizedBox(
+                                width: 20,
+                                height: 20,
+                                child: CircularProgressIndicator(
+                                  color: Colors.white,
+                                  strokeWidth: 3,
                                 ),
-                                const SizedBox(
-                                  width: 10,
-                                )
-                              ]
-                            : [],
-                        const Text('Search'),
-                      ],
-                    ))
+                              ),
+                              const SizedBox(
+                                width: 10,
+                              )
+                            ]
+                          : [],
+                      const Text('Search'),
+                    ],
+                  ),
+                )
               ],
             ),
           ),

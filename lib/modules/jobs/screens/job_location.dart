@@ -1,9 +1,13 @@
-import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 class JobLocationScreen extends StatelessWidget {
+  const JobLocationScreen({
+    super.key,
+    required this.latitude,
+    required this.longitude,
+  });
+
   final double latitude;
   final double longitude;
 
@@ -11,10 +15,6 @@ class JobLocationScreen extends StatelessWidget {
     target: LatLng(-37.8167, 144.9626),
     zoom: 5,
   );
-
-  const JobLocationScreen(
-      {Key? key, required this.latitude, required this.longitude})
-      : super(key: key);
 
   @override
   Widget build(BuildContext context) {

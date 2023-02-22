@@ -1,6 +1,132 @@
-//TODO: refactor these models from factory constructors to named constructors
-
 class JobVisitModel {
+  JobVisitModel(Map<String, dynamic> json)
+      : jobDetailsDto = JobDetailsDto(
+          json['jobDetailsDto'] as Map<String, dynamic>,
+        ),
+        siteDetailsDto = SiteDetailsDto(
+          json['siteDetailsDto'] as Map<String, dynamic>,
+        ),
+        jobTypeDetailsDto = JobTypeDetailsDto(
+          json['jobTypeDetailsDto'] as Map<String, dynamic>,
+        ),
+        projectDetailsDto = ProjectDetailsDto(
+          json['projectDetailsDto'] as Map<String, dynamic>,
+        ),
+        jobStatusDetailsDto = JobStatusDetailsDto(
+          json['jobStatusDetailsDto'] as Map<String, dynamic>,
+        ),
+        jobClassDetailsDto = JobClassDetailsDto(
+          json['jobClassDetailsDto'] as Map<String, dynamic>,
+        ),
+        regionDetailsDto = RegionDetailsDto(
+          json['regionDetailsDto'] as Map<String, dynamic>,
+        ),
+        workerJobDetailsDto = WorkerJobDetailsDto(
+          json['workerJobDetailsDto'] as Map<String, dynamic>,
+        ),
+        jobVisitModelDetailsDto = JobVisitModelDetailsDto(
+          json['jobVisitModelDetailsDto'] as Map<String, dynamic>,
+        ),
+        originalValuesDto = OriginalValuesDto(
+          json['originalValuesDto'] as Map<String, dynamic>,
+        ),
+        lockClass = json['lockClass'] as String?,
+        customerCreditInfoId = json['customerCreditInfoId'] as int,
+        summaryLockMessage = json['summaryLockMessage'] as String?,
+        lockMessage = json['lockMessage'] as String?,
+        bigStatus = json['bigStatus'] as String?,
+        sliceLockMessage = json['sliceLockMessage'] as int?,
+        timeOfDayRunTime = json['timeOfDayRunTime'] as DateTime?,
+        status = json['status'] as String?,
+        fulfillmentTotal = json['fulfillmentTotal'] as String?,
+        equipmentTotal = json['equipmentTotal'] as String?,
+        jobTotalTextBox = json['jobTotalTextBox'] as String?,
+        firstCollectionDate = json['firstCollectionDate'] != null
+            ? DateTime.parse(json['firstCollectionDate'] as String)
+            : null,
+        firstCollectionByWorkerId = json['firstCollectionByWorkerId'] as int,
+        firstCollectionWorkerName = json['firstCollectionWorkerName'] as String,
+        secondCollectionDate = json['secondCollectionDate'] != null
+            ? DateTime.parse(json['secondCollectionDate'] as String)
+            : null,
+        secondCollectionByWorkerId = json['secondCollectionByWorkerId'] as int,
+        secondCollectionWorkerName =
+            json['secondCollectionWorkerName'] as String,
+        collectionLetterDate = json['collectionLetterDate'] != null
+            ? DateTime.parse(json['collectionLetterDate'] as String)
+            : null,
+        collectionLetterByWorkerId = json['collectionLetterByWorkerId'] as int,
+        collectionLetterWorkerName =
+            json['collectionLetterWorkerName'] as String,
+        collectionAgencyDate = json['collectionAgencyDate'] != null
+            ? DateTime.parse(json['collectionAgencyDate'] as String)
+            : null,
+        collectionAgencyByWorkerId = json['collectionAgencyByWorkerId'] as int,
+        collectionAgencyWorkerName =
+            json['collectionAgencyWorkerName'] as String,
+        sendCollectionLetterDate = json['sendCollectionLetterDate'] != null
+            ? DateTime.parse(json['sendCollectionLetterDate'] as String)
+            : null,
+        sendCollectionLetterByWorkerId =
+            json['sendCollectionLetterByWorkerId'] as int,
+        sendCollectionLetterByWorkerName =
+            json['sendCollectionLetterByWorkerName'] as String,
+        isMissingPaymentAction = json['isMissingPaymentAction'] as bool,
+        oktobillallowed = json['oktobillallowed'] as bool,
+        jobEnterDiscount = json['jobEnterDiscount'] as bool?,
+        jobDeleteConfirmedPayment = json['jobDeleteConfirmedPayment'] as bool?,
+        jobAllowLockOverride = json['jobAllowLockOverride'] as bool?,
+        jobPayRefundLessThan375 = json['jobPayRefundLessThan375'] as bool?,
+        jobPayRefundBetween375And750 =
+            json['jobPayRefundBetween375And750'] as bool?,
+        jobPayRefundGreaterThan750 =
+            json['jobPayRefundGreaterThan750'] as bool?,
+        jobAllowReopenClosedCob = json['jobAllowReopenClosedCob'] as bool?,
+        jobLimitedUser = json['jobLimitedUser'] as bool?,
+        jobCheckCollectionAgency = json['jobCheckCollectionAgency'] as bool?,
+        jobUnClaimGeFinanceInvoice =
+            json['jobUnClaimGeFinanceInvoice'] as bool?,
+        jobPayGeFinanceInvoice = json['jobPayGeFinanceInvoice'] as bool?,
+        jobChargeToGeFinance = json['jobChargeToGeFinance'] as bool?,
+        crmEditStoreWarehouseDetails =
+            json['crmEditStoreWarehouseDetails'] as bool?,
+        jobAddNegativeQuantity = json['jobAddNegativeQuantity'] as bool?,
+        jobShowExpiredPromotions = json['jobShowExpiredPromotions'] as bool?,
+        jobEditClientVisitNumber = json['jobEditClientVisitNumber'] as bool?,
+        oktopayallowed = json['oktopayallowed'] as bool?,
+        jobChangeReasonCode = json['jobChangeReasonCode'] as bool?,
+        jobTickSkipClaimPayment = json['jobTickSkipClaimPayment'] as bool?,
+        jobEditClientRefNumber = json['jobEditClientRefNumber'] as bool?,
+        jobPicCompletedOverride = json['jobPicCompletedOverride'] as bool?,
+        jobPicSmsSentOverride = json['jobPicSmsSentOverride'] as bool?,
+        jobClearDirtyTow = json['jobClearDirtyTow'] as bool?,
+        jobChangeNpsScore = json['jobChangeNpsScore'] as bool?,
+        isUnlockJobVisit = json['isUnlockJobVisit'] as bool?,
+        saveJobLogsReqDto = json['saveJobLogsReqDto'] != null
+            ? SaveJobLogsReqDto(
+                json['saveJobLogsReqDto'] as Map<String, dynamic>)
+            : null,
+        savePicInformationReqDto = json['savePicInformationReqDto'] != null
+            ? SavePicInformationReqDto(
+                json['savePicInformationReqDto'] as Map<String, dynamic>,
+              )
+            : null,
+        isSendSmsMissingPaymentCall =
+            json['isSendSmsMissingPaymentCall'] as bool?,
+        isCheckFirstMissingPaymentCall =
+            json['isCheckFirstMissingPaymentCall'] as bool?,
+        isCheckSecondMissingPaymentCall =
+            json['isCheckSecondMissingPaymentCall'] as bool?,
+        jobOpenTime = json['jobOpenTime'] != null
+            ? DateTime.parse(json['jobOpenTime'] as String)
+            : null,
+        customerEmail = json['customerEmail'] as String,
+        customerMobile = json['customerMobile'] as String,
+        isCloseIssue = json['isCloseIssue'] as bool?,
+        lastUpdated = json['lastUpdated'] != null
+            ? DateTime.parse(json['lastUpdated'] as String)
+            : null;
+
   JobDetailsDto jobDetailsDto;
   SiteDetailsDto siteDetailsDto;
   JobTypeDetailsDto jobTypeDetailsDto;
@@ -89,160 +215,126 @@ class JobVisitModel {
   bool? isCloseIssue;
 
   DateTime? lastUpdated;
-
-  JobVisitModel(this.jobDetailsDto,
-      this.siteDetailsDto,
-      this.jobTypeDetailsDto,
-      this.projectDetailsDto,
-      this.jobStatusDetailsDto,
-      this.jobClassDetailsDto,
-      this.regionDetailsDto,
-      this.workerJobDetailsDto,
-      this.jobVisitModelDetailsDto,
-      this.originalValuesDto,
-      this.lockClass,
-      this.customerCreditInfoId,
-      this.summaryLockMessage,
-      this.lockMessage,
-      this.bigStatus,
-      this.sliceLockMessage,
-      this.timeOfDayRunTime,
-      this.status,
-      this.fulfillmentTotal,
-      this.equipmentTotal,
-      this.jobTotalTextBox,
-      this.firstCollectionDate,
-      this.firstCollectionByWorkerId,
-      this.firstCollectionWorkerName,
-      this.secondCollectionDate,
-      this.secondCollectionByWorkerId,
-      this.secondCollectionWorkerName,
-      this.collectionLetterDate,
-      this.collectionLetterByWorkerId,
-      this.collectionLetterWorkerName,
-      this.collectionAgencyDate,
-      this.collectionAgencyByWorkerId,
-      this.collectionAgencyWorkerName,
-      this.sendCollectionLetterDate,
-      this.sendCollectionLetterByWorkerId,
-      this.sendCollectionLetterByWorkerName,
-      this.isMissingPaymentAction,
-      this.oktobillallowed,
-      this.jobEnterDiscount,
-      this.jobDeleteConfirmedPayment,
-      this.jobAllowLockOverride,
-      this.jobPayRefundLessThan375,
-      this.jobPayRefundBetween375And750,
-      this.jobPayRefundGreaterThan750,
-      this.jobAllowReopenClosedCob,
-      this.jobLimitedUser,
-      this.jobCheckCollectionAgency,
-      this.jobUnClaimGeFinanceInvoice,
-      this.jobPayGeFinanceInvoice,
-      this.jobChargeToGeFinance,
-      this.crmEditStoreWarehouseDetails,
-      this.jobAddNegativeQuantity,
-      this.jobShowExpiredPromotions,
-      this.jobEditClientVisitNumber,
-      this.oktopayallowed,
-      this.jobChangeReasonCode,
-      this.jobTickSkipClaimPayment,
-      this.jobEditClientRefNumber,
-      this.jobPicCompletedOverride,
-      this.jobPicSmsSentOverride,
-      this.jobClearDirtyTow,
-      this.jobChangeNpsScore,
-      this.isUnlockJobVisit,
-      this.saveJobLogsReqDto,
-      this.savePicInformationReqDto,
-      this.isSendSmsMissingPaymentCall,
-      this.isCheckFirstMissingPaymentCall,
-      this.isCheckSecondMissingPaymentCall,
-      this.jobOpenTime,
-      this.customerEmail,
-      this.customerMobile,
-      this.isCloseIssue,
-      this.lastUpdated);
-
-  factory JobVisitModel.fromJson(Map<String, dynamic> json) {
-    return JobVisitModel(
-        JobDetailsDto.fromJson(json['jobDetailsDto']),
-        SiteDetailsDto.fromJson(json['siteDetailsDto']),
-        JobTypeDetailsDto.fromJson(json['jobTypeDetailsDto']),
-        ProjectDetailsDto.fromJson(json['projectDetailsDto']),
-        JobStatusDetailsDto.fromJson(json['jobStatusDetailsDto']),
-        JobClassDetailsDto.fromJson(json['jobClassDetailsDto']),
-        RegionDetailsDto.fromJson(json['regionDetailsDto']),
-        WorkerJobDetailsDto.fromJson(json['workerJobDetailsDto']),
-        JobVisitModelDetailsDto.fromJson(json['jobVisitModelDetailsDto']),
-        OriginalValuesDto.fromJson(json['originalValuesDto']),
-        json['lockClass'],
-        json['customerCreditInfoId'],
-        json['summaryLockMessage'],
-        json['lockMessage'],
-        json['bigStatus'],
-        json['sliceLockMessage'],
-        json['timeOfDayRunTime'],
-        json['status'],
-        json['fulfillmentTotal'],
-        json['equipmentTotal'],
-        json['jobTotalTextBox'],
-        json['firstCollectionDate'] != null ? DateTime.parse(json['firstCollectionDate']) : null,
-        json['firstCollectionByWorkerId'],
-        json['firstCollectionWorkerName'],
-        json['secondCollectionDate'] != null ? DateTime.parse(json['secondCollectionDate']) : null,
-        json['secondCollectionByWorkerId'],
-        json['secondCollectionWorkerName'],
-        json['collectionLetterDate'] != null ? DateTime.parse(json['collectionLetterDate']) : null,
-        json['collectionLetterByWorkerId'],
-        json['collectionLetterWorkerName'],
-        json['collectionAgencyDate'] != null ? DateTime.parse(json['collectionAgencyDate']) : null,
-        json['collectionAgencyByWorkerId'],
-        json['collectionAgencyWorkerName'],
-        json['sendCollectionLetterDate'] != null ? DateTime.parse(json['sendCollectionLetterDate']) : null,
-        json['sendCollectionLetterByWorkerId'],
-        json['sendCollectionLetterByWorkerName'],
-        json['isMissingPaymentAction'],
-        json['oktobillallowed'],
-        json['jobEnterDiscount'],
-        json['jobDeleteConfirmedPayment'],
-        json['jobAllowLockOverride'],
-        json['jobPayRefundLessThan375'],
-        json['jobPayRefundBetween375And750'],
-        json['jobPayRefundGreaterThan750'],
-        json['jobAllowReopenClosedCob'],
-        json['jobLimitedUser'],
-        json['jobCheckCollectionAgency'],
-        json['jobUnClaimGeFinanceInvoice'],
-        json['jobPayGeFinanceInvoice'],
-        json['jobChargeToGeFinance'],
-        json['crmEditStoreWarehouseDetails'],
-        json['jobAddNegativeQuantity'],
-        json['jobShowExpiredPromotions'],
-        json['jobEditClientVisitNumber'],
-        json['oktopayallowed'],
-        json['jobChangeReasonCode'],
-        json['jobTickSkipClaimPayment'],
-        json['jobEditClientRefNumber'],
-        json['jobPicCompletedOverride'],
-        json['jobPicSmsSentOverride'],
-        json['jobClearDirtyTow'],
-        json['jobChangeNpsScore'],
-        json['isUnlockJobVisit'],
-        json['saveJobLogsReqDto'] != null ? SaveJobLogsReqDto.fromJson(json['saveJobLogsReqDto']) : null,
-        json['savePicInformationReqDto'] != null ? SavePicInformationReqDto.fromJson(json['savePicInformationReqDto']) : null,
-        json['isSendSmsMissingPaymentCall'],
-        json['isCheckFirstMissingPaymentCall'],
-        json['isCheckSecondMissingPaymentCall'],
-        json['jobOpenTime'] != null ? DateTime.parse(json['jobOpenTime']) : null,
-        json['customerEmail'],
-        json['customerMobile'],
-        json['isCloseIssue'],
-        json['lastUpdated'] != null ? DateTime.parse(json['lastUpdated']) : null);
-  }
 }
 
 class JobDetailsDto {
+  JobDetailsDto(Map<String, dynamic> json)
+      : jobId = json['jobId'] as int?,
+        sourceCustomerId = json['sourceCustomerId'] as int?,
+        jobSourceProductId = json['jobSourceProductId'] as int?,
+        jobNumber = json['jobNumber'] as int?,
+        cancelDate = json['cancelDate'] != null
+            ? DateTime.parse(
+                json['cancelDate'] as String,
+              )
+            : null,
+        clientJobNumber = json['clientJobNumber'] as String,
+        completedDate = json['completedDate'] != null
+            ? DateTime.parse(json['completedDate'] as String)
+            : null,
+        contactName = json['contactName'] as String?,
+        custContactName = json['custContactName'] as String?,
+        custEmail = json['custEmail'] as String?,
+        jobClassId = json['jobClassId'] as int?,
+        custContact1 = json['custContact1'] as String?,
+        custContact2 = json['custContact2'] as String?,
+        requestDate = json['requestDate'] != null
+            ? DateTime.parse(json['requestDate'] as String)
+            : null,
+        requestDateStr = json['requestDateStr'] as String?,
+        jobDesc = json['jobDesc'] as String,
+        followUpDate = json['followUpDate'] != null
+            ? DateTime.parse(json['followUpDate'] as String)
+            : null,
+        followUpTime = json['followUpTime'] != null
+            ? DateTime.parse(json['followUpTime'] as String)
+            : null,
+        followUpTimeStr = json['followUpTimeStr'] as String?,
+        followUpDateAndTime = json['followUpDateAndTime'] as String?,
+        jobSourceId = json['jobSourceId'] as int?,
+        whlocationId = json['whlocationId'] as int?,
+        jobField1 = json['jobField1'] as String?,
+        hnSalesPerson = json['hnSalesPerson'] as String?,
+        whDistance = json['whDistance'] as double?,
+        contractNo = json['contractNo'] as String?,
+        jobSaleWorkerId = json['jobSaleWorkerId'] as int?,
+        jobSaleWorkerIdStr = json['jobSaleWorkerIdStr'] as String?,
+        clientRefNo = json['clientRefNo'] as String?,
+        workerEmail = json['workerEmail'] as String?,
+        workerLeaderEmail = json['workerLeaderEmail'] as String?,
+        quoteProvidedDate = json['quoteProvidedDate'] != null
+            ? DateTime.parse(json['quoteProvidedDate'] as String)
+            : null,
+        npsScore = json['npsScore'] as int?,
+        fsdStartDate = json['fsdStartDate'] != null
+            ? DateTime.parse(json['fsdStartDate'] as String)
+            : null,
+        nbnCivilsStartDate = json['nbnCivilsStartDate'] != null
+            ? DateTime.parse(json['nbnCivilsStartDate'] as String)
+            : null,
+        jobLeadWorkerId = json['jobLeadWorkerId'] as int?,
+        jobLeadWorkerIdStr = json['jobLeadWorkerIdStr'] as String?,
+        routedTo = json['routedTo'] as String,
+        bal = json['bal'] as String,
+        balance = json['balance'] as String,
+        sameVisit = json['sameVisit'] as bool?,
+        isLockedJob = json['isLockedJob'] as bool?,
+        lockMessage = json['lockMessage'] as String?,
+        lockUserName = json['lockUserName'] as String?,
+        lockedTime = json['lockedTime'] != null
+            ? DateTime.parse(json['lockedTime'] as String)
+            : null,
+        picComments = json['picComments'] as String?,
+        jobField2 = json['jobField2'] as String?,
+        jobField3 = json['jobField3'] as String?,
+        jobField4 = json['jobField4'] as String?,
+        jobField5 = json['jobField5'] as String?,
+        jobField6 = json['jobField6'] as String?,
+        jobField8 = json['jobField8'] as String?,
+        jobField7 = json['jobField7'] as String?,
+        jobField7New = json['jobField7New'],
+        jobField9 = json['jobField9'] as String?,
+        jobField9New = json['jobField9New'],
+        jobField10 = json['jobField10'] as String?,
+        jobField10New = json['jobField10New'],
+        jobField11 = json['jobField11'] as String?,
+        jobField12 = json['jobField12'] as String?,
+        jobField13 = json['jobField13'] as String?,
+        jobField14 = json['jobField14'] as String?,
+        jobField15 = json['jobField15'] as String?,
+        jobField16 = json['jobField16'] as String?,
+        jobField17 = json['jobField17'] as String?,
+        jobField18 = json['jobField18'] as String?,
+        jobField19 = json['jobField19'] as String?,
+        jobCheck1 = json['jobCheck1'] as bool?,
+        jobCheck2 = json['jobCheck2'] as bool?,
+        jobCheck3 = json['jobCheck3'] as bool?,
+        jobCheck4 = json['jobCheck4'] as bool?,
+        jobCheck5 = json['jobCheck5'] as bool?,
+        jobCheck6 = json['jobCheck6'] as bool?,
+        jobCheck7 = json['jobCheck7'] as bool?,
+        jobCheck8 = json['jobCheck8'] as bool?,
+        jobCheck9 = json['jobCheck9'] as bool?,
+        jobCheck10 = json['jobCheck10'] as bool?,
+        jobCheck11 = json['jobCheck11'] as bool?,
+        jobCheck12 = json['jobCheck12'] as bool?,
+        jobCheck13 = json['jobCheck13'] as bool?,
+        jobCheck14 = json['jobCheck14'] as bool?,
+        jobCheck15 = json['jobCheck15'] as bool?,
+        addressConfirmed = json['addressConfirmed'] as bool?,
+        scopeConfirmed = json['scopeConfirmed'] as bool?,
+        antennaScope = json['antennaScope'] as bool?,
+        newOutletNeededResponse = json['newOutletNeededResponse'] as bool?,
+        speakerMountingScope = json['speakerMountingScope'] as bool?,
+        roofAccessGiven = json['roofAccessGiven'] as bool?,
+        powerPointInLocation = json['powerPointInLocation'] as bool?,
+        timeSlotConfirmed = json['timeSlotConfirmed'] as bool?,
+        amountOutstanding = json['amountOutstanding'] as bool?,
+        goodsAtHome = json['goodsAtHome'] as bool?,
+        lastUpdated = json['lastUpdated'] != null
+            ? DateTime.parse(json['lastUpdated'] as String)
+            : null;
+
   int? jobId;
   int? sourceCustomerId;
   int? jobSourceProductId;
@@ -342,200 +434,28 @@ class JobDetailsDto {
   bool? goodsAtHome;
 
   DateTime? lastUpdated;
-
-  JobDetailsDto(this.jobId,
-      this.sourceCustomerId,
-      this.jobSourceProductId,
-      this.jobNumber,
-      this.cancelDate,
-      this.clientJobNumber,
-      this.completedDate,
-      this.contactName,
-      this.custContactName,
-      this.custEmail,
-      this.jobClassId,
-      this.custContact1,
-      this.custContact2,
-      this.requestDate,
-      this.requestDateStr,
-      this.jobDesc,
-      this.followUpDate,
-      this.followUpTime,
-      this.followUpTimeStr,
-      this.followUpDateAndTime,
-      this.jobSourceId,
-      this.whlocationId,
-      this.jobField1,
-      this.hnSalesPerson,
-      this.whDistance,
-      this.contractNo,
-      this.jobSaleWorkerId,
-      this.jobSaleWorkerIdStr,
-      this.clientRefNo,
-      this.workerEmail,
-      this.workerLeaderEmail,
-      this.quoteProvidedDate,
-      this.npsScore,
-      this.fsdStartDate,
-      this.nbnCivilsStartDate,
-      this.jobLeadWorkerId,
-      this.jobLeadWorkerIdStr,
-      this.routedTo,
-      this.bal,
-      this.balance,
-      this.sameVisit,
-      this.isLockedJob,
-      this.lockMessage,
-      this.lockUserName,
-      this.lockedTime,
-      this.picComments,
-      this.jobField2,
-      this.jobField3,
-      this.jobField4,
-      this.jobField5,
-      this.jobField6,
-      this.jobField8,
-      this.jobField7,
-      this.jobField7New,
-      this.jobField9,
-      this.jobField9New,
-      this.jobField10,
-      this.jobField10New,
-      this.jobField11,
-      this.jobField12,
-      this.jobField13,
-      this.jobField14,
-      this.jobField15,
-      this.jobField16,
-      this.jobField17,
-      this.jobField18,
-      this.jobField19,
-      this.jobCheck1,
-      this.jobCheck2,
-      this.jobCheck3,
-      this.jobCheck4,
-      this.jobCheck5,
-      this.jobCheck6,
-      this.jobCheck7,
-      this.jobCheck8,
-      this.jobCheck9,
-      this.jobCheck10,
-      this.jobCheck11,
-      this.jobCheck12,
-      this.jobCheck13,
-      this.jobCheck14,
-      this.jobCheck15,
-      this.addressConfirmed,
-      this.scopeConfirmed,
-      this.antennaScope,
-      this.newOutletNeededResponse,
-      this.speakerMountingScope,
-      this.roofAccessGiven,
-      this.powerPointInLocation,
-      this.timeSlotConfirmed,
-      this.amountOutstanding,
-      this.goodsAtHome,
-      this.lastUpdated);
-
-  factory JobDetailsDto.fromJson(Map<String, dynamic> json) {
-    return JobDetailsDto(
-        json['jobId'],
-        json['sourceCustomerId'],
-        json['jobSourceProductId'],
-        json['jobNumber'],
-        json['cancelDate'] != null ? DateTime.parse(json['cancelDate']) : null,
-        json['clientJobNumber'],
-        json['completedDate'] != null ? DateTime.parse(json['completedDate']) : null,
-        json['contactName'],
-        json['custContactName'],
-        json['custEmail'],
-        json['jobClassId'],
-        json['custContact1'],
-        json['custContact2'],
-        json['requestDate'] != null ? DateTime.parse(json['requestDate']) : null,
-        json['requestDateStr'],
-        json['jobDesc'],
-        json['followUpDate'] != null ? DateTime.parse(json['followUpDate']) : null,
-        json['followUpTime'] != null ? DateTime.parse(json['followUpTime']) : null,
-        json['followUpTimeStr'],
-        json['followUpDateAndTime'],
-        json['jobSourceId'],
-        json['whlocationId'],
-        json['jobField1'],
-        json['hnSalesPerson'],
-        json['whDistance'],
-        json['contractNo'],
-        json['jobSaleWorkerId'],
-        json['jobSaleWorkerIdStr'],
-        json['clientRefNo'],
-        json['workerEmail'],
-        json['workerLeaderEmail'],
-        json['quoteProvidedDate'] != null ? DateTime.parse(json['quoteProvidedDate']) : null,
-        json['npsScore'],
-        json['fsdStartDate'] != null ? DateTime.parse(json['fsdStartDate']) : null,
-        json['nbnCivilsStartDate'] != null ? DateTime.parse(json['nbnCivilsStartDate']) : null,
-        json['jobLeadWorkerId'],
-        json['jobLeadWorkerIdStr'],
-        json['routedTo'],
-        json['bal'],
-        json['balance'],
-        json['sameVisit'],
-        json['isLockedJob'],
-        json['lockMessage'],
-        json['lockUserName'],
-        json['lockedTime'] != null ? DateTime.parse(json['lockedTime']) : null,
-        json['picComments'],
-        json['jobField2'],
-        json['jobField3'],
-        json['jobField4'],
-        json['jobField5'],
-        json['jobField6'],
-        json['jobField8'],
-        json['jobField7'],
-        json['jobField7New'],
-        json['jobField9'],
-        json['jobField9New'],
-        json['jobField10'],
-        json['jobField10New'],
-        json['jobField11'],
-        json['jobField12'],
-        json['jobField13'],
-        json['jobField14'],
-        json['jobField15'],
-        json['jobField16'],
-        json['jobField17'],
-        json['jobField18'],
-        json['jobField19'],
-        json['jobCheck1'],
-        json['jobCheck2'],
-        json['jobCheck3'],
-        json['jobCheck4'],
-        json['jobCheck5'],
-        json['jobCheck6'],
-        json['jobCheck7'],
-        json['jobCheck8'],
-        json['jobCheck9'],
-        json['jobCheck10'],
-        json['jobCheck11'],
-        json['jobCheck12'],
-        json['jobCheck13'],
-        json['jobCheck14'],
-        json['jobCheck15'],
-        json['addressConfirmed'],
-        json['scopeConfirmed'],
-        json['antennaScope'],
-        json['newOutletNeededResponse'],
-        json['speakerMountingScope'],
-        json['roofAccessGiven'],
-        json['powerPointInLocation'],
-        json['timeSlotConfirmed'],
-        json['amountOutstanding'],
-        json['goodsAtHome'],
-        json['lastUpdated']  != null ? DateTime.parse(json['lastUpdated']) : null);
-  }
 }
 
 class SiteDetailsDto {
+  SiteDetailsDto(Map<String, dynamic> json)
+      : siteId = json['siteId'] as int?,
+        latitude = json['latitude'] as double?,
+        longitude = json['longitude'] as double?,
+        simpleAddress = json['simpleAddress'] as String?,
+        siteInfo = json['siteInfo'] as String?,
+        siteCustomerId = json['siteCustomerId'] as int?,
+        siteNameSimpleAddress = json['siteNameSimpleAddress'] as String?,
+        customField1 = json['customField1'] as String?,
+        customField2 = json['customField2'] as String?,
+        customField3 = json['customField3'] as String?,
+        customField4 = json['customField4'] as String?,
+        customField5 = json['customField5'] as String?,
+        customField6 = json['customField6'] as String?,
+        customField7 = json['customField7'] as String?,
+        customField8 = json['customField8'] as String?,
+        customField9 = json['customField9'] as String?,
+        customField10 = json['customField10'] as String?;
+
   int? siteId;
   double? latitude;
   double? longitude;
@@ -555,48 +475,24 @@ class SiteDetailsDto {
   String? customField8;
   String? customField9;
   String? customField10;
-
-  SiteDetailsDto(this.siteId,
-      this.latitude,
-      this.longitude,
-      this.simpleAddress,
-      this.siteInfo,
-      this.siteCustomerId,
-      this.siteNameSimpleAddress,
-      this.customField1,
-      this.customField2,
-      this.customField3,
-      this.customField4,
-      this.customField5,
-      this.customField6,
-      this.customField7,
-      this.customField8,
-      this.customField9,
-      this.customField10);
-
-  factory SiteDetailsDto.fromJson(Map<String, dynamic> json) {
-    return SiteDetailsDto(
-        json['siteId'],
-        json['latitude'],
-        json['longitude'],
-        json['simpleAddress'],
-        json['siteInfo'],
-        json['siteCustomerId'],
-        json['siteNameSimpleAddress'],
-        json['customField1'],
-        json['customField2'],
-        json['customField3'],
-        json['customField4'],
-        json['customField5'],
-        json['customField6'],
-        json['customField7'],
-        json['customField8'],
-        json['customField9'],
-        json['customField10']);
-  }
 }
 
 class JobTypeDetailsDto {
+  JobTypeDetailsDto(Map<String, dynamic> json)
+      : custMarkerColor = json['custMarkerColor'] as String?,
+        rescheduleWizardId = json['rescheduleWizardId'] as int?,
+        scheduleWizardId = json['scheduleWizardId'] as int?,
+        cancelWizardId = json['cancelWizardId'] as int?,
+        closingWizardId = json['closingWizardId'] as int?,
+        flexibleScheduling = json['flexibleScheduling'] as bool?,
+        jobTypeCode = json['jobTypeCode'] as String,
+        truckRoll = json['truckRoll'] as bool?,
+        mainJobType = json['mainJobType'] as bool?,
+        contractSupportQueue = json['contractSupportQueue'] as bool?,
+        itSetupSupportQueue = json['itSetupSupportQueue'] as bool?,
+        operationSupportQueue = json['operationSupportQueue'] as bool?,
+        revenueJobType = json['revenueJobType'] as bool?;
+
   String? custMarkerColor;
   int? rescheduleWizardId;
   int? scheduleWizardId;
@@ -610,40 +506,90 @@ class JobTypeDetailsDto {
   bool? itSetupSupportQueue;
   bool? operationSupportQueue;
   bool? revenueJobType;
-
-  JobTypeDetailsDto(this.custMarkerColor,
-      this.rescheduleWizardId,
-      this.scheduleWizardId,
-      this.cancelWizardId,
-      this.closingWizardId,
-      this.flexibleScheduling,
-      this.jobTypeCode,
-      this.truckRoll,
-      this.mainJobType,
-      this.contractSupportQueue,
-      this.itSetupSupportQueue,
-      this.operationSupportQueue,
-      this.revenueJobType);
-
-  factory JobTypeDetailsDto.fromJson(Map<String, dynamic> json) {
-    return JobTypeDetailsDto(
-        json['custMarkerColor'],
-        json['rescheduleWizardId'],
-        json['scheduleWizardId'],
-        json['cancelWizardId'],
-        json['closingWizardId'],
-        json['flexibleScheduling'],
-        json['jobTypeCode'],
-        json['truckRoll'],
-        json['mainJobType'],
-        json['contractSupportQueue'],
-        json['itSetupSupportQueue'],
-        json['operationSupportQueue'],
-        json['revenueJobType']);
-  }
 }
 
 class ProjectDetailsDto {
+  ProjectDetailsDto(Map<String, dynamic> json)
+      : requireCommentOnStockRemove =
+            json['requireCommentOnStockRemove'] as bool?,
+        preInstallMaxCalls = json['preInstallMaxCalls'] as int?,
+        allowCustomerCommunicationTrace =
+            json['allowCustomerCommunicationTrace'] as bool?,
+        projectCustomerId = json['projectCustomerId'] as int?,
+        overrideStatusChange = json['overrideStatusChange'] as bool?,
+        allowedStatusByJobType = json['allowedStatusByJobType'] as bool?,
+        allowOpenClosedJob = json['allowOpenClosedJob'] as bool?,
+        allowChangeJobType = json['allowChangeJobType'] as bool?,
+        projectName = json['projectName'] as String?,
+        projectCode = json['projectCode'] as String?,
+        projectId = json['projectId'] as int?,
+        isTpgProject = json['isTpgProject'] as bool?,
+        projectCodeRegionName = json['projectCodeRegionName'] as String,
+        jobVisitField1Desc = json['jobVisitField1Desc'] as String?,
+        jobVisitField2Desc = json['jobVisitField2Desc'] as String?,
+        jobVisitField3Desc = json['jobVisitField3Desc'] as String?,
+        jobVisitField4Desc = json['jobVisitField4Desc'] as String?,
+        jobVisitField5Desc = json['jobVisitField5Desc'] as String?,
+        jobVisitField6Desc = json['jobVisitField6Desc'] as String?,
+        jobVisitField7Desc = json['jobVisitField7Desc'] as String?,
+        jobVisitField8Desc = json['jobVisitField8Desc'] as String?,
+        jobVisitField9Desc = json['jobVisitField9Desc'] as String?,
+        jobVisitField10Desc = json['jobVisitField10Desc'] as String?,
+        jobVisitField11Desc = json['jobVisitField11Desc'] as String?,
+        jobVisitField12Desc = json['jobVisitField12Desc'] as String?,
+        jobVisitField13Desc = json['jobVisitField13Desc'] as String?,
+        jobVisitField14Desc = json['jobVisitField14Desc'] as String?,
+        jobVisitField15Desc = json['jobVisitField15Desc'] as String?,
+        jobVisitField16Desc = json['jobVisitField16Desc'] as String?,
+        jobVisitField17Desc = json['jobVisitField17Desc'] as String?,
+        jobVisitField18Desc = json['jobVisitField18Desc'] as String?,
+        jobVisitField19Desc = json['jobVisitField19Desc'] as String?,
+        jobVisitField20Desc = json['jobVisitField20Desc'] as String?,
+        siteField1Desc = json['siteField1Desc'] as String?,
+        siteField2Desc = json['siteField2Desc'] as String?,
+        siteField3Desc = json['siteField3Desc'] as String?,
+        siteField4Desc = json['siteField4Desc'] as String?,
+        siteField5Desc = json['siteField5Desc'] as String?,
+        siteField6Desc = json['siteField6Desc'] as String?,
+        siteField7Desc = json['siteField7Desc'] as String?,
+        siteField8Desc = json['siteField8Desc'] as String?,
+        siteField9Desc = json['siteField9Desc'] as String?,
+        siteField10Desc = json['siteField10Desc'] as String?,
+        check1Desc = json['check1Desc'] as String?,
+        check2Desc = json['check2Desc'] as String?,
+        check3Desc = json['check3Desc'] as String?,
+        check4Desc = json['check4Desc'] as String?,
+        check5Desc = json['check5Desc'] as String?,
+        check6Desc = json['check6Desc'] as String?,
+        check7Desc = json['check7Desc'] as String?,
+        check8Desc = json['check8Desc'] as String?,
+        check9Desc = json['check9Desc'] as String?,
+        check10Desc = json['check10Desc'] as String?,
+        check11Desc = json['check11Desc'] as String?,
+        check12Desc = json['check12Desc'] as String?,
+        check13Desc = json['check13Desc'] as String?,
+        check14Desc = json['check14Desc'] as String?,
+        check15Desc = json['check15Desc'] as String?,
+        jobField1Desc = json['jobField1Desc'] as String?,
+        jobField2Desc = json['jobField2Desc'] as String?,
+        jobField3Desc = json['jobField3Desc'] as String?,
+        jobField4Desc = json['jobField4Desc'] as String?,
+        jobField5Desc = json['jobField5Desc'] as String?,
+        jobField6Desc = json['jobField6Desc'] as String?,
+        jobField7Desc = json['jobField7Desc'] as String?,
+        jobField8Desc = json['jobField8Desc'] as String?,
+        jobField9Desc = json['jobField9Desc'] as String?,
+        jobField10Desc = json['jobField10Desc'] as String?,
+        jobField11Desc = json['jobField11Desc'] as String?,
+        jobField12Desc = json['jobField12Desc'] as String?,
+        jobField13Desc = json['jobField13Desc'] as String?,
+        jobField14Desc = json['jobField14Desc'] as String?,
+        jobField15Desc = json['jobField15Desc'] as String?,
+        jobField16Desc = json['jobField16Desc'] as String?,
+        jobField17Desc = json['jobField17Desc'] as String?,
+        jobField18Desc = json['jobField18Desc'] as String?,
+        jobField19Desc = json['jobField19Desc'] as String?;
+
   bool? requireCommentOnStockRemove;
   int? preInstallMaxCalls;
   bool? allowCustomerCommunicationTrace;
@@ -729,168 +675,18 @@ class ProjectDetailsDto {
   String? jobField17Desc;
   String? jobField18Desc;
   String? jobField19Desc;
-
-  ProjectDetailsDto(this.requireCommentOnStockRemove,
-      this.preInstallMaxCalls,
-      this.allowCustomerCommunicationTrace,
-      this.projectCustomerId,
-      this.overrideStatusChange,
-      this.allowedStatusByJobType,
-      this.allowOpenClosedJob,
-      this.allowChangeJobType,
-      this.projectName,
-      this.projectCode,
-      this.projectId,
-      this.isTpgProject,
-      this.projectCodeRegionName,
-      this.jobVisitField1Desc,
-      this.jobVisitField2Desc,
-      this.jobVisitField3Desc,
-      this.jobVisitField4Desc,
-      this.jobVisitField5Desc,
-      this.jobVisitField6Desc,
-      this.jobVisitField7Desc,
-      this.jobVisitField8Desc,
-      this.jobVisitField9Desc,
-      this.jobVisitField10Desc,
-      this.jobVisitField11Desc,
-      this.jobVisitField12Desc,
-      this.jobVisitField13Desc,
-      this.jobVisitField14Desc,
-      this.jobVisitField15Desc,
-      this.jobVisitField16Desc,
-      this.jobVisitField17Desc,
-      this.jobVisitField18Desc,
-      this.jobVisitField19Desc,
-      this.jobVisitField20Desc,
-      this.siteField1Desc,
-      this.siteField2Desc,
-      this.siteField3Desc,
-      this.siteField4Desc,
-      this.siteField5Desc,
-      this.siteField6Desc,
-      this.siteField7Desc,
-      this.siteField8Desc,
-      this.siteField9Desc,
-      this.siteField10Desc,
-      this.check1Desc,
-      this.check2Desc,
-      this.check3Desc,
-      this.check4Desc,
-      this.check5Desc,
-      this.check6Desc,
-      this.check7Desc,
-      this.check8Desc,
-      this.check9Desc,
-      this.check10Desc,
-      this.check11Desc,
-      this.check12Desc,
-      this.check13Desc,
-      this.check14Desc,
-      this.check15Desc,
-      this.jobField1Desc,
-      this.jobField2Desc,
-      this.jobField3Desc,
-      this.jobField4Desc,
-      this.jobField5Desc,
-      this.jobField6Desc,
-      this.jobField7Desc,
-      this.jobField8Desc,
-      this.jobField9Desc,
-      this.jobField10Desc,
-      this.jobField11Desc,
-      this.jobField12Desc,
-      this.jobField13Desc,
-      this.jobField14Desc,
-      this.jobField15Desc,
-      this.jobField16Desc,
-      this.jobField17Desc,
-      this.jobField18Desc,
-      this.jobField19Desc);
-
-  factory ProjectDetailsDto.fromJson(Map<String, dynamic> json) {
-    return ProjectDetailsDto(
-        json['requireCommentOnStockRemove'],
-        json['preInstallMaxCalls'],
-        json['allowCustomerCommunicationTrace'],
-        json['projectCustomerId'],
-        json['overrideStatusChange'],
-        json['allowedStatusByJobType'],
-        json['allowOpenClosedJob'],
-        json['allowChangeJobType'],
-        json['projectName'],
-        json['projectCode'],
-        json['projectId'],
-        json['isTpgProject'],
-        json['projectCodeRegionName'],
-        json['jobVisitField1Desc'],
-        json['jobVisitField2Desc'],
-        json['jobVisitField3Desc'],
-        json['jobVisitField4Desc'],
-        json['jobVisitField5Desc'],
-        json['jobVisitField6Desc'],
-        json['jobVisitField7Desc'],
-        json['jobVisitField8Desc'],
-        json['jobVisitField9Desc'],
-        json['jobVisitField10Desc'],
-        json['jobVisitField11Desc'],
-        json['jobVisitField12Desc'],
-        json['jobVisitField13Desc'],
-        json['jobVisitField14Desc'],
-        json['jobVisitField15Desc'],
-        json['jobVisitField16Desc'],
-        json['jobVisitField17Desc'],
-        json['jobVisitField18Desc'],
-        json['jobVisitField19Desc'],
-        json['jobVisitField20Desc'],
-        json['siteField1Desc'],
-        json['siteField2Desc'],
-        json['siteField3Desc'],
-        json['siteField4Desc'],
-        json['siteField5Desc'],
-        json['siteField6Desc'],
-        json['siteField7Desc'],
-        json['siteField8Desc'],
-        json['siteField9Desc'],
-        json['siteField10Desc'],
-        json['check1Desc'],
-        json['check2Desc'],
-        json['check3Desc'],
-        json['check4Desc'],
-        json['check5Desc'],
-        json['check6Desc'],
-        json['check7Desc'],
-        json['check8Desc'],
-        json['check9Desc'],
-        json['check10Desc'],
-        json['check11Desc'],
-        json['check12Desc'],
-        json['check13Desc'],
-        json['check14Desc'],
-        json['check15Desc'],
-        json['jobField1Desc'],
-        json['jobField2Desc'],
-        json['jobField3Desc'],
-        json['jobField4Desc'],
-        json['jobField5Desc'],
-        json['jobField6Desc'],
-        json['jobField7Desc'],
-        json['jobField8Desc'],
-        json['jobField9Desc'],
-        json['jobField10Desc'],
-        json['jobField11Desc'],
-        json['jobField12Desc'],
-        json['jobField13Desc'],
-        json['jobField14Desc'],
-        json['jobField15Desc'],
-        json['jobField16Desc'],
-        json['jobField17Desc'],
-        json['jobField18Desc'],
-        json['jobField19Desc']);
-  }
 }
 
 class JobStatusDetailsDto {
+  JobStatusDetailsDto(Map<String, dynamic> json)
+      : allowChangeInJobDetails = json['allowChangeInJobDetails'] as bool?,
+        jobStatusType = json['jobStatusType'] as String,
+        jobStatusDesc = json['jobStatusDesc'] as String,
+        jobStatusCode = json['jobStatusCode'] as String,
+        jobStatus = json['jobStatus'] as String,
+        quotedProvided = json['quotedProvided'] as String?,
+        mainJobStatusType = json['mainJobStatusType'] as String;
+
   bool? allowChangeInJobDetails;
   String jobStatusType;
   String jobStatusDesc;
@@ -898,67 +694,171 @@ class JobStatusDetailsDto {
   String jobStatus;
   String? quotedProvided;
   String mainJobStatusType;
-
-  JobStatusDetailsDto(this.allowChangeInJobDetails,
-      this.jobStatusType,
-      this.jobStatusDesc,
-      this.jobStatusCode,
-      this.jobStatus,
-      this.quotedProvided,
-      this.mainJobStatusType);
-
-  factory JobStatusDetailsDto.fromJson(Map<String, dynamic> json) {
-    return JobStatusDetailsDto(
-        json['allowChangeInJobDetails'],
-        json['jobStatusType'],
-        json['jobStatusDesc'],
-        json['jobStatusCode'],
-        json['jobStatus'],
-        json['quotedProvided'],
-        json['mainJobStatusType']);
-  }
 }
 
 class JobClassDetailsDto {
+  JobClassDetailsDto(Map<String, dynamic> json)
+      : jobClassName = json['jobClassName'] as String?,
+        jobClassCode = json['jobClassCode'] as String?;
+
   String? jobClassName;
   String? jobClassCode;
-
-  JobClassDetailsDto(this.jobClassName, this.jobClassCode);
-
-  factory JobClassDetailsDto.fromJson(Map<String, dynamic> json) {
-    return JobClassDetailsDto(json['jobClassName'], json['jobClassCode']);
-  }
 }
 
 class RegionDetailsDto {
+  RegionDetailsDto(Map<String, dynamic> json)
+      : regionName = json['regionName'] as String?,
+        timeOffset = json['timeOffset'] as double?,
+        timeOffsetDateTime = json['timeOffsetDateTime'] != null
+            ? DateTime.parse(json['timeOffsetDateTime'] as String)
+            : null,
+        timeOfDay = json['timeOfDay'] != null
+            ? DateTime.parse(json['timeOfDay'] as String)
+            : null;
+
   String? regionName;
   double? timeOffset;
   DateTime? timeOffsetDateTime;
   DateTime? timeOfDay;
-
-  RegionDetailsDto(this.regionName, this.timeOffset, this.timeOffsetDateTime,
-      this.timeOfDay);
-
-  factory RegionDetailsDto.fromJson(Map<String, dynamic> json) {
-    return RegionDetailsDto(json['regionName'], json['timeOffset'],
-        json['timeOffsetDateTime'] != null ? DateTime.parse(json['timeOffsetDateTime']) : null,
-        json['timeOfDay'] != null ? DateTime.parse(json['timeOfDay']) : null);
-  }
 }
 
 class WorkerJobDetailsDto {
+  WorkerJobDetailsDto(Map<String, dynamic> json)
+      : workerFullName = json['workerFullName'] as String?,
+        createdByWorkerName = json['createdByWorkerName'] as String?;
+
   String? workerFullName;
   String? createdByWorkerName;
-
-  WorkerJobDetailsDto(this.workerFullName, this.createdByWorkerName);
-
-  factory WorkerJobDetailsDto.fromJson(Map<String, dynamic> json) {
-    return WorkerJobDetailsDto(
-        json['workerFullName'], json['createdByWorkerName']);
-  }
 }
 
 class JobVisitModelDetailsDto {
+  JobVisitModelDetailsDto(Map<String, dynamic> json)
+      : paymentMethodId = json['paymentMethodId'] as int?,
+        visitWorkerId = json['visitWorkerId'] as int?,
+        createdByWorkerId = json['createdByWorkerId'] as int?,
+        workerStartTimeAgree = json['workerStartTimeAgree'] as int?,
+        workerFinishTimeAgree = json['workerFinishTimeAgree'] as int?,
+        workerPaymentCollectedAgree =
+            json['workerPaymentCollectedAgree'] as int?,
+        workerPaymentMethodAgree = json['workerPaymentMethodAgree'] as int?,
+        paymentDue = json['paymentDue'] as double?,
+        paymentDueStr = json['paymentDueStr'] as String?,
+        reminderMessage = json['reminderMessage'] as String?,
+        reminderTime = json['reminderTime'] != null
+            ? DateTime.parse(json['reminderTime'] as String)
+            : null,
+        visitStatusReasonId = json['visitStatusReasonId'] as int?,
+        visitStatusReasonId2 = json['visitStatusReasonId2'] as int?,
+        visitStatusReasonId3 = json['visitStatusReasonId3'] as int?,
+        supervisorCode = json['supervisorCode'] as String?,
+        startTime = json['startTime'] != null
+            ? DateTime.parse(json['startTime'] as String)
+            : null,
+        finishTime = json['finishTime'] != null
+            ? DateTime.parse(json['finishTime'] as String)
+            : null,
+        paymentCollected = json['paymentCollected'] as double?,
+        paymentCollectedStr = json['paymentCollectedStr'] as String?,
+        customerSmsSentDate = json['customerSmsSentDate'] != null
+            ? DateTime.parse(json['customerSmsSentDate'] as String)
+            : null,
+        customerSendsms = json['customerSendsms'] as bool?,
+        jobIdRef = json['jobIdRef'] as int?,
+        siteIdRef = json['siteIdRef'] as int?,
+        jobTypeIdRef = json['jobTypeIdRef'] as int?,
+        jobTypeId = json['jobTypeId'] as int?,
+        visitWorkerIdRef = json['visitWorkerIdRef'] as int?,
+        loggedWorkerId = json['loggedWorkerId'] as int?,
+        jobPoints = json['jobPoints'] as int?,
+        preInstallCallAttempts = json['preInstallCallAttempts'] as int?,
+        preInstallCallCompleted = json['preInstallCallCompleted'] as bool?,
+        visitStatusId = json['visitStatusId'] as int?,
+        logisticsConfirmed = json['logisticsConfirmed'] as bool?,
+        clientVisitNumber = json['clientVisitNumber'] as String?,
+        isShowTimeDifference = json['isShowTimeDifference'] as bool?,
+        bookedDate = json['bookedDate'] != null
+            ? DateTime.parse(json['bookedDate'] as String)
+            : null,
+        bookedDateStr = json['bookedDateStr'] as String?,
+        projectRegionId = json['projectRegionId'] as int?,
+        jobVisitId = json['jobVisitId'] as int?,
+        createdByProcess = json['createdByProcess'] as String?,
+        dateCreated = DateTime.parse(json['dateCreated'] as String),
+        dateReconciled = json['dateReconciled'] != null
+            ? DateTime.parse(json['dateReconciled'] as String)
+            : null,
+        technicianId = json['technicianId'] as String?,
+        bookedTimeSlot = json['bookedTimeSlot'] as String?,
+        routeSequence = json['routeSequence'] as String?,
+        jobViewedDate = json['jobViewedDate'] as String?,
+        acceptedDate = json['acceptedDate'] as String?,
+        otherFsts = json['otherFsts'] as String?,
+        partner = json['partner'] as String?,
+        product = json['product'] as String?,
+        storeLocation = json['storeLocation'] as String?,
+        pabtimeslot = json['pabtimeslot'] as String?,
+        pabDate = json['pabDate'] != null
+            ? DateTime.parse(json['pabDate'] as String)
+            : null,
+        pabDateStr = json['pabDateStr'] as String?,
+        nextCallDate = json['nextCallDate'] != null
+            ? DateTime.parse(json['nextCallDate'] as String)
+            : null,
+        isNextCallDate = json['isNextCallDate'] as bool?,
+        isActionDuedate = json['isActionDuedate'] as bool?,
+        actionDueTime = json['actionDueTime'] != null
+            ? DateTime.parse(json['actionDueTime'] as String)
+            : null,
+        otdRescheduleRequested = json['otdRescheduleRequested'] as bool?,
+        routingAlert = json['routingAlert'] as String?,
+        smsSentDate = json['smsSentDate'] != null
+            ? DateTime.parse(json['smsSentDate'] as String)
+            : null,
+        viewedDate = json['viewedDate'] != null
+            ? DateTime.parse(json['viewedDate'] as String)
+            : null,
+        acceptDate = json['acceptDate'] != null
+            ? DateTime.parse(json['acceptDate'] as String)
+            : null,
+        priority = json['priority'] as String?,
+        jobVisitField1 = json['jobVisitField1'] as String?,
+        jobVisitField2 = json['jobVisitField2'] as String?,
+        jobVisitField3 = json['jobVisitField3'] as String?,
+        jobVisitField4 = json['jobVisitField4'] as String?,
+        jobVisitField5 = json['jobVisitField5'] as String?,
+        jobVisitField6 = json['jobVisitField6'] as String?,
+        jobVisitField7 = json['jobVisitField7'] as String?,
+        jobVisitField8 = json['jobVisitField8'] as String?,
+        jobVisitField9 = json['jobVisitField9'] as String?,
+        jobVisitField10 = json['jobVisitField10'] as String?,
+        jobVisitField11 = json['jobVisitField11'] as String?,
+        jobVisitField12 = json['jobVisitField12'] as String?,
+        jobVisitField13 = json['jobVisitField13'] as String?,
+        jobVisitField14 = json['jobVisitField14'] as String?,
+        jobVisitField15 = json['jobVisitField15'] as String?,
+        jobVisitField16 = json['jobVisitField16'] as String?,
+        jobVisitField17 = json['jobVisitField17'] as String?,
+        jobVisitField18 = json['jobVisitField18'] as String?,
+        jobVisitField19 = json['jobVisitField19'],
+        jobVisitField20 = json['jobVisitField20'],
+        customerSatisfaction = json['customerSatisfaction'] as int?,
+        overallInspection = json['overallInspection'] as int?,
+        surveyRequired = json['surveyRequired'] as bool?,
+        surveyCompleted = json['surveyCompleted'] as bool?,
+        qiRequired = json['qiRequired'] as bool?,
+        qiCompleted = json['qiCompleted'] as bool?,
+        discontinued = json['discontinued'] as bool?,
+        itemTypeId = json['itemTypeId'] as int?,
+        timeSlotId = json['timeSlotId'] as int?,
+        limitedUser = json['limitedUser'] as bool?,
+        isRequestSchedule = json['isRequestSchedule'] as bool?,
+        technicianName = json['technicianName'] as String?,
+        whPickupLocation = json['whPickupLocation'] as String?,
+        salesRepId = json['salesRepId'] as String?,
+        smsSendDate = json['smsSendDate'] as String?,
+        overrideRoutingWarningMessage =
+            json['overrideRoutingWarningMessage'] as String?;
+
   int? paymentMethodId;
   int? visitWorkerId;
 
@@ -1068,212 +968,65 @@ class JobVisitModelDetailsDto {
   String? smsSendDate;
 
   String? overrideRoutingWarningMessage;
-
-  JobVisitModelDetailsDto(this.paymentMethodId,
-      this.visitWorkerId,
-      this.createdByWorkerId,
-      this.workerStartTimeAgree,
-      this.workerFinishTimeAgree,
-      this.workerPaymentCollectedAgree,
-      this.workerPaymentMethodAgree,
-      this.paymentDue,
-      this.paymentDueStr,
-      this.reminderMessage,
-      this.reminderTime,
-      this.visitStatusReasonId,
-      this.visitStatusReasonId2,
-      this.visitStatusReasonId3,
-      this.supervisorCode,
-      this.startTime,
-      this.finishTime,
-      this.paymentCollected,
-      this.paymentCollectedStr,
-      this.customerSmsSentDate,
-      this.customerSendsms,
-      this.jobIdRef,
-      this.siteIdRef,
-      this.jobTypeIdRef,
-      this.jobTypeId,
-      this.visitWorkerIdRef,
-      this.loggedWorkerId,
-      this.jobPoints,
-      this.preInstallCallAttempts,
-      this.preInstallCallCompleted,
-      this.visitStatusId,
-      this.logisticsConfirmed,
-      this.clientVisitNumber,
-      this.isShowTimeDifference,
-      this.bookedDate,
-      this.bookedDateStr,
-      this.projectRegionId,
-      this.jobVisitId,
-      this.createdByProcess,
-      this.dateCreated,
-      this.dateReconciled,
-      this.technicianId,
-      this.bookedTimeSlot,
-      this.routeSequence,
-      this.jobViewedDate,
-      this.acceptedDate,
-      this.otherFsts,
-      this.partner,
-      this.product,
-      this.storeLocation,
-      this.pabtimeslot,
-      this.pabDate,
-      this.pabDateStr,
-      this.nextCallDate,
-      this.isNextCallDate,
-      this.isActionDuedate,
-      this.actionDueTime,
-      this.otdRescheduleRequested,
-      this.routingAlert,
-      this.smsSentDate,
-      this.viewedDate,
-      this.acceptDate,
-      this.priority,
-      this.jobVisitField1,
-      this.jobVisitField2,
-      this.jobVisitField3,
-      this.jobVisitField4,
-      this.jobVisitField5,
-      this.jobVisitField6,
-      this.jobVisitField7,
-      this.jobVisitField8,
-      this.jobVisitField9,
-      this.jobVisitField10,
-      this.jobVisitField11,
-      this.jobVisitField12,
-      this.jobVisitField13,
-      this.jobVisitField14,
-      this.jobVisitField15,
-      this.jobVisitField16,
-      this.jobVisitField17,
-      this.jobVisitField18,
-      this.jobVisitField19,
-      this.jobVisitField20,
-      this.customerSatisfaction,
-      this.overallInspection,
-      this.surveyRequired,
-      this.surveyCompleted,
-      this.qiRequired,
-      this.qiCompleted,
-      this.discontinued,
-      this.itemTypeId,
-      this.timeSlotId,
-      this.limitedUser,
-      this.isRequestSchedule,
-      this.technicianName,
-      this.whPickupLocation,
-      this.salesRepId,
-      this.smsSendDate,
-      this.overrideRoutingWarningMessage);
-
-  factory JobVisitModelDetailsDto.fromJson(Map<String, dynamic> json) {
-    return JobVisitModelDetailsDto(
-        json['paymentMethodId'],
-        json['visitWorkerId'],
-        json['createdByWorkerId'],
-        json['workerStartTimeAgree'],
-        json['workerFinishTimeAgree'],
-        json['workerPaymentCollectedAgree'],
-        json['workerPaymentMethodAgree'],
-        json['paymentDue'],
-        json['paymentDueStr'],
-        json['reminderMessage'],
-        json['reminderTime'] != null ? DateTime.parse(json['reminderTime']) : null,
-        json['visitStatusReasonId'],
-        json['visitStatusReasonId2'],
-        json['visitStatusReasonId3'],
-        json['supervisorCode'],
-        json['startTime'] != null ? DateTime.parse(json['startTime']) : null,
-        json['finishTime'] != null ? DateTime.parse(json['finishTime']) : null,
-        json['paymentCollected'],
-        json['paymentCollectedStr'],
-        json['customerSmsSentDate'] != null ? DateTime.parse(json['customerSmsSentDate']) : null,
-        json['customerSendsms'],
-        json['jobIdRef'],
-        json['siteIdRef'],
-        json['jobTypeIdRef'],
-        json['jobTypeId'],
-        json['visitWorkerIdRef'],
-        json['loggedWorkerId'],
-        json['jobPoints'],
-        json['preInstallCallAttempts'],
-        json['preInstallCallCompleted'],
-        json['visitStatusId'],
-        json['logisticsConfirmed'],
-        json['clientVisitNumber'],
-        json['isShowTimeDifference'],
-        json['bookedDate'] != null ? DateTime.parse(json['bookedDate']) : null,
-        json['bookedDateStr'],
-        json['projectRegionId'],
-        json['jobVisitId'],
-        json['createdByProcess'],
-        DateTime.parse(json['dateCreated']),
-        json['dateReconciled'] != null ? DateTime.parse(json['dateReconciled']) : null,
-        json['technicianId'],
-        json['bookedTimeSlot'],
-        json['routeSequence'],
-        json['jobViewedDate'],
-        json['acceptedDate'],
-        json['otherFsts'],
-        json['partner'],
-        json['product'],
-        json['storeLocation'],
-        json['pabtimeslot'],
-        json['pabDate'] != null ? DateTime.parse(json['pabDate']) : null,
-        json['pabDateStr'],
-        json['nextCallDate'] != null ? DateTime.parse(json['nextCallDate']) : null,
-        json['isNextCallDate'],
-        json['isActionDuedate'],
-        json['actionDueTime'] != null ? DateTime.parse(json['actionDueTime']) : null,
-        json['otdRescheduleRequested'],
-        json['routingAlert'],
-        json['smsSentDate'] != null ? DateTime.parse(json['smsSentDate']) : null,
-        json['viewedDate'] != null ? DateTime.parse(json['viewedDate']) : null,
-        json['acceptDate'] != null ? DateTime.parse(json['acceptDate']) : null,
-        json['priority'],
-        json['jobVisitField1'],
-        json['jobVisitField2'],
-        json['jobVisitField3'],
-        json['jobVisitField4'],
-        json['jobVisitField5'],
-        json['jobVisitField6'],
-        json['jobVisitField7'],
-        json['jobVisitField8'],
-        json['jobVisitField9'],
-        json['jobVisitField10'],
-        json['jobVisitField11'],
-        json['jobVisitField12'],
-        json['jobVisitField13'],
-        json['jobVisitField14'],
-        json['jobVisitField15'],
-        json['jobVisitField16'],
-        json['jobVisitField17'],
-        json['jobVisitField18'],
-        json['jobVisitField19'],
-        json['jobVisitField20'],
-        json['customerSatisfaction'],
-        json['overallInspection'],
-        json['surveyRequired'],
-        json['surveyCompleted'],
-        json['qiRequired'],
-        json['qiCompleted'],
-        json['discontinued'],
-        json['itemTypeId'],
-        json['timeSlotId'],
-        json['limitedUser'],
-        json['isRequestSchedule'],
-        json['technicianName'],
-        json['whPickupLocation'],
-        json['salesRepId'],
-        json['smsSendDate'],
-        json['overrideRoutingWarningMessage']);
-  }
 }
 
 class OriginalValuesDto {
+  OriginalValuesDto(Map<String, dynamic> json)
+      : jobVisitField1 = json['jobVisitField1'] as String?,
+        jobVisitField2 = json['jobVisitField2'] as String?,
+        jobVisitField3 = json['jobVisitField3'] as String?,
+        jobVisitField4 = json['jobVisitField4'] as String?,
+        jobVisitField5 = json['jobVisitField5'] as String?,
+        jobVisitField6 = json['jobVisitField6'] as String?,
+        jobVisitField7 = json['jobVisitField7'] as String?,
+        jobVisitField8 = json['jobVisitField8'] as String?,
+        jobVisitField9 = json['jobVisitField9'] as String?,
+        jobVisitField10 = json['jobVisitField10'] as String?,
+        jobVisitField11 = json['jobVisitField11'] as String?,
+        jobVisitField12 = json['jobVisitField12'] as String?,
+        jobVisitField13 = json['jobVisitField13'] as String?,
+        jobVisitField14 = json['jobVisitField14'] as String?,
+        jobVisitField15 = json['jobVisitField15'] as String?,
+        jobVisitField16 = json['jobVisitField16'] as String?,
+        jobVisitField17 = json['jobVisitField17'] as String?,
+        jobVisitField18 = json['jobVisitField18'] as String?,
+        jobVisitField19 = json['jobVisitField19'] as String?,
+        jobVisitField20 = json['jobVisitField20'] as String?,
+        jobCheck1 = json['jobCheck1'] as bool?,
+        jobCheck2 = json['jobCheck2'] as bool?,
+        jobCheck3 = json['jobCheck3'] as bool?,
+        jobCheck4 = json['jobCheck4'] as bool?,
+        jobCheck5 = json['jobCheck5'] as bool?,
+        jobCheck6 = json['jobCheck6'] as bool?,
+        jobCheck7 = json['jobCheck7'] as bool?,
+        jobCheck8 = json['jobCheck8'] as bool?,
+        jobCheck9 = json['jobCheck9'] as bool?,
+        jobCheck10 = json['jobCheck10'] as bool?,
+        jobCheck11 = json['jobCheck11'] as bool?,
+        jobCheck12 = json['jobCheck12'] as bool?,
+        jobCheck13 = json['jobCheck13'] as bool?,
+        jobCheck14 = json['jobCheck14'] as bool?,
+        jobCheck15 = json['jobCheck15'] as bool?,
+        jobField1 = json['jobField1'] as String?,
+        jobField2 = json['jobField2'] as String?,
+        jobField3 = json['jobField3'] as String?,
+        jobField4 = json['jobField4'] as String?,
+        jobField5 = json['jobField5'] as String?,
+        jobField6 = json['jobField6'] as String?,
+        jobField7 = json['jobField7'] as String?,
+        jobField8 = json['jobField8'] as String?,
+        jobField9 = json['jobField9'] as String?,
+        jobField10 = json['jobField10'] as String?,
+        jobField11 = json['jobField11'] as String?,
+        jobField12 = json['jobField12'] as String?,
+        jobField13 = json['jobField13'] as String?,
+        jobField14 = json['jobField14'] as String?,
+        jobField15 = json['jobField15'] as String?,
+        jobField16 = json['jobField16'] as String?,
+        jobField17 = json['jobField17'] as String?,
+        jobField18 = json['jobField18'] as String?,
+        jobField19 = json['jobField19'] as String?;
+
   String? jobVisitField1;
   String? jobVisitField2;
   String? jobVisitField3;
@@ -1330,141 +1083,61 @@ class OriginalValuesDto {
   String? jobField17;
   String? jobField18;
   String? jobField19;
-
-  OriginalValuesDto(this.jobVisitField1,
-      this.jobVisitField2,
-      this.jobVisitField3,
-      this.jobVisitField4,
-      this.jobVisitField5,
-      this.jobVisitField6,
-      this.jobVisitField7,
-      this.jobVisitField8,
-      this.jobVisitField9,
-      this.jobVisitField10,
-      this.jobVisitField11,
-      this.jobVisitField12,
-      this.jobVisitField13,
-      this.jobVisitField14,
-      this.jobVisitField15,
-      this.jobVisitField16,
-      this.jobVisitField17,
-      this.jobVisitField18,
-      this.jobVisitField19,
-      this.jobVisitField20,
-      this.jobCheck1,
-      this.jobCheck2,
-      this.jobCheck3,
-      this.jobCheck4,
-      this.jobCheck5,
-      this.jobCheck6,
-      this.jobCheck7,
-      this.jobCheck8,
-      this.jobCheck9,
-      this.jobCheck10,
-      this.jobCheck11,
-      this.jobCheck12,
-      this.jobCheck13,
-      this.jobCheck14,
-      this.jobCheck15,
-      this.jobField1,
-      this.jobField2,
-      this.jobField3,
-      this.jobField4,
-      this.jobField5,
-      this.jobField6,
-      this.jobField7,
-      this.jobField8,
-      this.jobField9,
-      this.jobField10,
-      this.jobField11,
-      this.jobField12,
-      this.jobField13,
-      this.jobField14,
-      this.jobField15,
-      this.jobField16,
-      this.jobField17,
-      this.jobField18,
-      this.jobField19);
-
-  factory OriginalValuesDto.fromJson(Map<String, dynamic> json) {
-    return OriginalValuesDto(
-        json['jobVisitField1'],
-        json['jobVisitField2'],
-        json['jobVisitField3'],
-        json['jobVisitField4'],
-        json['jobVisitField5'],
-        json['jobVisitField6'],
-        json['jobVisitField7'],
-        json['jobVisitField8'],
-        json['jobVisitField9'],
-        json['jobVisitField10'],
-        json['jobVisitField11'],
-        json['jobVisitField12'],
-        json['jobVisitField13'],
-        json['jobVisitField14'],
-        json['jobVisitField15'],
-        json['jobVisitField16'],
-        json['jobVisitField17'],
-        json['jobVisitField18'],
-        json['jobVisitField19'],
-        json['jobVisitField20'],
-        json['jobCheck1'],
-        json['jobCheck2'],
-        json['jobCheck3'],
-        json['jobCheck4'],
-        json['jobCheck5'],
-        json['jobCheck6'],
-        json['jobCheck7'],
-        json['jobCheck8'],
-        json['jobCheck9'],
-        json['jobCheck10'],
-        json['jobCheck11'],
-        json['jobCheck12'],
-        json['jobCheck13'],
-        json['jobCheck14'],
-        json['jobCheck15'],
-        json['jobField1'],
-        json['jobField2'],
-        json['jobField3'],
-        json['jobField4'],
-        json['jobField5'],
-        json['jobField6'],
-        json['jobField7'],
-        json['jobField8'],
-        json['jobField9'],
-        json['jobField10'],
-        json['jobField11'],
-        json['jobField12'],
-        json['jobField13'],
-        json['jobField14'],
-        json['jobField15'],
-        json['jobField16'],
-        json['jobField17'],
-        json['jobField18'],
-        json['jobField19']);
-  }
 }
 
 class SaveJobLogsReqDto {
+  SaveJobLogsReqDto(Map<String, dynamic> json)
+      : communicationSaveDtoList =
+            List.of(json['communicationSaveDtoList'] as Iterable<dynamic>)
+                .map((item) => CustomerCommunicationSaveDto(
+                      item as Map<String, dynamic>,
+                    ))
+                .toList(),
+        logDtoList = List.of(json['logDtoList'] as Iterable<dynamic>)
+            .map((item) => LogDto(item as Map<String, dynamic>))
+            .toList();
+
   List<CustomerCommunicationSaveDto> communicationSaveDtoList = [];
   List<LogDto> logDtoList = [];
-
-  SaveJobLogsReqDto(this.communicationSaveDtoList, this.logDtoList);
-
-  factory SaveJobLogsReqDto.fromJson(Map<String, dynamic> json) {
-    return SaveJobLogsReqDto(
-        List.of(json['communicationSaveDtoList'])
-            .map((item) => CustomerCommunicationSaveDto.fromJson(item))
-            .toList(),
-        List.of(json['logDtoList'])
-            .map((item) => LogDto.fromJson(item))
-            .toList());
-  }
 }
 
 class SavePicInformationReqDto {
-  String? updatedRoutingAlert;
+  SavePicInformationReqDto(Map<String, dynamic> json)
+      : updatedRoutingAlert = json['updatedRoutingAlert'] as String?,
+        goodsAtHome = json['goodsAtHome'] as bool?,
+        timeSlotConfirmed = json['timeSlotConfirmed'] as bool?,
+        addressConfirmed = json['addressConfirmed'] as bool?,
+        scopesConfirmed = json['scopesConfirmed'] as bool?,
+        amountOutstanding = json['amountOutstanding'] as bool?,
+        antennaScopes = json['antennaScopes'] as bool?,
+        speakerMountingScopes = json['speakerMountingScopes'] as bool?,
+        dwellingType = json['dwellingType'] as String?,
+        storeyDwelling = json['storeyDwelling'] as String?,
+        roofing = json['roofing'] as String?,
+        doesRoofHaveManhole = json['doesRoofHaveManhole'] as bool?,
+        cabling = json['cabling'] as String?,
+        newOutletNeeded = json['newOutletNeeded'] as bool?,
+        ductRequired = json['ductRequired'] as String?,
+        speciallAdderRequirement = json['speciallAdderRequirement'] as String?,
+        strataBodyCorporatePermissionTaken =
+            json['strataBodyCorporatePermissionTaken'] as String?,
+        mountingSection = json['mountingSection'] as String?,
+        roofAccessGiven = json['roofAccessGiven'] as bool?,
+        powerPointInlocationIfWirelessSpeakers =
+            json['powerPointInlocationIfWirelessSpeakers'] as bool?,
+        screenSize = json['screenSize'] as String?,
+        picComments = json['picComments'] as String?,
+        picChecked = json['picChecked'] as bool?,
+        sMSChecked = json['sMSChecked'] as bool?,
+        oldPreInstallCallAttempts =
+            json['oldPreInstallCallAttempts'] as String?,
+        jobVisitId = json['jobVisitId'] as int?,
+        jobId = json['jobId'] as int?,
+        numericUpDown1 = json['numericUpDown1'] as int?,
+        loggedWorkerId = json['loggedWorkerId'] as int?,
+        isPICInfoCreated = json['isPICInfoCreated'] as bool?;
 
+  String? updatedRoutingAlert;
   bool? goodsAtHome;
   bool? timeSlotConfirmed;
   bool? addressConfirmed;
@@ -1496,90 +1169,40 @@ class SavePicInformationReqDto {
   int? numericUpDown1;
   int? loggedWorkerId;
   bool? isPICInfoCreated;
-
-  SavePicInformationReqDto(this.updatedRoutingAlert,
-      this.goodsAtHome,
-      this.timeSlotConfirmed,
-      this.addressConfirmed,
-      this.scopesConfirmed,
-      this.amountOutstanding,
-      this.antennaScopes,
-      this.speakerMountingScopes,
-      this.dwellingType,
-      this.storeyDwelling,
-      this.roofing,
-      this.doesRoofHaveManhole,
-      this.cabling,
-      this.newOutletNeeded,
-      this.ductRequired,
-      this.speciallAdderRequirement,
-      this.strataBodyCorporatePermissionTaken,
-      this.mountingSection,
-      this.roofAccessGiven,
-      this.powerPointInlocationIfWirelessSpeakers,
-      this.screenSize,
-      this.picComments,
-      this.picChecked,
-      this.sMSChecked,
-      this.oldPreInstallCallAttempts,
-      this.jobVisitId,
-      this.jobId,
-      this.numericUpDown1,
-      this.loggedWorkerId,
-      this.isPICInfoCreated);
-
-  factory SavePicInformationReqDto.fromJson(Map<String, dynamic> json) {
-    return SavePicInformationReqDto(
-        json['updatedRoutingAlert'],
-        json['goodsAtHome'],
-        json['timeSlotConfirmed'],
-        json['addressConfirmed'],
-        json['scopesConfirmed'],
-        json['amountOutstanding'],
-        json['antennaScopes'],
-        json['speakerMountingScopes'],
-        json['dwellingType'],
-        json['storeyDwelling'],
-        json['roofing'],
-        json['doesRoofHaveManhole'],
-        json['cabling'],
-        json['newOutletNeeded'],
-        json['ductRequired'],
-        json['speciallAdderRequirement'],
-        json['strataBodyCorporatePermissionTaken'],
-        json['mountingSection'],
-        json['roofAccessGiven'],
-        json['powerPointInlocationIfWirelessSpeakers'],
-        json['screenSize'],
-        json['picComments'],
-        json['picChecked'],
-        json['sMSChecked'],
-        json['oldPreInstallCallAttempts'],
-        json['jobVisitId'],
-        json['jobId'],
-        json['numericUpDown1'],
-        json['loggedWorkerId'],
-        json['isPICInfoCreated']);
-  }
 }
 
 class CustomerCommunicationSaveDto {
+  CustomerCommunicationSaveDto(Map<String, dynamic> json)
+      : customerId = json['customerId'] as int?,
+        comment = json['comment'] as String?,
+        reasonId = json['reasonId'] as int?,
+        requireFollowUp = json['requireFollowUp'] as bool,
+        siteId = json['siteId'] as int;
+
   int? customerId;
   String? comment;
   int? reasonId;
   bool requireFollowUp = false;
   int siteId = 0;
-
-  CustomerCommunicationSaveDto(this.customerId, this.comment, this.reasonId,
-      this.requireFollowUp, this.siteId);
-
-  factory CustomerCommunicationSaveDto.fromJson(Map<String, dynamic> json) {
-    return CustomerCommunicationSaveDto(json['customerId'], json['comment'],
-        json['reasonId'], json['requireFollowUp'], json['siteId']);
-  }
 }
 
 class LogDto {
+  LogDto(Map<String, dynamic> json)
+      : logId = json['logId'] as int,
+        id = json['id'] as int?,
+        idtype = json['idtype'] as String,
+        logType = json['logType'] as String,
+        workerId = json['workerId'] as int?,
+        eventDate = DateTime.parse(json['eventDate'] as String),
+        logDate = DateTime.parse(json['logDate'] as String),
+        eventDesc = json['eventDesc'] as String?,
+        tableChanged = json['tableChanged'] as String?,
+        fieldChanged = json['fieldChanged'] as String?,
+        oldValue = json['oldValue'] as String?,
+        newValue = json['newValue'] as String?,
+        amount = json['amount'] as double?,
+        silcarId = json['silcarId'] as int?;
+
   int logId = 0;
   int? id; // jobVisitId
   String idtype = 'JobVisit';
@@ -1595,37 +1218,4 @@ class LogDto {
   String? newValue;
   double? amount;
   int? silcarId;
-
-  LogDto(this.logId,
-      this.id,
-      this.idtype,
-      this.logType,
-      this.workerId,
-      this.eventDate,
-      this.logDate,
-      this.eventDesc,
-      this.tableChanged,
-      this.fieldChanged,
-      this.oldValue,
-      this.newValue,
-      this.amount,
-      this.silcarId);
-
-  factory LogDto.fromJson(Map<String, dynamic> json) {
-    return LogDto(
-        json['logId'],
-        json['id'],
-        json['idtype'],
-        json['logType'],
-        json['workerId'],
-        DateTime.parse(json['eventDate']),
-        DateTime.parse(json['logDate']),
-        json['eventDesc'],
-        json['tableChanged'],
-        json['fieldChanged'],
-        json['oldValue'],
-        json['newValue'],
-        json['amount'],
-        json['silcarId']);
-  }
 }

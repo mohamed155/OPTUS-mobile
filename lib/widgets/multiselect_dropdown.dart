@@ -1,9 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:multi_select_flutter/multi_select_flutter.dart';
-
 import 'package:tech2/interfaces/has_map.dart';
 
 class MultiselectDropdown<V> extends StatefulWidget {
+  const MultiselectDropdown({
+    super.key,
+    required this.items,
+    required this.value,
+    required this.valueProp,
+    required this.labelProp,
+    required this.label,
+    required this.onChanged,
+    this.isLoading,
+  });
+
   final List<Mappable> items;
   final List<V> value;
   final String valueProp;
@@ -11,17 +21,6 @@ class MultiselectDropdown<V> extends StatefulWidget {
   final String label;
   final bool? isLoading;
   final void Function(List<V>) onChanged;
-
-  const MultiselectDropdown(
-      {Key? key,
-      required this.items,
-      required this.value,
-      required this.valueProp,
-      required this.labelProp,
-      required this.label,
-      required this.onChanged,
-      this.isLoading})
-      : super(key: key);
 
   @override
   State<MultiselectDropdown<V>> createState() => _MultiselectDropdownState<V>();
@@ -51,30 +50,37 @@ class _MultiselectDropdownState<V> extends State<MultiselectDropdown<V>> {
               child: Stack(
                 children: [
                   MultiSelectDialogField<V>(
-                      key: GlobalKey(),
-                      buttonIcon: const Icon(Icons.arrow_drop_down),
-                      initialValue: widget.value,
-                      items: widget.items
-                          .map((item) => MultiSelectItem<V>(
-                              item.toMap()[widget.valueProp],
-                              item.toMap()[widget.labelProp]))
-                          .toList(),
-                      onConfirm: widget.onChanged),
+                    key: GlobalKey(),
+                    buttonIcon: const Icon(Icons.arrow_drop_down),
+                    initialValue: widget.value,
+                    items: widget.items
+                        .map(
+                          (item) => MultiSelectItem<V>(
+                            item.toMap()[widget.valueProp] as V,
+                            item.toMap()[widget.labelProp] as String,
+                          ),
+                        )
+                        .toList(),
+                    onConfirm: widget.onChanged,
+                  ),
                   ...widget.isLoading != null && widget.isLoading!
                       ? [
-                          Positioned(
-                              top: 12,
-                              right: 10,
-                              child: SizedBox(
-                                  width: 20,
-                                  height: 20,
-                                  child: Container(
-                                    decoration: const BoxDecoration(
-                                        color: Colors.white),
-                                    child: const CircularProgressIndicator(
-                                      strokeWidth: 3,
-                                    ),
-                                  )))
+                          const Positioned(
+                            top: 12,
+                            right: 10,
+                            child: SizedBox(
+                              width: 20,
+                              height: 20,
+                              child: DecoratedBox(
+                                decoration: BoxDecoration(
+                                  color: Colors.white,
+                                ),
+                                child: CircularProgressIndicator(
+                                  strokeWidth: 3,
+                                ),
+                              ),
+                            ),
+                          )
                         ]
                       : []
                 ],

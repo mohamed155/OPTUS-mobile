@@ -5,22 +5,22 @@ import 'package:tech2/modules/jobs/widgets/add_item.dart';
 import 'package:tech2/services/security.dart';
 
 class JobItems extends StatefulWidget {
-  final int jobId;
-  final int jobTypeId;
-  final int jobVisitId;
-  final int projectId;
-  final int projectRegionId;
-  final int sourceCustomerId;
-
   const JobItems({
-    Key? key,
+    super.key,
     required this.jobId,
     required this.jobTypeId,
     required this.jobVisitId,
     required this.projectId,
     required this.projectRegionId,
     required this.sourceCustomerId,
-  }) : super(key: key);
+  });
+
+  final int jobId;
+  final int jobTypeId;
+  final int jobVisitId;
+  final int projectId;
+  final int projectRegionId;
+  final int sourceCustomerId;
 
   @override
   State<JobItems> createState() => _JobItemsState();
@@ -41,68 +41,78 @@ class _JobItemsState extends State<JobItems> {
     loadAddableItems();
   }
 
-  loadJobItems() {
+  void loadJobItems() {
     setState(() => loading = true);
-    ItemsService.getJobItemTaskCodes(widget.jobId, true)
+    ItemsService()
+        .getJobItemTaskCodes(widget.jobId, isShowAll: true)
         .then((res) => setState(() => items = res))
         .whenComplete(() => setState(() => loading = false));
   }
 
-  loadAddableItems() {
-    var model = JobTypeItemByWorkerPermissionDto(
-        false, 2, widget.jobTypeId, SecurityService.workerId);
-    ItemsService.getJobTypeItemByWorkerPermission(model)
+  void loadAddableItems() {
+    final model = JobTypeItemByWorkerPermissionDto(
+      2,
+      widget.jobTypeId,
+      SecurityService.workerId,
+      discontinued: false,
+    );
+    ItemsService()
+        .getJobTypeItemByWorkerPermission(model)
         .then((res) => setState(() => addableItems = res));
   }
 
-  openAddItem() {
-    return showDialog(
-        context: context,
-        builder: (_) => AlertDialog(
-              shadowColor: Colors.transparent,
-              shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(10)),
-              backgroundColor: Colors.transparent,
-              content: AddItem(
-                items: addableItems!,
-                jobId: widget.jobId,
-                jobVisitId: widget.jobVisitId,
-                projectId: widget.projectId,
-              ),
-            )).then((_) => loadJobItems());
+  Future<void> openAddItem() {
+    return showDialog<void>(
+      context: context,
+      builder: (_) => AlertDialog(
+        shadowColor: Colors.transparent,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(10),
+        ),
+        backgroundColor: Colors.transparent,
+        content: AddItem(
+          items: addableItems!,
+          jobId: widget.jobId,
+          jobVisitId: widget.jobVisitId,
+          projectId: widget.projectId,
+        ),
+      ),
+    ).then((_) => loadJobItems());
   }
 
-  deleteItem(JobItemTaskCodesDto item) {
+  void deleteItem(JobItemTaskCodesDto item) {
     setState(() => loading = true);
-    var model = DeleteItemDto(
-        true,
-        true,
-        item.jobItemId!,
-        widget.jobId,
-        widget.jobVisitId,
-        widget.projectId,
-        widget.projectRegionId,
-        widget.sourceCustomerId,
-        SecurityService.workerId,
-        true);
-    ItemsService.deleteTaskCodeItem(model).then((_) => loadJobItems());
+    final model = DeleteItemDto(
+      item.jobItemId!,
+      widget.jobId,
+      widget.jobVisitId,
+      widget.projectId,
+      widget.projectRegionId,
+      widget.sourceCustomerId,
+      SecurityService.workerId,
+      isCheckMandatory: true,
+      isDeleted: true,
+      isShowDeleted: true,
+    );
+    ItemsService().deleteTaskCodeItem(model).then((_) => loadJobItems());
   }
 
-  updateItem(JobItemTaskCodesDto item) {
-    var model = SaveJobItemDto(
-        item.jobItemId!,
-        item.qty!,
-        false,
-        item.oktoPay!,
-        item.oktoBill!,
-        double.parse(item.discountAmount.replaceFirst('\$', '')),
-        widget.jobVisitId,
-        item.skipNextClaim!,
-        item.skipNextPayment!,
-        false,
-        widget.jobId,
-        item.itemId!);
-    ItemsService.saveJobItem(model);
+  void updateItem(JobItemTaskCodesDto item) {
+    final model = SaveJobItemDto(
+      item.jobItemId!,
+      item.qty!,
+      double.parse(item.discountAmount.replaceFirst('\$', '')),
+      widget.jobVisitId,
+      widget.jobId,
+      item.itemId!,
+      isCheckMandatory: false,
+      isJobAddNegativeQuantity: false,
+      okToPay: item.oktoPay!,
+      okToBill: item.oktoBill!,
+      skipNextClaim: item.skipNextClaim!,
+      skipNextPayment: item.skipNextPayment!,
+    );
+    ItemsService().saveJobItem(model);
   }
 
   @override
@@ -114,17 +124,18 @@ class _JobItemsState extends State<JobItems> {
       body: Container(
         height: double.infinity,
         decoration: const BoxDecoration(
-            gradient: RadialGradient(radius: 1, colors: [
-          Colors.black87,
-          Colors.black,
-        ], stops: [
-          0.1,
-          10
-        ])),
+          gradient: RadialGradient(
+            radius: 1,
+            colors: [
+              Colors.black87,
+              Colors.black,
+            ],
+            stops: [0.1, 10],
+          ),
+        ),
         child: !loading && items != null
             ? items!.isNotEmpty
                 ? ListView.builder(
-                    scrollDirection: Axis.vertical,
                     shrinkWrap: true,
                     itemCount: items!.length,
                     itemBuilder: (_, index) {
@@ -151,8 +162,10 @@ class _JobItemsState extends State<JobItems> {
                                   ),
                                   Row(
                                     children: [
-                                      Text('Paid to worker: ',
-                                          style: labelFontStyle),
+                                      Text(
+                                        'Paid to worker: ',
+                                        style: labelFontStyle,
+                                      ),
                                       Text(items![index].fullName)
                                     ],
                                   ),
@@ -184,8 +197,10 @@ class _JobItemsState extends State<JobItems> {
                                       ? [
                                           Row(
                                             children: [
-                                              Text('NAV ID: ',
-                                                  style: labelFontStyle),
+                                              Text(
+                                                'NAV ID: ',
+                                                style: labelFontStyle,
+                                              ),
                                               Text(items![index].navId!)
                                             ],
                                           )
@@ -197,12 +212,12 @@ class _JobItemsState extends State<JobItems> {
                                         children: [
                                           Text('Pay: ', style: labelFontStyle),
                                           Checkbox(
-                                            side: const BorderSide(
-                                                color: Colors.black),
                                             value: items![index].oktoPay,
                                             onChanged: (bool? value) {
-                                              setState(() => items![index]
-                                                  .oktoPay = value);
+                                              setState(
+                                                () => items![index].oktoPay =
+                                                    value,
+                                              );
                                               updateItem(items![index]);
                                             },
                                           )
@@ -215,12 +230,12 @@ class _JobItemsState extends State<JobItems> {
                                         children: [
                                           Text('Bill: ', style: labelFontStyle),
                                           Checkbox(
-                                            side: const BorderSide(
-                                                color: Colors.black),
                                             value: items![index].oktoBill,
                                             onChanged: (bool? value) {
-                                              setState(() => items![index]
-                                                  .oktoBill = value);
+                                              setState(
+                                                () => items![index].oktoBill =
+                                                    value,
+                                              );
                                               updateItem(items![index]);
                                             },
                                           )
@@ -232,33 +247,37 @@ class _JobItemsState extends State<JobItems> {
                               ),
                             ),
                             Positioned(
-                                top: 5,
-                                right: 5,
-                                child: PopupMenuButton(
-                                  itemBuilder: (BuildContext context) => [
-                                    PopupMenuItem(
-                                        value: 'delete',
-                                        onTap: () => deleteItem(items![index]),
-                                        child: Row(
-                                          children: const [
-                                            Icon(Icons.delete),
-                                            SizedBox(
-                                              width: 10,
-                                            ),
-                                            Text('Delete')
-                                          ],
-                                        ))
-                                  ],
-                                ))
+                              top: 5,
+                              right: 5,
+                              child: PopupMenuButton(
+                                itemBuilder: (BuildContext context) => [
+                                  PopupMenuItem(
+                                    value: 'delete',
+                                    onTap: () => deleteItem(items![index]),
+                                    child: Row(
+                                      children: const [
+                                        Icon(Icons.delete),
+                                        SizedBox(
+                                          width: 10,
+                                        ),
+                                        Text('Delete')
+                                      ],
+                                    ),
+                                  )
+                                ],
+                              ),
+                            )
                           ],
                         ),
                       );
-                    })
+                    },
+                  )
                 : const Center(
                     child: Text(
-                    'No items for this job',
-                    style: TextStyle(color: Colors.white),
-                  ))
+                      'No items for this job',
+                      style: TextStyle(color: Colors.white),
+                    ),
+                  )
             : Center(
                 child: SizedBox(
                   width: 90,

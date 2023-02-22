@@ -4,13 +4,16 @@ import 'package:syncfusion_flutter_datepicker/datepicker.dart';
 import 'package:tech2/utilities/date_formatter.dart';
 
 class DatePicker extends StatefulWidget {
+  const DatePicker({
+    super.key,
+    required this.value,
+    required this.onChanged,
+    this.hasErrors,
+  });
+
   final DateTime? value;
   final void Function(DateTime value) onChanged;
   final bool? hasErrors;
-
-  const DatePicker(
-      {Key? key, required this.value, required this.onChanged, this.hasErrors})
-      : super(key: key);
 
   @override
   State<DatePicker> createState() => _DatePickerState();
@@ -25,7 +28,8 @@ class _DatePickerState extends State<DatePicker> {
 
   TextDateFormatter dateFormatter = TextDateFormatter();
 
-  OutlineInputBorder inputBorder(bool hasError) => OutlineInputBorder(
+  OutlineInputBorder inputBorder({required bool hasError}) =>
+      OutlineInputBorder(
         borderSide: BorderSide(color: hasError ? Colors.red : Colors.white),
         borderRadius: BorderRadius.circular(10),
       );
@@ -40,8 +44,8 @@ class _DatePickerState extends State<DatePicker> {
     }
   }
 
-  _validateDateString(String text) =>
-      RegExp(r'^([0-2][0-9]|(3)[0-1])(/)(((0)[0-9])|((1)[0-2]))(/)\d{4}$')
+  bool _validateDateString(String text) =>
+      RegExp(r'^([0-2]\d|(3)[0-1])(/)(((0)\d)|((1)[0-2]))(/)\d{4}$')
           .hasMatch(text);
 
   void _cancelHandler(BuildContext context) {
@@ -55,13 +59,14 @@ class _DatePickerState extends State<DatePicker> {
 
   void _onSelectionChanged(DateRangePickerSelectionChangedArgs args) {
     setState(() {
-      value = args.value;
-      textController.text = DateFormatter.formatDate(args.value);
+      value = args.value as DateTime?;
+      textController.text = DateFormatter.formatDate(value!);
     });
   }
 
-  _openDateDialog() {
-    Navigator.of(context).push(DialogRoute(
+  void _openDateDialog() {
+    Navigator.of(context).push(
+      DialogRoute<Widget>(
         context: context,
         builder: (_) {
           return Center(
@@ -69,36 +74,43 @@ class _DatePickerState extends State<DatePicker> {
               width: 300,
               height: 350,
               decoration: BoxDecoration(
-                  color: Colors.white, borderRadius: BorderRadius.circular(10)),
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(10),
+              ),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
                   SfDateRangePicker(
-                    selectionMode: DateRangePickerSelectionMode.single,
                     onSelectionChanged: _onSelectionChanged,
                   ),
                   Row(
                     children: [
                       Expanded(
-                          child: TextButton(
-                              onPressed: () => _cancelHandler(context),
-                              child: const Text('Cancel'))),
+                        child: TextButton(
+                          onPressed: () => _cancelHandler(context),
+                          child: const Text('Cancel'),
+                        ),
+                      ),
                       Expanded(
-                          child: TextButton(
-                              onPressed: () => _okHandler(context),
-                              child: const Text('OK'))),
+                        child: TextButton(
+                          onPressed: () => _okHandler(context),
+                          child: const Text('OK'),
+                        ),
+                      ),
                     ],
                   )
                 ],
               ),
             ),
           );
-        }));
+        },
+      ),
+    );
   }
 
-  _onChangeText(String text) {
+  void _onChangeText(String text) {
     if (_validateDateString(text)) {
-      List<int> dateArr = text.split('/').map((str) => int.parse(str)).toList();
+      final dateArr = text.split('/').map(int.parse).toList();
       setState(() {
         value = DateTime(dateArr[2], dateArr[1], dateArr[0]);
         widget.onChanged(value!);
@@ -125,11 +137,15 @@ class _DatePickerState extends State<DatePicker> {
               ),
               onPressed: _openDateDialog,
             ),
-            border: inputBorder(widget.hasErrors != null && widget.hasErrors!),
-            enabledBorder:
-                inputBorder(widget.hasErrors != null && widget.hasErrors!),
-            focusedBorder:
-                inputBorder(widget.hasErrors != null && widget.hasErrors!),
+            border: inputBorder(
+              hasError: widget.hasErrors != null && widget.hasErrors!,
+            ),
+            enabledBorder: inputBorder(
+              hasError: widget.hasErrors != null && widget.hasErrors!,
+            ),
+            focusedBorder: inputBorder(
+              hasError: widget.hasErrors != null && widget.hasErrors!,
+            ),
           ),
           validator: (String? value) {
             if (value != null &&
@@ -150,18 +166,21 @@ class _DatePickerState extends State<DatePicker> {
 class TextDateFormatter extends TextInputFormatter {
   @override
   TextEditingValue formatEditUpdate(
-      TextEditingValue oldValue, TextEditingValue newValue) {
-    String text = newValue.text;
-    String oldText = oldValue.text;
-    int cursorIndex = newValue.selection.end;
+    TextEditingValue oldValue,
+    TextEditingValue newValue,
+  ) {
+    var text = newValue.text;
+    final oldText = oldValue.text;
+    var cursorIndex = newValue.selection.end;
     if ((!RegExp(r'^\d*(?:[/\d]*)?$').hasMatch(text)) || text.length > 10) {
       cursorIndex--;
       return TextEditingValue(
-          text: oldText,
-          selection: TextSelection.collapsed(offset: cursorIndex));
+        text: oldText,
+        selection: TextSelection.collapsed(offset: cursorIndex),
+      );
     }
     if (text.isNotEmpty && text.length < 10 && text.length >= oldText.length) {
-      List<String> dateParts = text.split('/');
+      final dateParts = text.split('/');
       switch (dateParts.length) {
         case 1:
           if (dateParts[0].length == 1 && int.parse(dateParts[0]) > 3) {
@@ -228,11 +247,14 @@ class TextDateFormatter extends TextInputFormatter {
       if (text.length == 2 || text.length == 5) {
         cursorIndex++;
         return TextEditingValue(
-            text: '$text/',
-            selection: TextSelection.collapsed(offset: cursorIndex));
+          text: '$text/',
+          selection: TextSelection.collapsed(offset: cursorIndex),
+        );
       }
     }
     return TextEditingValue(
-        text: text, selection: TextSelection.collapsed(offset: cursorIndex));
+      text: text,
+      selection: TextSelection.collapsed(offset: cursorIndex),
+    );
   }
 }

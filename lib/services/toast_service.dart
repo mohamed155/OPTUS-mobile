@@ -2,8 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:tech2/services/navigation_service.dart';
 
 class ToastService {
-  static void showSuccessMessage(String message) {
-    BuildContext? cxt = NavigationService.navigationKey.currentContext;
+  factory ToastService() {
+    return _instance;
+  }
+
+  ToastService._create();
+
+  static final ToastService _instance = ToastService._create();
+
+  void showSuccessMessage(String message) {
+    final cxt = NavigationService().navigationKey.currentContext;
     if (cxt != null) {
       ScaffoldMessenger.of(cxt).showSnackBar(SnackBar(
         content: Text(
@@ -15,8 +23,8 @@ class ToastService {
     }
   }
 
-  static void showInfoMessage(String message) {
-    BuildContext? cxt = NavigationService.navigationKey.currentContext;
+  void showInfoMessage(String message) {
+    final cxt = NavigationService().navigationKey.currentContext;
     if (cxt != null) {
       ScaffoldMessenger.of(cxt).showSnackBar(SnackBar(
         content: Text(
@@ -28,8 +36,8 @@ class ToastService {
     }
   }
 
-  static void showWarningMessage(String message) {
-    BuildContext? cxt = NavigationService.navigationKey.currentContext;
+  void showWarningMessage(String message) {
+    final cxt = NavigationService().navigationKey.currentContext;
     if (cxt != null) {
       ScaffoldMessenger.of(cxt).showSnackBar(SnackBar(
         content: Text(
@@ -42,7 +50,7 @@ class ToastService {
   }
 
   static void showErrorMessage(String message) {
-    BuildContext? cxt = NavigationService.navigationKey.currentContext;
+    final cxt = NavigationService().navigationKey.currentContext;
     if (cxt != null) {
       ScaffoldMessenger.of(cxt).showSnackBar(SnackBar(
         content: Text(

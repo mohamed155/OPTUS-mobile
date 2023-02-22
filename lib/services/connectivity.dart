@@ -1,58 +1,44 @@
 import 'package:connectivity_plus/connectivity_plus.dart';
+import 'package:http/http.dart';
 import 'package:http_interceptor/extensions/extensions.dart';
 import 'package:http_interceptor/http/http.dart';
 import 'package:tech2/interfaces/has_map.dart';
 import 'package:tech2/services/http_interceptors.dart';
-import 'package:tech2/services/storage.dart';
 import 'package:tech2/utilities/json_converter.dart';
 
 class ConnectivityService {
-  static final _http = InterceptedHttp.build(interceptors: [APIInterceptors()]);
+  factory ConnectivityService() {
+    return _instance;
+  }
+
+  ConnectivityService._create();
+
+  static final ConnectivityService _instance = ConnectivityService._create();
+
+  final _http = InterceptedHttp.build(interceptors: [APIInterceptors()]);
 
   static Future<ConnectivityResult> checkConnectivity() {
     return Connectivity().checkConnectivity();
   }
 
-  static Future getData(String url, [Mappable? params]) {
-    return ConnectivityService.checkConnectivity()
-        .then((ConnectivityResult connectivityResult) {
-      if (connectivityResult == ConnectivityResult.none) {
-        return StorageService.retrieve(url);
-      } else {
-        if (params != null) {
-          return _http.get(url.toUri(), params: params.toMap());
-        } else {
-          return _http.get(url.toUri());
-        }
-      }
-    });
+  Future<Response> getData(String url, [Mappable? params]) {
+    if (params != null) {
+      return _http.get(url.toUri(), params: params.toMap());
+    } else {
+      return _http.get(url.toUri());
+    }
   }
 
-  static Future sendData(String url, [Mappable? body]) {
-    return ConnectivityService.checkConnectivity()
-        .then((ConnectivityResult connectivityResult) {
-      if (connectivityResult == ConnectivityResult.none) {
-        return StorageService.store(
-            key: 'post_requests', value: '$url?${body?.toMap().toString()}');
-      } else {
-        if (body != null) {
-          var json = JSONConverter.encode(body.toMap());
-          return _http.post(url.toUri(), body: json);
-        } else {
-          return _http.post(url.toUri());
-        }
-      }
-    });
+  Future<Response> sendData(String url, [Mappable? body]) {
+    if (body != null) {
+      final json = JSONConverter.encode(body.toMap());
+      return _http.post(url.toUri(), body: json);
+    } else {
+      return _http.post(url.toUri());
+    }
   }
 
-  static Future deleteData(String url) {
-    return ConnectivityService.checkConnectivity()
-        .then((ConnectivityResult connectivityResult) {
-      if (connectivityResult == ConnectivityResult.none) {
-        return StorageService.remove(key: url);
-      } else {
-        return _http.delete(url.toUri());
-      }
-    });
+  Future<Response> deleteData(String url) {
+    return _http.delete(url.toUri());
   }
 }

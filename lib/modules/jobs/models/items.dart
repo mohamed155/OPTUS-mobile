@@ -1,6 +1,57 @@
 import 'package:tech2/interfaces/has_map.dart';
 
 class JobItemTaskCodesDto implements Mappable {
+  JobItemTaskCodesDto(Map<String, dynamic> json)
+      : jobItemId = json['jobItemId'] as int,
+        jobId = json['jobId'] as int,
+        itemId = json['itemId'] as int,
+        itemCode = json['itemCode'] as String,
+        itemName = json['itemName'] as String,
+        quoteJobVisitId = json['quoteJobVisitId'] as int,
+        usedJobVisitId = json['usedJobVisitId'] as int,
+        techAgreeCode = json['techAgreeCode'] as String,
+        saleAmount = json['saleAmount'] as String,
+        discountAmount = json['discountAmount'] as String,
+        netAmount = json['netAmount'] as String,
+        itemCodeName = json['itemCodeName'] as String,
+        itemDeleted = json['itemDeleted'] as bool?,
+        invoiceId = json['invoiceId'] as int,
+        franchiseePaymentId = json['franchiseePaymentId'] as int,
+        franchiseeDrpaymentId = json['franchiseeDrpaymentId'] as int,
+        projectPeriodId = json['projectPeriodId'] as int,
+        payPeriodId = json['payPeriodId'] as int,
+        billToCustomerId = json['billToCustomerId'] as int,
+        customerContractEntitlementId =
+            json['customerContractEntitlementId'] as int,
+        oktoBill = json['oktoBill'] as bool?,
+        oktoPay = json['oktoPay'] as bool?,
+        invoiceNumber = json['invoiceNumber'] as String?,
+        paymentDate = json['paymentDate'] != null
+            ? DateTime.parse(json['paymentDate'] as String)
+            : null,
+        createdByProcess = json['createdByProcess'] as String?,
+        parentJobItemId = json['parentJobItemId'] as int?,
+        jobStatusType = json['jobStatusType'] as String?,
+        fullName = json['fullName'] as String,
+        outofhours = json['outofhours'] as bool?,
+        companyName = json['companyName'] as String,
+        jobItemTransIdPay = json['jobItemTransIdPay'] as int?,
+        quoteQty = json['quoteQty'] as double?,
+        qty = json['qty'] as double?,
+        adminAgreeCode = json['adminAgreeCode'] as String?,
+        workUnits = json['workUnits'] as double,
+        skipNextClaim = json['skipNextClaim'] as bool?,
+        skipNextPayment = json['skipNextPayment'] as bool?,
+        custAgreeCode = json['custAgreeCode'] as String?,
+        isExtractedBill = json['isExtractedBill'] as bool?,
+        isExtractedPay = json['isExtractedPay'] as bool?,
+        isLockedBill = json['isLockedBill'] as bool?,
+        isLockedPay = json['isLockedPay'] as bool?,
+        enableOutOfHours = json['enableOutOfHours'] as bool?,
+        periodEndDate = json['periodEndDate'] as String?,
+        visitStatusId = json['visitStatusId'] as int?,
+        navId = json['navId'] as String?;
+
   int? jobItemId;
   int? jobId;
   int? itemId;
@@ -47,56 +98,6 @@ class JobItemTaskCodesDto implements Mappable {
   String? periodEndDate;
   int? visitStatusId;
   String? navId;
-
-  JobItemTaskCodesDto(Map<String, dynamic> json)
-      : jobItemId = json['jobItemId'],
-        jobId = json['jobId'],
-        itemId = json['itemId'],
-        itemCode = json['itemCode'],
-        itemName = json['itemName'],
-        quoteJobVisitId = json['quoteJobVisitId'],
-        usedJobVisitId = json['usedJobVisitId'],
-        techAgreeCode = json['techAgreeCode'],
-        saleAmount = json['saleAmount'],
-        discountAmount = json['discountAmount'],
-        netAmount = json['netAmount'],
-        itemCodeName = json['itemCodeName'],
-        itemDeleted = json['itemDeleted'],
-        invoiceId = json['invoiceId'],
-        franchiseePaymentId = json['franchiseePaymentId'],
-        franchiseeDrpaymentId = json['franchiseeDrpaymentId'],
-        projectPeriodId = json['projectPeriodId'],
-        payPeriodId = json['payPeriodId'],
-        billToCustomerId = json['billToCustomerId'],
-        customerContractEntitlementId = json['customerContractEntitlementId'],
-        oktoBill = json['oktoBill'],
-        oktoPay = json['oktoPay'],
-        invoiceNumber = json['invoiceNumber'],
-        paymentDate = json['paymentDate'] != null
-            ? DateTime.parse(json['paymentDate'])
-            : null,
-        createdByProcess = json['createdByProcess'],
-        parentJobItemId = json['parentJobItemId'],
-        jobStatusType = json['jobStatusType'],
-        fullName = json['fullName'],
-        outofhours = json['outofhours'],
-        companyName = json['companyName'],
-        jobItemTransIdPay = json['jobItemTransIdPay'],
-        quoteQty = json['quoteQty'],
-        qty = json['qty'],
-        adminAgreeCode = json['adminAgreeCode'],
-        workUnits = json['workUnits'],
-        skipNextClaim = json['skipNextClaim'],
-        skipNextPayment = json['skipNextPayment'],
-        custAgreeCode = json['custAgreeCode'],
-        isExtractedBill = json['isExtractedBill'],
-        isExtractedPay = json['isExtractedPay'],
-        isLockedBill = json['isLockedBill'],
-        isLockedPay = json['isLockedPay'],
-        enableOutOfHours = json['enableOutOfHours'],
-        periodEndDate = json['periodEndDate'],
-        visitStatusId = json['visitStatusId'],
-        navId = json['navId'];
 
   @override
   Map<String, dynamic> toMap() {
@@ -152,13 +153,17 @@ class JobItemTaskCodesDto implements Mappable {
 }
 
 class JobTypeItemByWorkerPermissionDto implements Mappable {
+  JobTypeItemByWorkerPermissionDto(
+    this.itemTypeid,
+    this.jobTypeId,
+    this.workerId, {
+    required this.discontinued,
+  });
+
   bool discontinued;
   int itemTypeid;
   int jobTypeId;
   int workerId;
-
-  JobTypeItemByWorkerPermissionDto(
-      this.discontinued, this.itemTypeid, this.jobTypeId, this.workerId);
 
   @override
   Map<String, dynamic> toMap() {
@@ -172,18 +177,35 @@ class JobTypeItemByWorkerPermissionDto implements Mappable {
 }
 
 class JobItemsArgs {
+  JobItemsArgs(
+    this.jobId,
+    this.jobTypeId,
+    this.jobVisitId,
+    this.projectId,
+    this.projectRegionId,
+    this.sourceCustomerId,
+  );
+
   int jobId;
   int jobTypeId;
   int jobVisitId;
   int projectId;
   int projectRegionId;
   int sourceCustomerId;
-
-  JobItemsArgs(this.jobId, this.jobTypeId, this.jobVisitId, this.projectId,
-      this.projectRegionId, this.sourceCustomerId);
 }
 
 class AddTaskCodeItemDto implements Mappable {
+  AddTaskCodeItemDto(
+    this.itemId,
+    this.jobId,
+    this.quantity,
+    this.jobVisitId,
+    this.projectId,
+    this.loggedWorkerId,
+    this.quantityTasks, {
+    required this.isCheckMandatory,
+  });
+
   int itemId;
   int jobId;
   int quantity;
@@ -192,16 +214,6 @@ class AddTaskCodeItemDto implements Mappable {
   int loggedWorkerId;
   bool isCheckMandatory;
   int quantityTasks;
-
-  AddTaskCodeItemDto(
-      this.itemId,
-      this.jobId,
-      this.quantity,
-      this.jobVisitId,
-      this.projectId,
-      this.loggedWorkerId,
-      this.isCheckMandatory,
-      this.quantityTasks);
 
   @override
   Map<String, dynamic> toMap() {
@@ -219,6 +231,19 @@ class AddTaskCodeItemDto implements Mappable {
 }
 
 class DeleteItemDto implements Mappable {
+  DeleteItemDto(
+    this.jobItemId,
+    this.jobId,
+    this.jobVisitId,
+    this.projectId,
+    this.projectRegionId,
+    this.sourceCustomerId,
+    this.loggedWorkerId, {
+    required this.isDeleted,
+    required this.isCheckMandatory,
+    required this.isShowDeleted,
+  });
+
   bool isDeleted;
   bool isCheckMandatory;
   int jobItemId;
@@ -229,18 +254,6 @@ class DeleteItemDto implements Mappable {
   int sourceCustomerId;
   int loggedWorkerId;
   bool isShowDeleted;
-
-  DeleteItemDto(
-      this.isDeleted,
-      this.isCheckMandatory,
-      this.jobItemId,
-      this.jobId,
-      this.jobVisitId,
-      this.projectId,
-      this.projectRegionId,
-      this.sourceCustomerId,
-      this.loggedWorkerId,
-      this.isShowDeleted);
 
   @override
   Map<String, dynamic> toMap() {
@@ -260,6 +273,21 @@ class DeleteItemDto implements Mappable {
 }
 
 class SaveJobItemDto implements Mappable {
+  SaveJobItemDto(
+    this.jobItemId,
+    this.quantity,
+    this.discountAmount,
+    this.jobVisitId,
+    this.jobId,
+    this.itemId, {
+    required this.isJobAddNegativeQuantity,
+    required this.okToPay,
+    required this.okToBill,
+    required this.skipNextClaim,
+    required this.skipNextPayment,
+    required this.isCheckMandatory,
+  });
+
   int jobItemId;
   double quantity;
   bool isJobAddNegativeQuantity;
@@ -272,20 +300,6 @@ class SaveJobItemDto implements Mappable {
   bool isCheckMandatory;
   int jobId;
   int itemId;
-
-  SaveJobItemDto(
-      this.jobItemId,
-      this.quantity,
-      this.isJobAddNegativeQuantity,
-      this.okToPay,
-      this.okToBill,
-      this.discountAmount,
-      this.jobVisitId,
-      this.skipNextClaim,
-      this.skipNextPayment,
-      this.isCheckMandatory,
-      this.jobId,
-      this.itemId);
 
   @override
   Map<String, dynamic> toMap() {

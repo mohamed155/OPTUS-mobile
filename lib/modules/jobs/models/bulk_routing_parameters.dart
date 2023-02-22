@@ -1,7 +1,29 @@
 import 'package:tech2/interfaces/has_map.dart';
 
-//TODO: refactor these models from factory constructors to named constructors
 class BulkRoutingParameters implements Mappable {
+  BulkRoutingParameters(
+    this.workerId,
+    this.projectRegionId,
+    this.subRegionId,
+    this.jobStatusType,
+    this.startDate,
+    this.endDate, {
+    required this.includeUnreleased,
+    required this.includeNoDate,
+    required this.limitedUser,
+  });
+
+  BulkRoutingParameters.fromJson(Map<String, dynamic> json)
+      : workerId = json['workerId'] as int,
+        projectRegionId = json['projectRegionId'] as List<int>,
+        subRegionId = json['subRegionId'] as List<int>,
+        jobStatusType = json['jobStatusType'] as List<String>,
+        startDate = json['startDate'] as DateTime,
+        endDate = json['endDate'] as DateTime,
+        includeUnreleased = json['includeUnreleased'] as bool,
+        includeNoDate = json['includeNoDate'] as bool,
+        limitedUser = json['limitedUser'] as bool;
+
   int workerId;
   List<int> projectRegionId;
   List<int> subRegionId;
@@ -11,30 +33,6 @@ class BulkRoutingParameters implements Mappable {
   bool includeUnreleased = false;
   bool includeNoDate = true;
   bool limitedUser = false;
-
-  BulkRoutingParameters(
-      this.workerId,
-      this.projectRegionId,
-      this.subRegionId,
-      this.jobStatusType,
-      this.startDate,
-      this.endDate,
-      this.includeUnreleased,
-      this.includeNoDate,
-      this.limitedUser);
-
-  factory BulkRoutingParameters.fromJson(Map<String, dynamic> json) {
-    return BulkRoutingParameters(
-        json['workerId'],
-        json['projectRegionId'],
-        json['subRegionId'],
-        json['jobStatusType'],
-        json['startDate'],
-        json['endDate'],
-        json['includeUnreleased'],
-        json['includeNoDate'],
-        json['limitedUser']);
-  }
 
   @override
   Map<String, dynamic> toMap() {

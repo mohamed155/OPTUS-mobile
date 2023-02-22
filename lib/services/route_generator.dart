@@ -13,7 +13,15 @@ import 'package:tech2/services/security.dart';
 import 'package:tech2/widgets/hidden_drawer.dart';
 
 class RouteGenerator {
-  static Route<MaterialPageRoute> generateRoute(RouteSettings settings) {
+  factory RouteGenerator() {
+    return _instance;
+  }
+
+  RouteGenerator._create();
+
+  static final _instance = RouteGenerator._create();
+
+  Route<MaterialPageRoute<dynamic>> generateRoute(RouteSettings settings) {
     late Widget screen;
     if (SecurityService.isUserSignedIn) {
       switch (settings.name) {
@@ -23,33 +31,35 @@ class RouteGenerator {
         case '/jobs':
           if (settings.arguments is List<BulkRoutingResult>) {
             screen = JobsListScreen(
-                jobs: settings.arguments as List<BulkRoutingResult>);
+              jobs: settings.arguments! as List<BulkRoutingResult>,
+            );
           }
           break;
         case '/job-details':
           if (settings.arguments is int) {
-            screen = JobDetailsScreen(jobVisitId: settings.arguments as int);
+            screen = JobDetailsScreen(jobVisitId: settings.arguments! as int);
           }
           break;
         case '/job-forms':
           if (settings.arguments is int) {
-            screen = JobFormsScreen(jobVisitId: settings.arguments as int);
+            screen = JobFormsScreen(jobVisitId: settings.arguments! as int);
           }
           break;
         case '/form-details':
           if (settings.arguments is FormDetailInput) {
             screen = FormDetailsScreen(
-                formDetailsInput: settings.arguments as FormDetailInput);
+              formDetailsInput: settings.arguments! as FormDetailInput,
+            );
           }
           break;
         case '/docs':
           if (settings.arguments is int) {
-            screen = JobDocuments(jobId: settings.arguments as int);
+            screen = JobDocuments(jobId: settings.arguments! as int);
           }
           break;
         case '/job-items':
           if (settings.arguments is JobItemsArgs) {
-            var args = settings.arguments as JobItemsArgs;
+            final args = settings.arguments! as JobItemsArgs;
             screen = JobItems(
               jobId: args.jobId,
               jobTypeId: args.jobTypeId,

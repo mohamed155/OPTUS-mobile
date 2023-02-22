@@ -2,35 +2,35 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 class NumberInput extends StatelessWidget {
+  const NumberInput({
+    super.key,
+    required this.value,
+    this.label,
+    this.labelColor,
+    required this.onChange,
+  });
+
   final int value;
   final String? label;
   final Color? labelColor;
   final void Function(int) onChange;
 
-  const NumberInput(
-      {Key? key,
-      required this.value,
-      this.label,
-      this.labelColor,
-      required this.onChange})
-      : super(key: key);
-
-  decrement() {
+  void decrement() {
     onChange(value - 1);
   }
 
-  increment() {
+  void increment() {
     onChange(value + 1);
   }
 
   @override
   Widget build(BuildContext context) {
-    TextEditingController controller = TextEditingController();
-    controller.text = '$value';
+    final controller = TextEditingController()..text = '$value';
 
     return Container(
-        margin: const EdgeInsets.only(top: 10),
-        child: Column(children: [
+      margin: const EdgeInsets.only(top: 10),
+      child: Column(
+        children: [
           ...label != null
               ? [
                   Container(
@@ -40,25 +40,29 @@ class NumberInput extends StatelessWidget {
                     child: Text(
                       label!,
                       style: TextStyle(
-                          color: labelColor ?? Colors.white, fontSize: 16),
+                        color: labelColor ?? Colors.white,
+                        fontSize: 16,
+                      ),
                     ),
                   )
                 ]
               : [],
           ClipRRect(
             borderRadius: BorderRadius.circular(10),
-            child: Container(
+            child: DecoratedBox(
               decoration: BoxDecoration(
-                  border: Border.all(color: Colors.black54),
-                  borderRadius: BorderRadius.circular(10)),
+                border: Border.all(color: Colors.black54),
+                borderRadius: BorderRadius.circular(10),
+              ),
               child: Row(
                 children: [
                   SizedBox(
                     width: 50,
                     height: 50,
                     child: TextButton(
-                        onPressed: decrement,
-                        child: const Icon(Icons.horizontal_rule)),
+                      onPressed: decrement,
+                      child: const Icon(Icons.horizontal_rule),
+                    ),
                   ),
                   Expanded(
                     child: TextField(
@@ -71,14 +75,19 @@ class NumberInput extends StatelessWidget {
                     ),
                   ),
                   SizedBox(
-                      width: 50,
-                      height: 50,
-                      child: TextButton(
-                          onPressed: increment, child: const Icon(Icons.add))),
+                    width: 50,
+                    height: 50,
+                    child: TextButton(
+                      onPressed: increment,
+                      child: const Icon(Icons.add),
+                    ),
+                  ),
                 ],
               ),
             ),
           )
-        ]));
+        ],
+      ),
+    );
   }
 }
