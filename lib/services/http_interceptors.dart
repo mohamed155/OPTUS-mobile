@@ -21,12 +21,14 @@ class APIInterceptors extends InterceptorContract {
       data.headers['Cache-Control'] = 'no-cache';
       data.headers['Pragma'] = 'no-cache';
     } on AuthException {
+      await SecurityService().logout();
       ToastService.showErrorMessage(
         'Authentication error',
       );
     } on AmplifyException {
       ToastService.showErrorMessage(
-        'You do not have the required permissions to perform this action.',
+        'An error occurred please try again in few minutes.For further help'
+        ' please contact our customer support.',
       );
     }
     return data;
@@ -36,6 +38,9 @@ class APIInterceptors extends InterceptorContract {
   Future<ResponseData> interceptResponse({required ResponseData data}) async {
     switch (data.statusCode) {
       // error cases
+      case 200:
+      case 201:
+        break;
       case 0:
         ToastService.showErrorMessage(
           'API is not running, please try again later',
