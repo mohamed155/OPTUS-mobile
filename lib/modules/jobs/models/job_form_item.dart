@@ -17,7 +17,7 @@ class JobFormDto {
   JobFormDto.fromJson(Map<String, dynamic> json)
       : formId = json['formId'] as int,
         formName = json['formName'] as String,
-        formDesc = json['formDesc'] as String,
+        formDesc = json['formDesc'] as String?,
         jobNumber = json['jobNumber'] as int,
         frequency = json['frequency'] as String?,
         mandatory = json['mandatory'] as bool,

@@ -54,11 +54,11 @@ class FormResponseDto implements Mappable {
 
   FormResponseDto.fromJson(Map<String, dynamic> json)
       : formId = json['formId'] as int,
-        idType = json['idType'] as String,
+        idType = json['idType'] as String?,
         id = json['id'] as int;
 
   int formId;
-  String idType;
+  String? idType;
   int id;
 
   @override
@@ -95,13 +95,13 @@ class IDynamicFieldConfigModel implements Mappable {
   factory IDynamicFieldConfigModel.fromJson(Map<String, dynamic> json) {
     return IDynamicFieldConfigModel(
       json['formFieldId'] as int,
-      json['parentFormField'] as int,
+      json['parentFormField'] as int?,
       json['parentFormFieldValue'] as String?,
       json['index'] as int,
-      json['label'] as String,
+      json['label'] as String?,
       json['name'] as String,
       json['type'] as String,
-      json['placeholder'] as String,
+      json['placeholder'] as String?,
       json['value'],
       json['additionalComments'] != null
           ? IDynamicFieldConfigModel.fromJson(

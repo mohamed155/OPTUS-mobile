@@ -31,7 +31,7 @@ class JobVisitModel {
           json['originalValuesDto'] as Map<String, dynamic>,
         ),
         lockClass = json['lockClass'] as String?,
-        customerCreditInfoId = json['customerCreditInfoId'] as int,
+        customerCreditInfoId = json['customerCreditInfoId'] as int?,
         summaryLockMessage = json['summaryLockMessage'] as String?,
         lockMessage = json['lockMessage'] as String?,
         bigStatus = json['bigStatus'] as String?,
@@ -44,35 +44,36 @@ class JobVisitModel {
         firstCollectionDate = json['firstCollectionDate'] != null
             ? DateTime.parse(json['firstCollectionDate'] as String)
             : null,
-        firstCollectionByWorkerId = json['firstCollectionByWorkerId'] as int,
-        firstCollectionWorkerName = json['firstCollectionWorkerName'] as String,
+        firstCollectionByWorkerId = json['firstCollectionByWorkerId'] as int?,
+        firstCollectionWorkerName =
+            json['firstCollectionWorkerName'] as String?,
         secondCollectionDate = json['secondCollectionDate'] != null
             ? DateTime.parse(json['secondCollectionDate'] as String)
             : null,
-        secondCollectionByWorkerId = json['secondCollectionByWorkerId'] as int,
+        secondCollectionByWorkerId = json['secondCollectionByWorkerId'] as int?,
         secondCollectionWorkerName =
-            json['secondCollectionWorkerName'] as String,
+            json['secondCollectionWorkerName'] as String?,
         collectionLetterDate = json['collectionLetterDate'] != null
             ? DateTime.parse(json['collectionLetterDate'] as String)
             : null,
-        collectionLetterByWorkerId = json['collectionLetterByWorkerId'] as int,
+        collectionLetterByWorkerId = json['collectionLetterByWorkerId'] as int?,
         collectionLetterWorkerName =
-            json['collectionLetterWorkerName'] as String,
+            json['collectionLetterWorkerName'] as String?,
         collectionAgencyDate = json['collectionAgencyDate'] != null
             ? DateTime.parse(json['collectionAgencyDate'] as String)
             : null,
-        collectionAgencyByWorkerId = json['collectionAgencyByWorkerId'] as int,
+        collectionAgencyByWorkerId = json['collectionAgencyByWorkerId'] as int?,
         collectionAgencyWorkerName =
-            json['collectionAgencyWorkerName'] as String,
+            json['collectionAgencyWorkerName'] as String?,
         sendCollectionLetterDate = json['sendCollectionLetterDate'] != null
             ? DateTime.parse(json['sendCollectionLetterDate'] as String)
             : null,
         sendCollectionLetterByWorkerId =
-            json['sendCollectionLetterByWorkerId'] as int,
+            json['sendCollectionLetterByWorkerId'] as int?,
         sendCollectionLetterByWorkerName =
-            json['sendCollectionLetterByWorkerName'] as String,
-        isMissingPaymentAction = json['isMissingPaymentAction'] as bool,
-        oktobillallowed = json['oktobillallowed'] as bool,
+            json['sendCollectionLetterByWorkerName'] as String?,
+        isMissingPaymentAction = json['isMissingPaymentAction'] as bool?,
+        oktobillallowed = json['oktobillallowed'] as bool?,
         jobEnterDiscount = json['jobEnterDiscount'] as bool?,
         jobDeleteConfirmedPayment = json['jobDeleteConfirmedPayment'] as bool?,
         jobAllowLockOverride = json['jobAllowLockOverride'] as bool?,
@@ -120,8 +121,8 @@ class JobVisitModel {
         jobOpenTime = json['jobOpenTime'] != null
             ? DateTime.parse(json['jobOpenTime'] as String)
             : null,
-        customerEmail = json['customerEmail'] as String,
-        customerMobile = json['customerMobile'] as String,
+        customerEmail = json['customerEmail'] as String?,
+        customerMobile = json['customerMobile'] as String?,
         isCloseIssue = json['isCloseIssue'] as bool?,
         lastUpdated = json['lastUpdated'] != null
             ? DateTime.parse(json['lastUpdated'] as String)

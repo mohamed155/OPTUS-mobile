@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:http_interceptor/http/http.dart';
@@ -21,10 +23,10 @@ class APIInterceptors extends InterceptorContract {
       data.headers['Cache-Control'] = 'no-cache';
       data.headers['Pragma'] = 'no-cache';
     } on AuthException {
-      await SecurityService().logout();
       ToastService.showErrorMessage(
         'Authentication error',
       );
+      unawaited(SecurityService().logout());
     } on AmplifyException {
       ToastService.showErrorMessage(
         'An error occurred please try again in few minutes.For further help'

@@ -25,10 +25,15 @@ class _JobFormsScreenState extends State<JobFormsScreen> {
 
   void loadJobFormsList() {
     setState(() => loading = true);
-    JobsService()
-        .getJobForms(widget.jobVisitId)
-        .then((List<JobFormDto> data) => setState(() => formsList = data))
-        .whenComplete(() => setState(() => loading = false));
+    JobsService().getJobForms(widget.jobVisitId).then((List<JobFormDto> data) {
+      if (mounted) {
+        setState(() => formsList = data);
+      }
+    }).whenComplete(() {
+      if (mounted) {
+        setState(() => loading = false);
+      }
+    });
   }
 
   void onSelectForm(int index) {

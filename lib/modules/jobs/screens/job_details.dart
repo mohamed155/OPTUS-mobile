@@ -84,7 +84,7 @@ class _JobDetailsScreenState extends State<JobDetailsScreen> {
         jobVisit!.jobVisitModelDetailsDto.jobVisitId!,
         jobVisit!.projectDetailsDto.projectId!,
         jobVisit!.jobVisitModelDetailsDto.projectRegionId!,
-        jobVisit!.jobDetailsDto.sourceCustomerId!,
+        jobVisit!.jobDetailsDto.sourceCustomerId ?? 0,
       ),
     );
   }
