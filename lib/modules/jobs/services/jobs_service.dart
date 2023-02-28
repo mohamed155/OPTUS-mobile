@@ -2,6 +2,7 @@ import 'package:tech2/config/app_config.dart';
 import 'package:tech2/modules/jobs/models/bulk_routing_parameters.dart';
 import 'package:tech2/modules/jobs/models/bulk_routing_result.dart';
 import 'package:tech2/modules/jobs/models/job_form_item.dart';
+import 'package:tech2/modules/jobs/models/job_status.dart';
 import 'package:tech2/modules/jobs/models/job_visit_model.dart';
 import 'package:tech2/services/connectivity.dart';
 import 'package:tech2/services/security.dart';
@@ -52,6 +53,15 @@ class JobsService {
                         JobFormDto.fromJson(formJson as Map<String, dynamic>),
                   )
                   .toList(),
+        );
+  }
+
+  Future<JobStatusDto> getJobStatusInfo(int jobStatusId) {
+    final url = '${apiBaseUrl}Job/GetJobStatusInfo/$jobStatusId';
+    return ConnectivityService().getData(url).then(
+          (result) => JobStatusDto(
+            JSONConverter.decode(result.body) as Map<String, dynamic>,
+          ),
         );
   }
 }

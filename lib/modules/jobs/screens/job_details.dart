@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_speed_dial/flutter_speed_dial.dart';
 import 'package:tech2/modules/jobs/models/items.dart';
+import 'package:tech2/modules/jobs/models/job_status.dart';
 import 'package:tech2/modules/jobs/models/job_visit_model.dart';
 import 'package:tech2/modules/jobs/screens/job_location.dart';
 import 'package:tech2/modules/jobs/services/jobs_service.dart';
@@ -87,6 +88,10 @@ class _JobDetailsScreenState extends State<JobDetailsScreen> {
         jobVisit!.jobDetailsDto.sourceCustomerId ?? 0,
       ),
     );
+  }
+
+  Future<JobStatusDto> getJobStatus(int statusId) {
+    return JobsService().getJobStatusInfo(statusId);
   }
 
   @override
