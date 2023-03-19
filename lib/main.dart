@@ -21,11 +21,13 @@ class App extends StatefulWidget {
 class _AppState extends State<App> {
   bool appInitialized = false;
 
+  final primaryColor = Colors.red;
+
   @override
   void initState() {
     super.initState();
     StorageService.init()
-        .then((_) => AmplifyConfiguration.configureAmplify())
+        .then((_) => AmplifyConfiguration().configureAmplify())
         .then((_) => Amplify.Auth.fetchAuthSession())
         .then(
           (AuthSession session) =>
@@ -41,13 +43,13 @@ class _AppState extends State<App> {
       return MaterialApp(
         title: 'Tech2',
         theme: ThemeData(
-          primarySwatch: Colors.red,
+          primarySwatch: primaryColor,
           unselectedWidgetColor: Colors.white,
           dividerColor: Colors.white,
           elevatedButtonTheme: ElevatedButtonThemeData(
             style: ElevatedButton.styleFrom(
               disabledForegroundColor: Colors.white.withOpacity(0.8),
-              disabledBackgroundColor: Colors.red.withOpacity(0.8),
+              disabledBackgroundColor: primaryColor.withOpacity(0.8),
             ),
           ),
         ),
@@ -57,14 +59,14 @@ class _AppState extends State<App> {
         debugShowCheckedModeBanner: false,
       );
     } else {
-      return const Center(
+      return Center(
         child: SizedBox(
           width: 90,
           height: 90,
           child: SizedBox.expand(
             child: CircularProgressIndicator(
               strokeWidth: 5,
-              color: Colors.red,
+              color: primaryColor,
             ),
           ),
         ),

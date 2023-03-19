@@ -79,15 +79,15 @@ class _JobFormsScreenState extends State<JobFormsScreen> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           ...formsList![index].mandatory
-                              ? const [
+                              ? [
                                   Text(
                                     'MANDATORY',
                                     style: TextStyle(
-                                      color: Colors.red,
+                                      color: Theme.of(context).primaryColor,
                                       fontSize: 10,
                                     ),
                                   ),
-                                  SizedBox(
+                                  const SizedBox(
                                     height: 5,
                                   )
                                 ]

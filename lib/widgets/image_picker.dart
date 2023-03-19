@@ -47,7 +47,7 @@ class _ImagePickerState extends State<ImagePicker> {
         border: Border.all(
           width: 2,
           color: (widget.hasErrors != null && widget.hasErrors!)
-              ? Colors.red
+              ? Theme.of(context).primaryColor
               : Colors.transparent,
         ),
       ),

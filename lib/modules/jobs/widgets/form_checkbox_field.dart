@@ -70,9 +70,11 @@ class FormCheckBoxField extends FormField<IDynamicFieldConfigModel> {
                     ),
                     ...field.value!.mandatory
                         ? [
-                            const Text(
+                            Text(
                               '(Mandatory)',
-                              style: TextStyle(color: Colors.red),
+                              style: TextStyle(
+                                color: Theme.of(state.context).primaryColor,
+                              ),
                             )
                           ]
                         : []
@@ -91,9 +93,6 @@ class FormCheckBoxField extends FormField<IDynamicFieldConfigModel> {
                         style: const TextStyle(color: Colors.white),
                       ),
                       tileColor: Colors.transparent,
-                      // checkboxShape: const RoundedRectangleBorder(
-                      //   side: BorderSide(color: Colors.red)
-                      // ),
                       value: field.value!.checkboxes![index].value,
                       onChanged: (value) {
                         field.value!.checkboxes![index].value = value!;
@@ -109,7 +108,9 @@ class FormCheckBoxField extends FormField<IDynamicFieldConfigModel> {
                         ),
                         Text(
                           state.errorMessage!,
-                          style: const TextStyle(color: Colors.red),
+                          style: TextStyle(
+                            color: Theme.of(state.context).primaryColor,
+                          ),
                         )
                       ]
                     : [],

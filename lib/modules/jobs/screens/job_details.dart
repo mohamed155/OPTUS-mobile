@@ -362,7 +362,7 @@ class _JobDetailsScreenState extends State<JobDetailsScreen> {
                 ),
                 SpeedDialChild(
                   label: 'Capture',
-                  backgroundColor: Colors.red,
+                  backgroundColor: Theme.of(context).primaryColor,
                   child: const Icon(
                     Icons.camera_alt,
                     color: Colors.white,
@@ -370,7 +370,7 @@ class _JobDetailsScreenState extends State<JobDetailsScreen> {
                 ),
                 SpeedDialChild(
                   label: 'Attach',
-                  backgroundColor: Colors.red,
+                  backgroundColor: Theme.of(context).primaryColor,
                   child: const Icon(
                     Icons.attach_file,
                     color: Colors.white,
@@ -378,7 +378,7 @@ class _JobDetailsScreenState extends State<JobDetailsScreen> {
                 ),
                 SpeedDialChild(
                   label: 'Docs',
-                  backgroundColor: Colors.red,
+                  backgroundColor: Theme.of(context).primaryColor,
                   onTap: openJobDocs,
                   child: const Icon(
                     Icons.image,
@@ -387,7 +387,7 @@ class _JobDetailsScreenState extends State<JobDetailsScreen> {
                 ),
                 SpeedDialChild(
                   label: 'Items',
-                  backgroundColor: Colors.red,
+                  backgroundColor: Theme.of(context).primaryColor,
                   onTap: openJobItems,
                   child: const Icon(
                     Icons.settings_applications_outlined,
@@ -396,7 +396,7 @@ class _JobDetailsScreenState extends State<JobDetailsScreen> {
                 ),
                 SpeedDialChild(
                   label: 'Forms',
-                  backgroundColor: Colors.red,
+                  backgroundColor: Theme.of(context).primaryColor,
                   onTap: openJobForms,
                   child: const Icon(
                     Icons.edit,

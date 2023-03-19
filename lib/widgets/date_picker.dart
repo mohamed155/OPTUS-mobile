@@ -30,7 +30,8 @@ class _DatePickerState extends State<DatePicker> {
 
   OutlineInputBorder inputBorder({required bool hasError}) =>
       OutlineInputBorder(
-        borderSide: BorderSide(color: hasError ? Colors.red : Colors.white),
+        borderSide: BorderSide(
+            color: hasError ? Theme.of(context).primaryColor : Colors.white),
         borderRadius: BorderRadius.circular(10),
       );
 

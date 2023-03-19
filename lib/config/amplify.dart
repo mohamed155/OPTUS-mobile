@@ -4,7 +4,15 @@ import 'package:flutter/foundation.dart';
 import 'package:tech2/config/amplify_configuration.dart';
 
 class AmplifyConfiguration {
-  static Future<void> configureAmplify() {
+  factory AmplifyConfiguration() {
+    return _instance;
+  }
+
+  AmplifyConfiguration._create();
+
+  static final _instance = AmplifyConfiguration._create();
+
+  Future<void> configureAmplify() {
     return Amplify.addPlugin(AmplifyAuthCognito())
         .then((value) => Amplify.configure(amplifyConfig))
         .catchError((error) {

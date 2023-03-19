@@ -66,9 +66,11 @@ class FormDateField extends FormField<IDynamicFieldConfigModel> {
                     ),
                     ...field.value!.mandatory
                         ? [
-                            const Text(
+                            Text(
                               '(Mandatory)',
-                              style: TextStyle(color: Colors.red),
+                              style: TextStyle(
+                                color: Theme.of(state.context).primaryColor,
+                              ),
                             )
                           ]
                         : []
@@ -91,7 +93,9 @@ class FormDateField extends FormField<IDynamicFieldConfigModel> {
                         ),
                         Text(
                           state.errorMessage!,
-                          style: const TextStyle(color: Colors.red),
+                          style: TextStyle(
+                            color: Theme.of(state.context).primaryColor,
+                          ),
                         )
                       ]
                     : [],

@@ -55,7 +55,7 @@ class Dropdown<T> extends StatelessWidget {
               border: Border.all(
                 width: 2,
                 color: (hasErrors != null && hasErrors!)
-                    ? Colors.red
+                    ? Theme.of(context).primaryColor
                     : Colors.transparent,
               ),
             ),

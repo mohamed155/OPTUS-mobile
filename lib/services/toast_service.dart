@@ -13,52 +13,60 @@ class ToastService {
   void showSuccessMessage(String message) {
     final cxt = NavigationService().navigationKey.currentContext;
     if (cxt != null) {
-      ScaffoldMessenger.of(cxt).showSnackBar(SnackBar(
-        content: Text(
-          message,
-          style: const TextStyle(color: Colors.white),
+      ScaffoldMessenger.of(cxt).showSnackBar(
+        SnackBar(
+          content: Text(
+            message,
+            style: const TextStyle(color: Colors.white),
+          ),
+          backgroundColor: Colors.green,
         ),
-        backgroundColor: Colors.green,
-      ));
+      );
     }
   }
 
   void showInfoMessage(String message) {
     final cxt = NavigationService().navigationKey.currentContext;
     if (cxt != null) {
-      ScaffoldMessenger.of(cxt).showSnackBar(SnackBar(
-        content: Text(
-          message,
-          style: const TextStyle(color: Colors.white),
+      ScaffoldMessenger.of(cxt).showSnackBar(
+        SnackBar(
+          content: Text(
+            message,
+            style: const TextStyle(color: Colors.white),
+          ),
+          backgroundColor: Colors.blue,
         ),
-        backgroundColor: Colors.blue,
-      ));
+      );
     }
   }
 
   void showWarningMessage(String message) {
     final cxt = NavigationService().navigationKey.currentContext;
     if (cxt != null) {
-      ScaffoldMessenger.of(cxt).showSnackBar(SnackBar(
-        content: Text(
-          message,
-          style: const TextStyle(color: Colors.white),
+      ScaffoldMessenger.of(cxt).showSnackBar(
+        SnackBar(
+          content: Text(
+            message,
+            style: const TextStyle(color: Colors.white),
+          ),
+          backgroundColor: Colors.yellow,
         ),
-        backgroundColor: Colors.yellow,
-      ));
+      );
     }
   }
 
   static void showErrorMessage(String message) {
     final cxt = NavigationService().navigationKey.currentContext;
     if (cxt != null) {
-      ScaffoldMessenger.of(cxt).showSnackBar(SnackBar(
-        content: Text(
-          message,
-          style: const TextStyle(color: Colors.white),
+      ScaffoldMessenger.of(cxt).showSnackBar(
+        SnackBar(
+          content: Text(
+            message,
+            style: const TextStyle(color: Colors.white),
+          ),
+          backgroundColor: Colors.red,
         ),
-        backgroundColor: Colors.red,
-      ));
+      );
     }
   }
 }

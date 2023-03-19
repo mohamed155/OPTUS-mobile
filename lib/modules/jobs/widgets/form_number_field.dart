@@ -38,8 +38,11 @@ class FormNumberField extends FormField<IDynamicFieldConfigModel> {
             final controller = TextEditingController();
 
             final inputBorder = OutlineInputBorder(
-              borderSide:
-                  BorderSide(color: showErrors ? Colors.red : Colors.white),
+              borderSide: BorderSide(
+                color: showErrors
+                    ? Theme.of(state.context).primaryColor
+                    : Colors.white,
+              ),
               borderRadius: BorderRadius.circular(10),
             );
 
@@ -71,9 +74,11 @@ class FormNumberField extends FormField<IDynamicFieldConfigModel> {
                     ),
                     ...field.value!.mandatory
                         ? [
-                            const Text(
+                            Text(
                               '(Mandatory)',
-                              style: TextStyle(color: Colors.red),
+                              style: TextStyle(
+                                color: Theme.of(state.context).primaryColor,
+                              ),
                             )
                           ]
                         : []
@@ -99,7 +104,9 @@ class FormNumberField extends FormField<IDynamicFieldConfigModel> {
                         ),
                         Text(
                           state.errorMessage!,
-                          style: const TextStyle(color: Colors.red),
+                          style: TextStyle(
+                            color: Theme.of(state.context).primaryColor,
+                          ),
                         )
                       ]
                     : [],
