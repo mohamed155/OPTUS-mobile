@@ -7,6 +7,7 @@ import 'package:tech2/modules/jobs/screens/job_details.dart';
 import 'package:tech2/modules/jobs/screens/job_docs.dart';
 import 'package:tech2/modules/jobs/screens/job_forms.dart';
 import 'package:tech2/modules/jobs/screens/job_items.dart';
+import 'package:tech2/modules/jobs/screens/job_search.dart';
 import 'package:tech2/modules/jobs/screens/jobs_list.dart';
 import 'package:tech2/modules/login/screens/index.dart';
 import 'package:tech2/services/security.dart';
@@ -27,6 +28,9 @@ class RouteGenerator {
       switch (settings.name) {
         case '/':
           screen = const HiddenDrawer();
+          break;
+        case '/jobs-search':
+          screen = JobsSearchScreen();
           break;
         case '/jobs':
           if (settings.arguments is List<BulkRoutingResult>) {

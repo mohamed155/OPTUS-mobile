@@ -5,11 +5,11 @@ class SharedAppBar extends StatelessWidget implements PreferredSizeWidget {
   const SharedAppBar({
     super.key,
     required this.menuButtonHandler,
-    required this.refreshButtonHandler,
+    this.refreshButtonHandler,
   });
 
   final VoidCallback menuButtonHandler;
-  final VoidCallback refreshButtonHandler;
+  final VoidCallback? refreshButtonHandler;
 
   @override
   Widget build(BuildContext context) {
@@ -32,7 +32,7 @@ class SharedAppBar extends StatelessWidget implements PreferredSizeWidget {
             child: Center(
               child: SizedBox(
                 width: 120,
-                child: Image(image: AssetImage('assets/images/logo-white.png')),
+                child: Image(image: AssetImage('assets/images/logo-wh.png')),
               ),
             ),
           ),
@@ -44,7 +44,7 @@ class SharedAppBar extends StatelessWidget implements PreferredSizeWidget {
       ),
       actions: [
         IconButton(
-          onPressed: refreshButtonHandler,
+          onPressed: refreshButtonHandler ?? () {},
           icon: const Icon(Icons.refresh),
         ),
         IconButton(

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:tech2/models/drawer_item.dart';
 import 'package:tech2/models/drawer_items.dart';
-import 'package:tech2/modules/jobs/screens/job_search.dart';
+import 'package:tech2/modules/jobs/screens/job_home.dart';
 import 'package:tech2/modules/map/map.dart';
 import 'package:tech2/services/security.dart';
 
@@ -135,13 +135,13 @@ class _HiddenDrawerState extends State<HiddenDrawer> {
   Widget buildSelectedScreen(BuildContext context) {
     switch (selectedItem) {
       case DrawerItems.jobs:
-        return JobsSearchScreen(openDrawer: openDrawer);
+        return JobsHomeScreen(openDrawer: openDrawer);
       case DrawerItems.map:
         return MapScreen(
           openDrawer: openDrawer,
         );
       default:
-        return JobsSearchScreen(openDrawer: openDrawer);
+        return JobsHomeScreen(openDrawer: openDrawer);
     }
   }
 }

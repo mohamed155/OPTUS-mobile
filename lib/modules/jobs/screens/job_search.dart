@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:tech2/models/list_dto.dart';
 import 'package:tech2/modules/jobs/models/bulk_routing_parameters.dart';
@@ -8,13 +9,9 @@ import 'package:tech2/modules/jobs/services/jobs_service.dart';
 import 'package:tech2/services/list_service.dart';
 import 'package:tech2/services/security.dart';
 import 'package:tech2/widgets/date_range_input.dart';
-import 'package:tech2/widgets/multiselect_dropdown.dart';
-import 'package:tech2/widgets/shared_app_bar.dart';
 
 class JobsSearchScreen extends StatefulWidget {
-  const JobsSearchScreen({super.key, required this.openDrawer});
-
-  final VoidCallback openDrawer;
+  const JobsSearchScreen({super.key});
 
   @override
   State<JobsSearchScreen> createState() => _JobsSearchScreenState();
@@ -40,6 +37,12 @@ class _JobsSearchScreenState extends State<JobsSearchScreen> {
 
   bool? includeJobsWithoutDate = true;
   bool? includeUnreleasedJobs = false;
+
+  int currentIndex = 0;
+
+  CarouselController sliderController = CarouselController();
+
+  final numOfSlides = 4;
 
   @override
   void initState() {
@@ -117,13 +120,54 @@ class _JobsSearchScreenState extends State<JobsSearchScreen> {
     }
   }
 
+  void handleOnPageChanged(int index, _) {
+    setState(() => currentIndex = index);
+    if (index == 1) {
+      onChangeProjectSelection(selectedProjectRegionIds);
+    }
+  }
+
+  void goPrevSlide() {
+    if (currentIndex > 0) {
+      sliderController.previousPage(
+        duration: const Duration(milliseconds: 250),
+        curve: Curves.ease,
+      );
+      handleOnPageChanged(--currentIndex, null);
+    }
+  }
+
+  void goNextSlide() {
+    if (currentIndex < numOfSlides - 1) {
+      sliderController.nextPage(
+        duration: const Duration(milliseconds: 250),
+        curve: Curves.ease,
+      );
+      handleOnPageChanged(++currentIndex, null);
+    }
+  }
+
+  Widget get loader {
+    return Center(
+      child: SizedBox(
+        width: 90,
+        height: 90,
+        child: SizedBox.expand(
+          child: CircularProgressIndicator(
+            strokeWidth: 5,
+            color: Theme.of(context).primaryColor,
+          ),
+        ),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
+    final screenHeight = MediaQuery.of(context).size.height;
+
     return Scaffold(
-      appBar: SharedAppBar(
-        menuButtonHandler: widget.openDrawer,
-        refreshButtonHandler: loadControls,
-      ),
+      appBar: AppBar(title: const Text('Job Search')),
       body: Container(
         decoration: const BoxDecoration(
           gradient: RadialGradient(
@@ -137,78 +181,261 @@ class _JobsSearchScreenState extends State<JobsSearchScreen> {
         ),
         width: double.infinity,
         height: double.infinity,
-        child: SingleChildScrollView(
-          child: Container(
-            padding: const EdgeInsets.only(bottom: 10, left: 10, right: 10),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: [
-                MultiselectDropdown<int>(
-                  label: 'Project Region',
-                  items: listOfProjectRegion,
-                  value: selectedProjectRegionIds,
-                  valueProp: 'key',
-                  labelProp: 'value',
-                  isLoading: isProjectRegionLoading,
-                  onChanged: onChangeProjectSelection,
+        child: Stack(
+          children: [
+            CarouselSlider(
+              carouselController: sliderController,
+              options: CarouselOptions(
+                height: screenHeight,
+                viewportFraction: 1,
+                enableInfiniteScroll: false,
+                scrollPhysics: const NeverScrollableScrollPhysics(),
+                onPageChanged: handleOnPageChanged,
+              ),
+              items: [
+                ...isProjectRegionLoading
+                    ? [loader]
+                    : [
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Container(
+                              padding: const EdgeInsets.all(10),
+                              child: const Text(
+                                'Select project regions',
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 16,
+                                ),
+                              ),
+                            ),
+                            Expanded(
+                              child: ListView.builder(
+                                shrinkWrap: true,
+                                itemCount: listOfProjectRegion.length + 1,
+                                itemBuilder: (_, index) {
+                                  if (index == listOfProjectRegion.length) {
+                                    return const SizedBox(
+                                      height: 80,
+                                    );
+                                  }
+                                  return CheckboxListTile(
+                                    title: Text(
+                                      listOfProjectRegion[index].value,
+                                      style:
+                                          const TextStyle(color: Colors.white),
+                                    ),
+                                    value: selectedProjectRegionIds.contains(
+                                      listOfProjectRegion[index].key,
+                                    ),
+                                    onChanged: (bool? value) {
+                                      if (value != null && value) {
+                                        setState(() {
+                                          selectedProjectRegionIds.add(
+                                            listOfProjectRegion[index].key,
+                                          );
+                                        });
+                                      } else {
+                                        setState(() {
+                                          selectedProjectRegionIds.remove(
+                                            listOfProjectRegion[index].key,
+                                          );
+                                        });
+                                      }
+                                    },
+                                  );
+                                },
+                              ),
+                            ),
+                          ],
+                        )
+                      ],
+                ...isJobSubRegionsLoading
+                    ? [loader]
+                    : [
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Container(
+                              padding: const EdgeInsets.all(10),
+                              child: const Text(
+                                'Select sub regions',
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 16,
+                                ),
+                              ),
+                            ),
+                            Expanded(
+                              child: ListView.builder(
+                                shrinkWrap: true,
+                                itemCount: listOfSubRegions.length + 1,
+                                itemBuilder: (_, index) {
+                                  if (index == listOfSubRegions.length) {
+                                    return const SizedBox(
+                                      height: 80,
+                                    );
+                                  }
+                                  return CheckboxListTile(
+                                    title: Text(
+                                      listOfSubRegions[index].value,
+                                      style:
+                                          const TextStyle(color: Colors.white),
+                                    ),
+                                    value: selectedSubRegions
+                                        .contains(listOfSubRegions[index].key),
+                                    onChanged: (bool? value) {
+                                      if (value != null && value) {
+                                        setState(() {
+                                          selectedSubRegions.add(
+                                            listOfSubRegions[index].key,
+                                          );
+                                        });
+                                      } else {
+                                        setState(() {
+                                          selectedSubRegions.remove(
+                                            listOfSubRegions[index].key,
+                                          );
+                                        });
+                                      }
+                                    },
+                                  );
+                                },
+                              ),
+                            ),
+                          ],
+                        )
+                      ],
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Container(
+                      padding: const EdgeInsets.all(10),
+                      child: const Text(
+                        'Select job status',
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 16,
+                        ),
+                      ),
+                    ),
+                    Expanded(
+                      child: ListView.builder(
+                        shrinkWrap: true,
+                        itemCount: listOfJobStatuses.length + 1,
+                        itemBuilder: (_, index) {
+                          if (index == listOfJobStatuses.length) {
+                            return const SizedBox(
+                              height: 80,
+                            );
+                          }
+                          return CheckboxListTile(
+                            title: Text(
+                              listOfJobStatuses[index].value,
+                              style: const TextStyle(color: Colors.white),
+                            ),
+                            value: selectedJobStatuses
+                                .contains(listOfJobStatuses[index].key),
+                            onChanged: (bool? value) {
+                              if (value != null && value) {
+                                setState(() {
+                                  selectedJobStatuses.add(
+                                    listOfJobStatuses[index].key,
+                                  );
+                                });
+                              } else {
+                                setState(() {
+                                  selectedJobStatuses.remove(
+                                    listOfJobStatuses[index].key,
+                                  );
+                                });
+                              }
+                            },
+                          );
+                        },
+                      ),
+                    ),
+                  ],
                 ),
-                MultiselectDropdown<int>(
-                  label: 'Sub Region',
-                  items: listOfSubRegions,
-                  value: selectedSubRegions,
-                  valueProp: 'key',
-                  labelProp: 'value',
-                  isLoading: isJobSubRegionsLoading,
-                  onChanged: (List<int> value) =>
-                      setState(() => selectedSubRegions = value),
-                ),
-                MultiselectDropdown<String>(
-                  label: 'Status',
-                  items: listOfJobStatuses,
-                  value: selectedJobStatuses,
-                  valueProp: 'key',
-                  labelProp: 'value',
-                  isLoading: isJobStatusLoading,
-                  onChanged: (List<String> value) =>
-                      setState(() => selectedJobStatuses = value),
-                ),
-                Container(
-                  margin: const EdgeInsets.only(bottom: 10),
-                  child: DateRangeInput(
-                    startDate: startDate,
-                    endDate: endDate,
-                    onChange: (DateTime startDate, DateTime endDate) =>
-                        setState(() {
-                      this.startDate = startDate;
-                      this.endDate = endDate;
-                    }),
-                  ),
-                ),
-                CheckboxListTile(
-                  title: const Text(
-                    'Include Jobs without date',
-                    style: TextStyle(color: Colors.white),
-                  ),
-                  value: includeJobsWithoutDate,
-                  onChanged: (value) =>
-                      setState(() => includeJobsWithoutDate = value),
-                ),
-                CheckboxListTile(
-                  title: const Text(
-                    'Include Unreleased Jobs',
-                    style: TextStyle(color: Colors.white),
-                  ),
-                  value: includeUnreleasedJobs,
-                  onChanged: (value) =>
-                      setState(() => includeUnreleasedJobs = value),
-                ),
-                ElevatedButton(
-                  onPressed: isJobsLoading ? null : loadJobs,
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      ...isJobsLoading
-                          ? [
+                Column(
+                  children: [
+                    Container(
+                      margin: const EdgeInsets.all(10),
+                      child: DateRangeInput(
+                        startDate: startDate,
+                        endDate: endDate,
+                        onChange: (DateTime startDate, DateTime endDate) =>
+                            setState(() {
+                          this.startDate = startDate;
+                          this.endDate = endDate;
+                        }),
+                      ),
+                    ),
+                    CheckboxListTile(
+                      title: const Text(
+                        'Include Jobs without date',
+                        style: TextStyle(color: Colors.white),
+                      ),
+                      value: includeJobsWithoutDate,
+                      onChanged: (value) =>
+                          setState(() => includeJobsWithoutDate = value),
+                    ),
+                    CheckboxListTile(
+                      title: const Text(
+                        'Include Unreleased Jobs',
+                        style: TextStyle(color: Colors.white),
+                      ),
+                      value: includeUnreleasedJobs,
+                      onChanged: (value) =>
+                          setState(() => includeUnreleasedJobs = value),
+                    ),
+                  ],
+                )
+              ],
+            ),
+            ...currentIndex < numOfSlides - 1
+                ? [
+                    Positioned(
+                      bottom: 10,
+                      right: 10,
+                      child: FloatingActionButton(
+                        foregroundColor: Colors.white,
+                        onPressed: goNextSlide,
+                        child: const Icon(Icons.arrow_forward),
+                      ),
+                    )
+                  ]
+                : [],
+            ...currentIndex > 0
+                ? [
+                    Positioned(
+                      bottom: 10,
+                      left: 10,
+                      child: FloatingActionButton(
+                        foregroundColor: Colors.white,
+                        onPressed: goPrevSlide,
+                        child: const Icon(Icons.arrow_back),
+                      ),
+                    )
+                  ]
+                : [],
+            ...currentIndex == numOfSlides - 1
+                ? [
+                    Positioned(
+                      bottom: 10,
+                      right: 10,
+                      child: FloatingActionButton.extended(
+                        foregroundColor: Colors.white,
+                        label: Row(
+                          children: [
+                            const Text('Search'),
+                            const SizedBox(
+                              width: 8,
+                            ),
+                            if (isJobsLoading)
                               const SizedBox(
                                 width: 20,
                                 height: 20,
@@ -216,20 +443,111 @@ class _JobsSearchScreenState extends State<JobsSearchScreen> {
                                   color: Colors.white,
                                   strokeWidth: 3,
                                 ),
-                              ),
-                              const SizedBox(
-                                width: 10,
                               )
-                            ]
-                          : [],
-                      const Text('Search'),
-                    ],
-                  ),
-                )
-              ],
-            ),
-          ),
+                            else
+                              const Icon(Icons.search)
+                          ],
+                        ),
+                        onPressed: loadJobs,
+                      ),
+                    )
+                  ]
+                : []
+          ],
         ),
+        // child: SingleChildScrollView(
+        //   child: Container(
+        //     padding: const EdgeInsets.only(bottom: 10, left: 10, right: 10),
+        //     child: Column(
+        //       crossAxisAlignment: CrossAxisAlignment.stretch,
+        //       children: [
+        //         MultiselectDropdown<int>(
+        //           label: 'Project Region',
+        //           items: listOfProjectRegion,
+        //           value: selectedProjectRegionIds,
+        //           valueProp: 'key',
+        //           labelProp: 'value',
+        //           isLoading: isProjectRegionLoading,
+        //           onChanged: onChangeProjectSelection,
+        //         ),
+        //         MultiselectDropdown<int>(
+        //           label: 'Sub Region',
+        //           items: listOfSubRegions,
+        //           value: selectedSubRegions,
+        //           valueProp: 'key',
+        //           labelProp: 'value',
+        //           isLoading: isJobSubRegionsLoading,
+        //           onChanged: (List<int> value) =>
+        //               setState(() => selectedSubRegions = value),
+        //         ),
+        //         MultiselectDropdown<String>(
+        //           label: 'Status',
+        //           items: listOfJobStatuses,
+        //           value: selectedJobStatuses,
+        //           valueProp: 'key',
+        //           labelProp: 'value',
+        //           isLoading: isJobStatusLoading,
+        //           onChanged: (List<String> value) =>
+        //               setState(() => selectedJobStatuses = value),
+        //         ),
+        //         Container(
+        //           margin: const EdgeInsets.only(bottom: 10),
+        //           child: DateRangeInput(
+        //             startDate: startDate,
+        //             endDate: endDate,
+        //             onChange: (DateTime startDate, DateTime endDate) =>
+        //                 setState(() {
+        //               this.startDate = startDate;
+        //               this.endDate = endDate;
+        //             }),
+        //           ),
+        //         ),
+        //         CheckboxListTile(
+        //           title: const Text(
+        //             'Include Jobs without date',
+        //             style: TextStyle(color: Colors.white),
+        //           ),
+        //           value: includeJobsWithoutDate,
+        //           onChanged: (value) =>
+        //               setState(() => includeJobsWithoutDate = value),
+        //         ),
+        //         CheckboxListTile(
+        //           title: const Text(
+        //             'Include Unreleased Jobs',
+        //             style: TextStyle(color: Colors.white),
+        //           ),
+        //           value: includeUnreleasedJobs,
+        //           onChanged: (value) =>
+        //               setState(() => includeUnreleasedJobs = value),
+        //         ),
+        //         ElevatedButton(
+        //           onPressed: isJobsLoading ? null : loadJobs,
+        //           child: Row(
+        //             mainAxisAlignment: MainAxisAlignment.center,
+        //             children: [
+        //               ...isJobsLoading
+        //                   ? [
+        //                       const SizedBox(
+        //                         width: 20,
+        //                         height: 20,
+        //                         child: CircularProgressIndicator(
+        //                           color: Colors.white,
+        //                           strokeWidth: 3,
+        //                         ),
+        //                       ),
+        //                       const SizedBox(
+        //                         width: 10,
+        //                       )
+        //                     ]
+        //                   : [],
+        //               const Text('Search'),
+        //             ],
+        //           ),
+        //         )
+        //       ],
+        //     ),
+        //   ),
+        // ),
       ),
     );
   }
