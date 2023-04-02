@@ -34,7 +34,7 @@ class JobItemTaskCodesDto implements Mappable {
         jobStatusType = json['jobStatusType'] as String?,
         fullName = json['fullName'] as String,
         outofhours = json['outofhours'] as bool?,
-        companyName = json['companyName'] as String,
+        companyName = json['companyName'] as String?,
         jobItemTransIdPay = json['jobItemTransIdPay'] as int?,
         quoteQty = json['quoteQty'] as double?,
         qty = json['qty'] as double?,
@@ -81,7 +81,7 @@ class JobItemTaskCodesDto implements Mappable {
   String? jobStatusType;
   String fullName;
   bool? outofhours;
-  String companyName;
+  String? companyName;
   int? jobItemTransIdPay;
   double? quoteQty;
   double? qty;

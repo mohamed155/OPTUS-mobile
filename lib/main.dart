@@ -5,7 +5,6 @@ import 'package:tech2/services/navigation_service.dart';
 import 'package:tech2/services/route_generator.dart';
 import 'package:tech2/services/security.dart';
 import 'package:tech2/services/storage.dart';
-import 'package:tech2/utilities/hex_color.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -22,7 +21,8 @@ class App extends StatefulWidget {
 class _AppState extends State<App> {
   bool appInitialized = false;
 
-  final primaryColor = HexMaterialColor('15a7ad');
+  // app color
+  final primaryColor = Colors.red;
 
   @override
   void initState() {

@@ -347,6 +347,7 @@ class _JobDetailsScreenState extends State<JobDetailsScreen> {
       ),
       floatingActionButton: jobVisit != null
           ? SpeedDial(
+              foregroundColor: Colors.white,
               spaceBetweenChildren: 8,
               icon: Icons.menu,
               activeIcon: Icons.close,

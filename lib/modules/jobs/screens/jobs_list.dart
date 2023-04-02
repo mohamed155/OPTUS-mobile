@@ -76,7 +76,11 @@ class _JobsListScreenState extends State<JobsListScreen> {
       child: Scaffold(
         appBar: AppBar(
           title: const Text('Jobs List'),
+          actions: [
+            IconButton(onPressed: () {}, icon: const Icon(Icons.filter_alt))
+          ],
           bottom: const TabBar(
+            indicatorColor: Colors.white,
             tabs: [Tab(child: Text('List')), Tab(child: Text('Map'))],
           ),
         ),
@@ -103,86 +107,101 @@ class _JobsListScreenState extends State<JobsListScreen> {
                     width: double.infinity,
                     child: InkWell(
                       onTap: () => onSelectJob(index),
-                      child: Card(
-                        margin: const EdgeInsets.all(10),
-                        color: Colors.white,
-                        child: Padding(
-                          padding: const EdgeInsets.all(10),
-                          child: Wrap(
-                            runSpacing: 10,
-                            children: [
-                              Row(
-                                children: [
-                                  Text('Type: ', style: labelFontStyle),
-                                  Text(widget.jobs[index].jobTypeCode)
-                                ],
-                              ),
-                              Row(
-                                children: [
-                                  Text(
-                                    'Client Job Number: ',
-                                    style: labelFontStyle,
-                                  ),
-                                  Text(widget.jobs[index].clientJobNumber)
-                                ],
-                              ),
-                              ...widget.jobs[index].clientVisitNumber != null
-                                  ? [
-                                      Row(
-                                        children: [
-                                          Text(
-                                            'Client Visit Number: ',
-                                            style: labelFontStyle,
-                                          ),
-                                          Text(
-                                            widget
-                                                .jobs[index].clientVisitNumber!,
-                                          )
-                                        ],
-                                      )
-                                    ]
-                                  : [],
-                              Row(
-                                children: [
-                                  Text(
-                                    'Job Number: ',
-                                    style: labelFontStyle,
-                                  ),
-                                  Text('${widget.jobs[index].jobNumber}')
-                                ],
-                              ),
-                              Row(
-                                children: [
-                                  Text('Status: ', style: labelFontStyle),
-                                  Text(
-                                    '${widget.jobs[index].jobStatusType}',
-                                  )
-                                ],
-                              ),
-                              Row(
-                                children: [
-                                  Text('State: ', style: labelFontStyle),
-                                  Text('${widget.jobs[index].state}')
-                                ],
-                              ),
-                              ...widget.jobs[index].bookedDate != null
-                                  ? [
-                                      Row(
-                                        children: [
-                                          Text(
-                                            'Booked Date: ',
-                                            style: labelFontStyle,
-                                          ),
-                                          Text(
-                                            DateFormatter.formatDate(
-                                              widget.jobs[index].bookedDate!,
+                      child: Container(
+                        margin: const EdgeInsets.fromLTRB(10, 12, 10, 0),
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(8),
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.white.withOpacity(0.5),
+                              spreadRadius: -4,
+                              blurRadius: 5,
+                            )
+                          ],
+                        ),
+                        child: Card(
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(8),
+                          ),
+                          color: Colors.white,
+                          child: Padding(
+                            padding: const EdgeInsets.all(10),
+                            child: Wrap(
+                              runSpacing: 10,
+                              children: [
+                                Row(
+                                  children: [
+                                    Text('Type: ', style: labelFontStyle),
+                                    Text(widget.jobs[index].jobTypeCode)
+                                  ],
+                                ),
+                                Row(
+                                  children: [
+                                    Text(
+                                      'Client Job Number: ',
+                                      style: labelFontStyle,
+                                    ),
+                                    Text(widget.jobs[index].clientJobNumber)
+                                  ],
+                                ),
+                                ...widget.jobs[index].clientVisitNumber != null
+                                    ? [
+                                        Row(
+                                          children: [
+                                            Text(
+                                              'Client Visit Number: ',
+                                              style: labelFontStyle,
                                             ),
-                                          )
-                                        ],
-                                      )
-                                    ]
-                                  : [],
-                            ],
+                                            Text(
+                                              widget.jobs[index]
+                                                  .clientVisitNumber!,
+                                            )
+                                          ],
+                                        )
+                                      ]
+                                    : [],
+                                Row(
+                                  children: [
+                                    Text(
+                                      'Job Number: ',
+                                      style: labelFontStyle,
+                                    ),
+                                    Text('${widget.jobs[index].jobNumber}')
+                                  ],
+                                ),
+                                Row(
+                                  children: [
+                                    Text('Status: ', style: labelFontStyle),
+                                    Text(
+                                      '${widget.jobs[index].jobStatusType}',
+                                    )
+                                  ],
+                                ),
+                                Row(
+                                  children: [
+                                    Text('State: ', style: labelFontStyle),
+                                    Text('${widget.jobs[index].state}')
+                                  ],
+                                ),
+                                ...widget.jobs[index].bookedDate != null
+                                    ? [
+                                        Row(
+                                          children: [
+                                            Text(
+                                              'Booked Date: ',
+                                              style: labelFontStyle,
+                                            ),
+                                            Text(
+                                              DateFormatter.formatDate(
+                                                widget.jobs[index].bookedDate!,
+                                              ),
+                                            )
+                                          ],
+                                        )
+                                      ]
+                                    : [],
+                              ],
+                            ),
                           ),
                         ),
                       ),

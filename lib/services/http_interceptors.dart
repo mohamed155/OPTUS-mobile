@@ -23,9 +23,11 @@ class APIInterceptors extends InterceptorContract {
       data.headers['Cache-Control'] = 'no-cache';
       data.headers['Pragma'] = 'no-cache';
     } on AuthException {
-      ToastService.showErrorMessage(
-        'Authentication error',
-      );
+      if (SecurityService.isUserSignedIn) {
+        ToastService.showErrorMessage(
+          'Session expired, please sign in again',
+        );
+      }
       unawaited(SecurityService().logout());
     } on AmplifyException {
       ToastService.showErrorMessage(
@@ -33,11 +35,13 @@ class APIInterceptors extends InterceptorContract {
         ' please contact our customer support.',
       );
     }
+    print(data.toString());
     return data;
   }
 
   @override
   Future<ResponseData> interceptResponse({required ResponseData data}) async {
+    print(data.toString());
     switch (data.statusCode) {
       // error cases
       case 200:
@@ -51,13 +55,6 @@ class APIInterceptors extends InterceptorContract {
       case 401:
         final context = NavigationService().navigationKey.currentContext;
         if (context != null) {
-          if (SecurityService.isUserSignedIn) {
-            ToastService.showErrorMessage(
-              'Session expired, please sign in again',
-            );
-          } else {
-            ToastService.showErrorMessage('Invalid username or password');
-          }
           await SecurityService().logout();
         }
         break;

@@ -32,7 +32,7 @@ class SharedAppBar extends StatelessWidget implements PreferredSizeWidget {
             child: Center(
               child: SizedBox(
                 width: 120,
-                child: Image(image: AssetImage('assets/images/logo-wh.png')),
+                child: Image(image: AssetImage('assets/images/logo-white.png')),
               ),
             ),
           ),

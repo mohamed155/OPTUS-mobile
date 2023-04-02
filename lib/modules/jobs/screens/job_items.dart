@@ -187,12 +187,17 @@ class _JobItemsState extends State<JobItems> {
                                       Text(items![index].netAmount)
                                     ],
                                   ),
-                                  Row(
-                                    children: [
-                                      Text('Company: ', style: labelFontStyle),
-                                      Text(items![index].companyName)
-                                    ],
-                                  ),
+                                  ...items![index].companyName != null
+                                      ? [
+                                          Row(
+                                            children: [
+                                              Text('Company: ',
+                                                  style: labelFontStyle),
+                                              Text(items![index].companyName!)
+                                            ],
+                                          )
+                                        ]
+                                      : [],
                                   ...items![index].navId != null
                                       ? [
                                           Row(
