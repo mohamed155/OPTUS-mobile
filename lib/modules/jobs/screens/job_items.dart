@@ -44,7 +44,7 @@ class _JobItemsState extends State<JobItems> {
   void loadJobItems() {
     setState(() => loading = true);
     ItemsService()
-        .getJobItemTaskCodes(widget.jobId, isShowAll: true)
+        .getJobItemTaskCodes(widget.jobId, isShowAll: false)
         .then((res) => setState(() => items = res))
         .whenComplete(() => setState(() => loading = false));
   }
@@ -191,8 +191,10 @@ class _JobItemsState extends State<JobItems> {
                                       ? [
                                           Row(
                                             children: [
-                                              Text('Company: ',
-                                                  style: labelFontStyle),
+                                              Text(
+                                                'Company: ',
+                                                style: labelFontStyle,
+                                              ),
                                               Text(items![index].companyName!)
                                             ],
                                           )
@@ -211,42 +213,53 @@ class _JobItemsState extends State<JobItems> {
                                           )
                                         ]
                                       : [],
-                                  Row(
-                                    children: [
-                                      Row(
-                                        children: [
-                                          Text('Pay: ', style: labelFontStyle),
-                                          Checkbox(
-                                            value: items![index].oktoPay,
-                                            onChanged: (bool? value) {
-                                              setState(
-                                                () => items![index].oktoPay =
-                                                    value,
-                                              );
-                                              updateItem(items![index]);
-                                            },
-                                          )
-                                        ],
-                                      ),
-                                      const SizedBox(
-                                        width: 10,
-                                      ),
-                                      Row(
-                                        children: [
-                                          Text('Bill: ', style: labelFontStyle),
-                                          Checkbox(
-                                            value: items![index].oktoBill,
-                                            onChanged: (bool? value) {
-                                              setState(
-                                                () => items![index].oktoBill =
-                                                    value,
-                                              );
-                                              updateItem(items![index]);
-                                            },
-                                          )
-                                        ],
-                                      ),
-                                    ],
+                                  Theme(
+                                    data: Theme.of(context).copyWith(
+                                      unselectedWidgetColor: Colors.black,
+                                    ),
+                                    child: Row(
+                                      children: [
+                                        Row(
+                                          children: [
+                                            Text(
+                                              'Pay: ',
+                                              style: labelFontStyle,
+                                            ),
+                                            Checkbox(
+                                              value: items![index].oktoPay,
+                                              onChanged: (bool? value) {
+                                                setState(
+                                                  () => items![index].oktoPay =
+                                                      value,
+                                                );
+                                                updateItem(items![index]);
+                                              },
+                                            )
+                                          ],
+                                        ),
+                                        const SizedBox(
+                                          width: 10,
+                                        ),
+                                        Row(
+                                          children: [
+                                            Text(
+                                              'Bill: ',
+                                              style: labelFontStyle,
+                                            ),
+                                            Checkbox(
+                                              value: items![index].oktoBill,
+                                              onChanged: (bool? value) {
+                                                setState(
+                                                  () => items![index].oktoBill =
+                                                      value,
+                                                );
+                                                updateItem(items![index]);
+                                              },
+                                            )
+                                          ],
+                                        ),
+                                      ],
+                                    ),
                                   ),
                                 ],
                               ),

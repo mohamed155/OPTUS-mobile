@@ -44,7 +44,7 @@ class _JobsHomeState extends State<JobsHomeScreen> {
               label: const Text('Search all jobs'),
               style: ElevatedButton.styleFrom(
                 padding:
-                    const EdgeInsets.symmetric(vertical: 18, horizontal: 20),
+                    const EdgeInsets.symmetric(vertical: 16, horizontal: 20),
               ),
             ),
             const SizedBox(

@@ -9,7 +9,7 @@ class BulkRoutingResult {
         jobPoints = json['jobPoints'] as int,
         siteId = json['siteId'] as int,
         projectRegionId = json['projectRegionId'] as int,
-        mapDisplayMode = json['mapDisplayMode'] as int,
+        mapDisplayMode = json['mapDisplayMode'] as int?,
         timeSlotId = json['timeSlotId'] as int?,
         jobTypeCode = json['jobTypeCode'] as String,
         jobStatusCode = json['jobStatusCode'] as String?,
@@ -132,7 +132,7 @@ class BulkRoutingResult {
   int jobPoints;
   int siteId;
   int? projectRegionId;
-  int mapDisplayMode;
+  int? mapDisplayMode;
   int? timeSlotId;
 
   // String data-type
