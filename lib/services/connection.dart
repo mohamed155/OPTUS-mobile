@@ -6,14 +6,14 @@ import 'package:tech2/interfaces/has_map.dart';
 import 'package:tech2/services/http_interceptors.dart';
 import 'package:tech2/utilities/json_converter.dart';
 
-class ConnectivityService {
-  factory ConnectivityService() {
+class ConnectionService {
+  factory ConnectionService() {
     return _instance;
   }
 
-  ConnectivityService._create();
+  ConnectionService._create();
 
-  static final ConnectivityService _instance = ConnectivityService._create();
+  static final ConnectionService _instance = ConnectionService._create();
 
   final _http = InterceptedHttp.build(interceptors: [APIInterceptors()]);
 
@@ -31,7 +31,8 @@ class ConnectivityService {
 
   Future<Response> sendData(String url, [Mappable? body]) {
     if (body != null) {
-      final json = JSONConverter.encode(body.toMap());
+      final json = JSONConverter().encode(body.toMap());
+      print(json);
       return _http.post(url.toUri(), body: json);
     } else {
       return _http.post(url.toUri());

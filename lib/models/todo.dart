@@ -1,21 +1,18 @@
 class Todo {
+  const Todo({
+    required this.id,
+    required this.content,
+  });
+
   final int id;
   final String content;
 
-  const Todo({
-    required this.id,
-    required this.content
-  });
-
   Map<String, dynamic> toMap() {
-    return {
-      'id': id,
-      'content': content
-    };
+    return {'id': id, 'content': content};
   }
 
   @override
-  toString() {
+  String toString() {
     return 'Todo{id: $id, content: $content}';
   }
 }

@@ -31,6 +31,7 @@ class _JobItemsState extends State<JobItems> {
   List<JobItemTaskCodesDto>? addableItems = [];
   String? selectedItemId;
   bool loading = false;
+  bool showDiscontinuedItems = false;
 
   TextStyle labelFontStyle = const TextStyle(fontWeight: FontWeight.bold);
 
@@ -44,7 +45,7 @@ class _JobItemsState extends State<JobItems> {
   void loadJobItems() {
     setState(() => loading = true);
     ItemsService()
-        .getJobItemTaskCodes(widget.jobId, isShowAll: false)
+        .getJobItemTaskCodes(widget.jobId, isShowAll: showDiscontinuedItems)
         .then((res) => setState(() => items = res))
         .whenComplete(() => setState(() => loading = false));
   }
@@ -120,6 +121,34 @@ class _JobItemsState extends State<JobItems> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Items'),
+        actions: [
+          SizedBox(
+            width: 140,
+            child: Center(
+              child: Theme(
+                data: Theme.of(context).copyWith(
+                  checkboxTheme: CheckboxThemeData(
+                    fillColor: MaterialStateProperty.all(Colors.white),
+                    checkColor: MaterialStateProperty.all(
+                      Theme.of(context).primaryColor,
+                    ),
+                  ),
+                ),
+                child: CheckboxListTile(
+                  value: showDiscontinuedItems,
+                  onChanged: (val) {
+                    setState(() => showDiscontinuedItems = val!);
+                    loadJobItems();
+                  },
+                  title: const Text(
+                    'Show All',
+                    style: TextStyle(color: Colors.white),
+                  ),
+                ),
+              ),
+            ),
+          ),
+        ],
       ),
       body: Container(
         height: double.infinity,

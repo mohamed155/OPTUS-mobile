@@ -16,7 +16,8 @@ class SharedAppBar extends StatelessWidget implements PreferredSizeWidget {
     void openImagesScreen() {
       Navigator.of(context).push(
         MaterialPageRoute<ImagesScreen>(
-            builder: (context) => const ImagesScreen()),
+          builder: (context) => const ImagesScreen(),
+        ),
       );
     }
 

@@ -35,13 +35,12 @@ class APIInterceptors extends InterceptorContract {
         ' please contact our customer support.',
       );
     }
-    print(data.toString());
     return data;
   }
 
   @override
   Future<ResponseData> interceptResponse({required ResponseData data}) async {
-    print(data.toString());
+    print('Response: ${data.statusCode} ${data.body}');
     switch (data.statusCode) {
       // error cases
       case 200:
@@ -66,9 +65,9 @@ class APIInterceptors extends InterceptorContract {
       case 400:
         if (data.body != null) {
           final body = data.body.toString();
-          final errors = List<String>.empty();
+          final errors = List<String>.empty(growable: true);
           final validationErrorDictionary =
-              JSONConverter.decode(body) as Map<String, dynamic>;
+              JSONConverter().decode(body) as Map<String, dynamic>;
           errors.addAll(
             validationErrorDictionary.values
                 .map((item) => item.toString())

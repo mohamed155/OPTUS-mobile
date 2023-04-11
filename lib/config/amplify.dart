@@ -15,7 +15,7 @@ class AmplifyConfiguration {
   Future<void> configureAmplify() {
     return Amplify.addPlugin(AmplifyAuthCognito())
         .then((value) => Amplify.configure(amplifyConfig))
-        .catchError((error) {
+        .catchError((dynamic error) {
       if (kDebugMode) {
         print(error);
       }

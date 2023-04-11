@@ -80,7 +80,7 @@ class SecurityService {
     final uri = '${apiBaseUrl}Security/GetApplicationUser'.toUri();
     return http
         .get(uri)
-        .then((Response res) => JSONConverter.decode(res.body))
+        .then((Response res) => JSONConverter().decode(res.body))
         .then((body) async {
       final res = body as Map<String, dynamic>;
       _workerId = res['workerId'] as int;

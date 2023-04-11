@@ -133,7 +133,6 @@ class _JobsSearchScreenState extends State<JobsSearchScreen> {
         duration: const Duration(milliseconds: 250),
         curve: Curves.ease,
       );
-      handleOnPageChanged(--currentIndex, null);
     }
   }
 
@@ -143,7 +142,6 @@ class _JobsSearchScreenState extends State<JobsSearchScreen> {
         duration: const Duration(milliseconds: 250),
         curve: Curves.ease,
       );
-      handleOnPageChanged(++currentIndex, null);
     }
   }
 
@@ -455,99 +453,6 @@ class _JobsSearchScreenState extends State<JobsSearchScreen> {
                 : []
           ],
         ),
-        // child: SingleChildScrollView(
-        //   child: Container(
-        //     padding: const EdgeInsets.only(bottom: 10, left: 10, right: 10),
-        //     child: Column(
-        //       crossAxisAlignment: CrossAxisAlignment.stretch,
-        //       children: [
-        //         MultiselectDropdown<int>(
-        //           label: 'Project Region',
-        //           items: listOfProjectRegion,
-        //           value: selectedProjectRegionIds,
-        //           valueProp: 'key',
-        //           labelProp: 'value',
-        //           isLoading: isProjectRegionLoading,
-        //           onChanged: onChangeProjectSelection,
-        //         ),
-        //         MultiselectDropdown<int>(
-        //           label: 'Sub Region',
-        //           items: listOfSubRegions,
-        //           value: selectedSubRegions,
-        //           valueProp: 'key',
-        //           labelProp: 'value',
-        //           isLoading: isJobSubRegionsLoading,
-        //           onChanged: (List<int> value) =>
-        //               setState(() => selectedSubRegions = value),
-        //         ),
-        //         MultiselectDropdown<String>(
-        //           label: 'Status',
-        //           items: listOfJobStatuses,
-        //           value: selectedJobStatuses,
-        //           valueProp: 'key',
-        //           labelProp: 'value',
-        //           isLoading: isJobStatusLoading,
-        //           onChanged: (List<String> value) =>
-        //               setState(() => selectedJobStatuses = value),
-        //         ),
-        //         Container(
-        //           margin: const EdgeInsets.only(bottom: 10),
-        //           child: DateRangeInput(
-        //             startDate: startDate,
-        //             endDate: endDate,
-        //             onChange: (DateTime startDate, DateTime endDate) =>
-        //                 setState(() {
-        //               this.startDate = startDate;
-        //               this.endDate = endDate;
-        //             }),
-        //           ),
-        //         ),
-        //         CheckboxListTile(
-        //           title: const Text(
-        //             'Include Jobs without date',
-        //             style: TextStyle(color: Colors.white),
-        //           ),
-        //           value: includeJobsWithoutDate,
-        //           onChanged: (value) =>
-        //               setState(() => includeJobsWithoutDate = value),
-        //         ),
-        //         CheckboxListTile(
-        //           title: const Text(
-        //             'Include Unreleased Jobs',
-        //             style: TextStyle(color: Colors.white),
-        //           ),
-        //           value: includeUnreleasedJobs,
-        //           onChanged: (value) =>
-        //               setState(() => includeUnreleasedJobs = value),
-        //         ),
-        //         ElevatedButton(
-        //           onPressed: isJobsLoading ? null : loadJobs,
-        //           child: Row(
-        //             mainAxisAlignment: MainAxisAlignment.center,
-        //             children: [
-        //               ...isJobsLoading
-        //                   ? [
-        //                       const SizedBox(
-        //                         width: 20,
-        //                         height: 20,
-        //                         child: CircularProgressIndicator(
-        //                           color: Colors.white,
-        //                           strokeWidth: 3,
-        //                         ),
-        //                       ),
-        //                       const SizedBox(
-        //                         width: 10,
-        //                       )
-        //                     ]
-        //                   : [],
-        //               const Text('Search'),
-        //             ],
-        //           ),
-        //         )
-        //       ],
-        //     ),
-        //   ),
-        // ),
       ),
     );
   }

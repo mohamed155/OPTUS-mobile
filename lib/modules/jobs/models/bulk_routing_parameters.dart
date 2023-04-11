@@ -49,3 +49,21 @@ class BulkRoutingParameters implements Mappable {
     };
   }
 }
+
+class BulkRoutingParametersForWorker implements Mappable {
+  BulkRoutingParametersForWorker(
+    this.workerId,
+  );
+
+  BulkRoutingParametersForWorker.fromJson(Map<String, dynamic> json)
+      : workerId = json['workerId'] as int;
+
+  int workerId;
+
+  @override
+  Map<String, dynamic> toMap() {
+    return {
+      'workerId': workerId,
+    };
+  }
+}

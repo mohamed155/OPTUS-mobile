@@ -30,7 +30,7 @@ class RouteGenerator {
           screen = const HiddenDrawer();
           break;
         case '/jobs-search':
-          screen = JobsSearchScreen();
+          screen = const JobsSearchScreen();
           break;
         case '/jobs':
           if (settings.arguments is List<BulkRoutingResult>) {

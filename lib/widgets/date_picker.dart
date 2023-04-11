@@ -31,7 +31,8 @@ class _DatePickerState extends State<DatePicker> {
   OutlineInputBorder inputBorder({required bool hasError}) =>
       OutlineInputBorder(
         borderSide: BorderSide(
-            color: hasError ? Theme.of(context).primaryColor : Colors.white),
+          color: hasError ? Theme.of(context).primaryColor : Colors.white,
+        ),
         borderRadius: BorderRadius.circular(10),
       );
 
@@ -41,7 +42,7 @@ class _DatePickerState extends State<DatePicker> {
 
     value = widget.value;
     if (value != null) {
-      textController.text = DateFormatter.formatDate(value!);
+      textController.text = DateFormatter().formatDate(value!);
     }
   }
 
@@ -61,7 +62,7 @@ class _DatePickerState extends State<DatePicker> {
   void _onSelectionChanged(DateRangePickerSelectionChangedArgs args) {
     setState(() {
       value = args.value as DateTime?;
-      textController.text = DateFormatter.formatDate(value!);
+      textController.text = DateFormatter().formatDate(value!);
     });
   }
 

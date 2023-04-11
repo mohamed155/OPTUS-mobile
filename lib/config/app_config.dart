@@ -1,2 +1,2 @@
-const String apiBaseUrl = 'https://localhost:44301/api/';
-const String s3ApiBaseUrl = 'https://localhost:44388/api/';
+const String apiBaseUrl = 'https://web5.infinitesoftwaregroup.net/api/';
+const String s3ApiBaseUrl = 'https://s3.infinitesoftwaregroup.net/api/';

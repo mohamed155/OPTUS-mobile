@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:tech2/modules/jobs/models/bulk_routing_result.dart';
-import 'package:tech2/utilities/date_formatter.dart';
+import 'package:tech2/modules/jobs/widgets/job_list_item.dart';
 
 class JobsListScreen extends StatefulWidget {
   const JobsListScreen({super.key, required this.jobs});
@@ -61,14 +61,6 @@ class _JobsListScreenState extends State<JobsListScreen> {
     );
   }
 
-  void onSelectJob(int index) {
-    Navigator.pushNamed(
-      context,
-      '/job-details',
-      arguments: widget.jobs[index].jobVisitId,
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
@@ -103,109 +95,9 @@ class _JobsListScreenState extends State<JobsListScreen> {
                 shrinkWrap: true,
                 itemCount: widget.jobs.length,
                 itemBuilder: (context, index) {
-                  return SizedBox(
-                    width: double.infinity,
-                    child: InkWell(
-                      onTap: () => onSelectJob(index),
-                      child: Container(
-                        margin: const EdgeInsets.fromLTRB(10, 12, 10, 0),
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(8),
-                          boxShadow: [
-                            BoxShadow(
-                              color: Colors.white.withOpacity(0.5),
-                              spreadRadius: -4,
-                              blurRadius: 5,
-                            )
-                          ],
-                        ),
-                        child: Card(
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(8),
-                          ),
-                          color: Colors.white,
-                          child: Padding(
-                            padding: const EdgeInsets.all(10),
-                            child: Wrap(
-                              runSpacing: 10,
-                              children: [
-                                Row(
-                                  children: [
-                                    Text('Type: ', style: labelFontStyle),
-                                    Text(widget.jobs[index].jobTypeCode)
-                                  ],
-                                ),
-                                Row(
-                                  children: [
-                                    Text(
-                                      'Client Job Number: ',
-                                      style: labelFontStyle,
-                                    ),
-                                    Text(widget.jobs[index].clientJobNumber)
-                                  ],
-                                ),
-                                ...widget.jobs[index].clientVisitNumber != null
-                                    ? [
-                                        Row(
-                                          children: [
-                                            Text(
-                                              'Client Visit Number: ',
-                                              style: labelFontStyle,
-                                            ),
-                                            Text(
-                                              widget.jobs[index]
-                                                  .clientVisitNumber!,
-                                            )
-                                          ],
-                                        )
-                                      ]
-                                    : [],
-                                Row(
-                                  children: [
-                                    Text(
-                                      'Job Number: ',
-                                      style: labelFontStyle,
-                                    ),
-                                    Text('${widget.jobs[index].jobNumber}')
-                                  ],
-                                ),
-                                Row(
-                                  children: [
-                                    Text('Status: ', style: labelFontStyle),
-                                    Text(
-                                      '${widget.jobs[index].jobStatusType}',
-                                    )
-                                  ],
-                                ),
-                                Row(
-                                  children: [
-                                    Text('State: ', style: labelFontStyle),
-                                    Text('${widget.jobs[index].state}')
-                                  ],
-                                ),
-                                ...widget.jobs[index].bookedDate != null
-                                    ? [
-                                        Row(
-                                          children: [
-                                            Text(
-                                              'Booked Date: ',
-                                              style: labelFontStyle,
-                                            ),
-                                            Text(
-                                              DateFormatter.formatDate(
-                                                widget.jobs[index].bookedDate!,
-                                              ),
-                                            )
-                                          ],
-                                        )
-                                      ]
-                                    : [],
-                              ],
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
+                  return Container(
+                    margin: const EdgeInsets.fromLTRB(10, 12, 10, 0),
+                    child: JobListItem(jobVisit: widget.jobs[index]),
                   );
                 },
               ),

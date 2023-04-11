@@ -4,7 +4,7 @@ import 'package:tech2/modules/jobs/models/bulk_routing_result.dart';
 import 'package:tech2/modules/jobs/models/job_form_item.dart';
 import 'package:tech2/modules/jobs/models/job_status.dart';
 import 'package:tech2/modules/jobs/models/job_visit_model.dart';
-import 'package:tech2/services/connectivity.dart';
+import 'package:tech2/services/connection.dart';
 import 'package:tech2/services/security.dart';
 import 'package:tech2/utilities/json_converter.dart';
 
@@ -21,9 +21,25 @@ class JobsService {
     BulkRoutingParameters model,
   ) {
     const url = '${apiBaseUrl}BulkRouting/GetListOfBulkRoutingJobs';
-    return ConnectivityService().getData(url, model).then((result) {
+    return ConnectionService().getData(url, model).then((result) {
       return List.of(
-        (JSONConverter.decode(result.body) as Map<String, dynamic>)['data']
+        (JSONConverter().decode(result.body) as Map<String, dynamic>)['data']
+            as Iterable<dynamic>,
+      )
+          .map(
+            (item) => BulkRoutingResult.fromJson(item as Map<String, dynamic>),
+          )
+          .toList();
+    });
+  }
+
+  Future<List<BulkRoutingResult>> getListOfBulkRoutingJobsForWorker(
+    BulkRoutingParametersForWorker model,
+  ) {
+    const url = '${apiBaseUrl}BulkRouting/GetListOfBulkRoutingJobsForWorker';
+    return ConnectionService().getData(url, model).then((result) {
+      return List.of(
+        (JSONConverter().decode(result.body) as Map<String, dynamic>)['data']
             as Iterable<dynamic>,
       )
           .map(
@@ -36,18 +52,18 @@ class JobsService {
   Future<JobVisitModel> getJobVisitModel(int jobVisitId) {
     final workerId = SecurityService.workerId;
     final url = '${apiBaseUrl}Job/GetJobVisitModel/$jobVisitId/false/$workerId';
-    return ConnectivityService().getData(url).then(
+    return ConnectionService().getData(url).then(
           (result) => JobVisitModel(
-            JSONConverter.decode(result.body) as Map<String, dynamic>,
+            JSONConverter().decode(result.body) as Map<String, dynamic>,
           ),
         );
   }
 
   Future<List<JobFormDto>> getJobForms(int jobVisitId) {
     final url = '${apiBaseUrl}JobForm/GetJobForms/$jobVisitId';
-    return ConnectivityService().getData(url).then(
+    return ConnectionService().getData(url).then(
           (result) =>
-              List.of(JSONConverter.decode(result.body) as Iterable<dynamic>)
+              List.of(JSONConverter().decode(result.body) as Iterable<dynamic>)
                   .map(
                     (formJson) =>
                         JobFormDto.fromJson(formJson as Map<String, dynamic>),
@@ -58,9 +74,9 @@ class JobsService {
 
   Future<JobStatusDto> getJobStatusInfo(int jobStatusId) {
     final url = '${apiBaseUrl}Job/GetJobStatusInfo/$jobStatusId';
-    return ConnectivityService().getData(url).then(
+    return ConnectionService().getData(url).then(
           (result) => JobStatusDto(
-            JSONConverter.decode(result.body) as Map<String, dynamic>,
+            JSONConverter().decode(result.body) as Map<String, dynamic>,
           ),
         );
   }

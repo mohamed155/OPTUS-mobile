@@ -105,7 +105,8 @@ class JobVisitModel {
         isUnlockJobVisit = json['isUnlockJobVisit'] as bool?,
         saveJobLogsReqDto = json['saveJobLogsReqDto'] != null
             ? SaveJobLogsReqDto(
-                json['saveJobLogsReqDto'] as Map<String, dynamic>)
+                json['saveJobLogsReqDto'] as Map<String, dynamic>,
+              )
             : null,
         savePicInformationReqDto = json['savePicInformationReqDto'] != null
             ? SavePicInformationReqDto(
@@ -1090,9 +1091,11 @@ class SaveJobLogsReqDto {
   SaveJobLogsReqDto(Map<String, dynamic> json)
       : communicationSaveDtoList =
             List.of(json['communicationSaveDtoList'] as Iterable<dynamic>)
-                .map((item) => CustomerCommunicationSaveDto(
-                      item as Map<String, dynamic>,
-                    ))
+                .map(
+                  (item) => CustomerCommunicationSaveDto(
+                    item as Map<String, dynamic>,
+                  ),
+                )
                 .toList(),
         logDtoList = List.of(json['logDtoList'] as Iterable<dynamic>)
             .map((item) => LogDto(item as Map<String, dynamic>))

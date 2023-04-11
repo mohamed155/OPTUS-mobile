@@ -19,7 +19,7 @@ enum IdTypes {
   task('Task'),
   projectRegion('ProjectRegion');
 
-  final String value;
-
   const IdTypes(this.value);
+
+  final String value;
 }

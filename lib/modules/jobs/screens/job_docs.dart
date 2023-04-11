@@ -4,6 +4,7 @@ import 'dart:io';
 import 'dart:typed_data';
 
 import 'package:file_picker/file_picker.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:open_filex/open_filex.dart';
 import 'package:path_provider/path_provider.dart';
@@ -100,11 +101,9 @@ class _JobDocumentsState extends State<JobDocuments> {
   Future<void> chooseFileToUpload() async {
     final result = await FilePicker.platform.pickFiles();
     if (result != null) {
-      final file = File(result.files.single.path!);
-      final bytes = file.readAsBytesSync();
-      final base64 = base64Encode(bytes);
+      final base64 = base64Encode(result.files.single.bytes!);
       unawaited(
-        showUploadDialog(base64, file.path.split('/').last)
+        showUploadDialog(base64, result.files.single.name)
             .then((_) => loadDocsList()),
       );
     }

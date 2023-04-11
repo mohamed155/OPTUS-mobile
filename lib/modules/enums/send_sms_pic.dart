@@ -3,6 +3,7 @@ enum SendSMSPIC {
   autoSend(1),
   manualSend(2);
 
-  final int value;
   const SendSMSPIC(this.value);
+
+  final int value;
 }

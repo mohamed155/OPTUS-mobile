@@ -11,26 +11,30 @@ class JobLocationScreen extends StatelessWidget {
   final double latitude;
   final double longitude;
 
-  final CameraPosition _kGooglePlex = const CameraPosition(
-    target: LatLng(-37.8167, 144.9626),
-    zoom: 5,
-  );
-
   @override
   Widget build(BuildContext context) {
+    const kGooglePlex = CameraPosition(
+      target: LatLng(-37.8167, 144.9626),
+      zoom: 5,
+    );
+
     return Scaffold(
       appBar: AppBar(
         title: const Text('Job Location'),
       ),
       body: GoogleMap(
-        initialCameraPosition: _kGooglePlex,
+        initialCameraPosition: kGooglePlex,
         onMapCreated: (GoogleMapController controller) =>
-            controller.animateCamera(CameraUpdate.newCameraPosition(
-                CameraPosition(target: LatLng(latitude, longitude), zoom: 13))),
+            controller.animateCamera(
+          CameraUpdate.newCameraPosition(
+            CameraPosition(target: LatLng(latitude, longitude), zoom: 13),
+          ),
+        ),
         markers: {
           Marker(
-              markerId: const MarkerId('job visit location'),
-              position: LatLng(latitude, longitude))
+            markerId: const MarkerId('job visit location'),
+            position: LatLng(latitude, longitude),
+          )
         },
       ),
     );

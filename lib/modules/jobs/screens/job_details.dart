@@ -195,7 +195,7 @@ class _JobDetailsScreenState extends State<JobDetailsScreen> {
                                         style: labelFontStyle,
                                       ),
                                       Text(
-                                        DateFormatter.formatDate(
+                                        DateFormatter().formatDate(
                                           jobVisit!.jobVisitModelDetailsDto
                                               .bookedDate!,
                                         ),
@@ -256,7 +256,7 @@ class _JobDetailsScreenState extends State<JobDetailsScreen> {
                                         style: labelFontStyle,
                                       ),
                                       Text(
-                                        DateFormatter.formatDate(
+                                        DateFormatter().formatDate(
                                           jobVisit!.jobDetailsDto.requestDate!,
                                         ),
                                         style: textStyle,
@@ -276,7 +276,7 @@ class _JobDetailsScreenState extends State<JobDetailsScreen> {
                                         style: labelFontStyle,
                                       ),
                                       Text(
-                                        DateFormatter.formatDate(
+                                        DateFormatter().formatDate(
                                           jobVisit!
                                               .jobDetailsDto.completedDate!,
                                         ),
