@@ -66,7 +66,7 @@ class _JobsHomeState extends State<JobsHomeScreen> {
         ),
         width: double.infinity,
         height: double.infinity,
-        padding: const EdgeInsets.symmetric(horizontal: 20),
+        padding: const EdgeInsets.symmetric(horizontal: 15),
         child: Column(
           children: [
             const SizedBox(
@@ -99,8 +99,9 @@ class _JobsHomeState extends State<JobsHomeScreen> {
                   itemBuilder: (context, index) {
                     final job = assignedJobs[index];
                     return Container(
-                        margin: const EdgeInsets.only(bottom: 10),
-                        child: JobListItem(jobVisit: job));
+                      margin: const EdgeInsets.only(bottom: 10),
+                      child: JobListItem(jobVisit: job),
+                    );
                   },
                 ),
               )

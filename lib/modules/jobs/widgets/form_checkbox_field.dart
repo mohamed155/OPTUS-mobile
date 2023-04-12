@@ -6,7 +6,8 @@ class FormCheckBoxField extends FormField<IDynamicFieldConfigModel> {
       : super(
           initialValue: fieldModel,
           validator: (model) {
-            if ((model!.value == null || (model.value as String).isEmpty) &&
+            if (model!.checkboxes!
+                    .every((checkbox) => checkbox.value == false) &&
                 model.mandatory) {
               return 'This field is required';
             }
@@ -15,8 +16,8 @@ class FormCheckBoxField extends FormField<IDynamicFieldConfigModel> {
               if (validations.isNotEmpty) {
                 for (final validation in validations) {
                   if (validation.name == 'required' &&
-                      (model.value == null ||
-                          (model.value as String).isEmpty)) {
+                      model.checkboxes!
+                          .every((checkbox) => checkbox.value == false)) {
                     return validation.message;
                   }
                   if (model.value != null &&
@@ -35,8 +36,6 @@ class FormCheckBoxField extends FormField<IDynamicFieldConfigModel> {
 
             final showErrors = !field.isValid && state.isTouched;
 
-            final controller = TextEditingController();
-
             final inputBorder = OutlineInputBorder(
               borderSide: const BorderSide(color: Colors.white),
               borderRadius: BorderRadius.circular(10),
@@ -48,9 +47,6 @@ class FormCheckBoxField extends FormField<IDynamicFieldConfigModel> {
               focusedBorder: inputBorder,
             );
 
-            if (fieldModel.value != null) {
-              controller.text = fieldModel.value as String;
-            }
             return Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -95,8 +91,9 @@ class FormCheckBoxField extends FormField<IDynamicFieldConfigModel> {
                       tileColor: Colors.transparent,
                       value: field.value!.checkboxes![index].value,
                       onChanged: (value) {
-                        field.value!.checkboxes![index].value = value!;
-                        field.didChange(field.value);
+                        field.didChange(
+                          field.value?..checkboxes?[index].value = value!,
+                        );
                       },
                     );
                   },

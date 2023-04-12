@@ -1,6 +1,7 @@
 import 'dart:typed_data';
 
 import 'package:tech2/config/app_config.dart';
+import 'package:tech2/interfaces/has_map.dart';
 import 'package:tech2/models/list_dto.dart';
 import 'package:tech2/modules/jobs/models/docs.dart';
 import 'package:tech2/services/connection.dart';
@@ -60,8 +61,8 @@ class DocsService {
     });
   }
 
-  Future<void> uploadLinkedDocuments(LinkedDocumentDto model) {
+  Future<void> uploadLinkedDocuments(List<LinkedDocumentDto> model) {
     const url = '${s3ApiBaseUrl}Upload/UploadLinkedDocuments';
-    return ConnectionService().sendData(url, model);
+    return ConnectionService().sendData(url, MappableList(model));
   }
 }

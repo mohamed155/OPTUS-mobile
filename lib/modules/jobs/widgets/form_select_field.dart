@@ -80,13 +80,13 @@ class FormSelectField extends FormField<IDynamicFieldConfigModel> {
                 const SizedBox(
                   height: 10,
                 ),
-                Dropdown<String>(
+                Dropdown<String?>(
                   items: fieldModel.options!
                       .map((item) => ListDto(item.key, item.value))
                       .toList(),
                   valueProp: 'value',
                   labelProp: 'value',
-                  value: fieldModel.value as String,
+                  value: fieldModel.value as String?,
                   onChanged: (String? value) {
                     field.didChange(field.value!..value = value);
                   },

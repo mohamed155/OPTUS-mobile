@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:tech2/config/app_config.dart';
 import 'package:tech2/modules/jobs/models/bulk_routing_parameters.dart';
 import 'package:tech2/modules/jobs/models/bulk_routing_result.dart';
@@ -52,11 +54,21 @@ class JobsService {
   Future<JobVisitModel> getJobVisitModel(int jobVisitId) {
     final workerId = SecurityService.workerId;
     final url = '${apiBaseUrl}Job/GetJobVisitModel/$jobVisitId/false/$workerId';
-    return ConnectionService().getData(url).then(
-          (result) => JobVisitModel(
-            JSONConverter().decode(result.body) as Map<String, dynamic>,
-          ),
-        );
+    final completer = Completer<JobVisitModel>();
+    ConnectionService().getData(url).then(
+      (result) {
+        if (result.statusCode == 403) {
+          completer.completeError('Forbidden');
+        } else {
+          completer.complete(
+            JobVisitModel(
+              JSONConverter().decode(result.body) as Map<String, dynamic>,
+            ),
+          );
+        }
+      },
+    );
+    return completer.future;
   }
 
   Future<List<JobFormDto>> getJobForms(int jobVisitId) {

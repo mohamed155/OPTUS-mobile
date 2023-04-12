@@ -1,7 +1,6 @@
 import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
-import 'dart:typed_data';
 
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/foundation.dart';
@@ -101,7 +100,14 @@ class _JobDocumentsState extends State<JobDocuments> {
   Future<void> chooseFileToUpload() async {
     final result = await FilePicker.platform.pickFiles();
     if (result != null) {
-      final base64 = base64Encode(result.files.single.bytes!);
+      late final Uint8List bytes;
+      if (kIsWeb) {
+        bytes = result.files.single.bytes!;
+      } else {
+        final file = File(result.files.single.path!);
+        bytes = file.readAsBytesSync();
+      }
+      final base64 = base64Encode(bytes);
       unawaited(
         showUploadDialog(base64, result.files.single.name)
             .then((_) => loadDocsList()),
@@ -145,7 +151,7 @@ class _JobDocumentsState extends State<JobDocuments> {
                   createdByWorkerId: SecurityService.workerId,
                 );
                 DocsService()
-                    .uploadLinkedDocuments(model)
+                    .uploadLinkedDocuments([model])
                     .then((_) => Navigator.of(context).pop())
                     .whenComplete(() => setState(() => uploading = false));
               }

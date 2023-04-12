@@ -38,11 +38,18 @@ class _JobDetailsScreenState extends State<JobDetailsScreen> {
   }
 
   void loadJobVisitModel() {
-    JobsService().getJobVisitModel(widget.jobVisitId).then(
+    JobsService()
+        .getJobVisitModel(widget.jobVisitId)
+        .then(
           (data) => setState(() {
             jobVisit = data;
           }),
-        );
+        )
+        .catchError((dynamic error) {
+      if (error == 'Forbidden') {
+        Navigator.pop(context);
+      }
+    });
   }
 
   void openJobMap() {

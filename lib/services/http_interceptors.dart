@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
+import 'package:flutter/foundation.dart';
 import 'package:http_interceptor/http/http.dart';
 import 'package:http_interceptor/models/request_data.dart';
 import 'package:http_interceptor/models/response_data.dart';
@@ -35,12 +36,17 @@ class APIInterceptors extends InterceptorContract {
         ' please contact our customer support.',
       );
     }
+    if (kDebugMode) {
+      print('Request: ${data.url} ${data.params} ${data.body}');
+    }
     return data;
   }
 
   @override
   Future<ResponseData> interceptResponse({required ResponseData data}) async {
-    print('Response: ${data.statusCode} ${data.body}');
+    if (kDebugMode) {
+      print('Response: ${data.statusCode} ${data.body}');
+    }
     switch (data.statusCode) {
       // error cases
       case 200:

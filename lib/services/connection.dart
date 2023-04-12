@@ -31,8 +31,12 @@ class ConnectionService {
 
   Future<Response> sendData(String url, [Mappable? body]) {
     if (body != null) {
-      final json = JSONConverter().encode(body.toMap());
-      print(json);
+      late final json;
+      if (body is MappableList) {
+        json = JSONConverter().encode(body.toMapList());
+      } else {
+        json = JSONConverter().encode(body.toMap());
+      }
       return _http.post(url.toUri(), body: json);
     } else {
       return _http.post(url.toUri());

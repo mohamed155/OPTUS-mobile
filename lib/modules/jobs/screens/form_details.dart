@@ -70,7 +70,13 @@ class _FormDetailsScreenState extends State<FormDetailsScreen> {
           widget.formDetailsInput.formId,
           widget.formDetailsInput.formResponseId,
         )
-        .then((data) => setState(() => model = data));
+        .then(
+          (data) => setState(
+            () => model = data
+              ..formResponseDto.idType = 'JobVisit'
+              ..formResponseDto.id = widget.formDetailsInput.jobVisitId,
+          ),
+        );
   }
 
   void goPrevSlide() {
