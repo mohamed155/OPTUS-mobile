@@ -31,7 +31,7 @@ class ConnectionService {
 
   Future<Response> sendData(String url, [Mappable? body]) {
     if (body != null) {
-      late final json;
+      late final String json;
       if (body is MappableList) {
         json = JSONConverter().encode(body.toMapList());
       } else {

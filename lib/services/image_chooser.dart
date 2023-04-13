@@ -6,6 +6,8 @@ import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:tech2/services/navigation_service.dart';
 
+import '../models/form_image_picker_result.dart';
+
 class ImageChooser {
   factory ImageChooser() {
     return _instance;
@@ -15,8 +17,8 @@ class ImageChooser {
 
   static final ImageChooser _instance = ImageChooser._create();
 
-  Future<Image>? chooseImage() {
-    final completer = Completer<Image>();
+  Future<FormImagePickerResult>? chooseImage() {
+    final completer = Completer<FormImagePickerResult>();
     final context = NavigationService().navigationKey.currentContext;
     if (context != null) {
       showAdaptiveActionSheet<void>(
@@ -46,9 +48,14 @@ class ImageChooser {
     return completer.future;
   }
 
-  Future<Image> chooseImageFromSource(ImageSource source) async {
+  Future<FormImagePickerResult> chooseImageFromSource(
+    ImageSource source,
+  ) async {
     final imagePicker = ImagePicker();
     final image = await imagePicker.pickImage(source: source);
-    return Image.file(File(image!.path));
+    return FormImagePickerResult(
+      name: image?.name,
+      image: FileImage(File(image!.path)),
+    );
   }
 }

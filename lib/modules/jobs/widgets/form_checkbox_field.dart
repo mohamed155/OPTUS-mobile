@@ -9,7 +9,7 @@ class FormCheckBoxField extends FormField<IDynamicFieldConfigModel> {
             if (model!.checkboxes!
                     .every((checkbox) => checkbox.value == false) &&
                 model.mandatory) {
-              return 'This field is required';
+              return 'Please answer this question';
             }
             if (fieldModel.validations != null) {
               final validations = fieldModel.validations!;

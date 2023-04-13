@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:tech2/models/form_image_picker_result.dart';
 import 'package:tech2/services/image_chooser.dart';
 
 class ImagePicker extends StatefulWidget {
@@ -10,7 +11,7 @@ class ImagePicker extends StatefulWidget {
   });
 
   final Image? image;
-  final void Function(Image? image)? onSelectImage;
+  final void Function(FileImage? image, String? name)? onSelectImage;
   final bool? hasErrors;
 
   @override
@@ -19,7 +20,7 @@ class ImagePicker extends StatefulWidget {
 
 class _ImagePickerState extends State<ImagePicker> {
   Image? image;
-  void Function(Image? image)? onSelectImage;
+  void Function(FileImage? image, String? name)? onSelectImage;
 
   @override
   void initState() {
@@ -29,10 +30,12 @@ class _ImagePickerState extends State<ImagePicker> {
   }
 
   void _selectImage() {
-    ImageChooser().chooseImage()?.then((Image img) {
-      setState(() => image = img);
+    ImageChooser().chooseImage()?.then((FormImagePickerResult result) {
+      if (result.image != null) {
+        setState(() => image = Image.file(result.image!.file));
+        onSelectImage!(result.image, result.name);
+      }
     });
-    onSelectImage!(image);
   }
 
   void _cancelImage() {

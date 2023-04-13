@@ -1,5 +1,8 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:tech2/modules/jobs/models/forms.dart';
+import 'package:tech2/utilities/json_converter.dart';
 import 'package:tech2/widgets/image_picker.dart';
 
 class FormPhotoField extends FormField<IDynamicFieldConfigModel> {
@@ -9,7 +12,7 @@ class FormPhotoField extends FormField<IDynamicFieldConfigModel> {
           validator: (model) {
             if ((model!.value == null || (model.value as String).isEmpty) &&
                 model.mandatory) {
-              return 'This field is required';
+              return 'Please answer this question';
             }
             if (fieldModel.validations != null) {
               final validations = fieldModel.validations!;
@@ -83,7 +86,19 @@ class FormPhotoField extends FormField<IDynamicFieldConfigModel> {
                   image: fieldModel.value != null
                       ? Image.network(fieldModel.value as String)
                       : null,
-                  onSelectImage: (Image? image) {},
+                  onSelectImage: (FileImage? image, String? name) {
+                    if (image != null) {
+                      field.didChange(
+                        field.value!
+                          ..value = JSONConverter().encode({
+                            'fileName': name,
+                            'base64': base64Encode(
+                              image.file.readAsBytesSync(),
+                            ),
+                          }),
+                      );
+                    }
+                  },
                   hasErrors: showErrors,
                 ),
                 ...showErrors

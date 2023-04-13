@@ -10,7 +10,7 @@ class FormSelectField extends FormField<IDynamicFieldConfigModel> {
           validator: (model) {
             if ((model!.value == null || (model.value as String).isEmpty) &&
                 model.mandatory) {
-              return 'This field is required';
+              return 'Please answer this question';
             }
             if (fieldModel.validations != null) {
               final validations = fieldModel.validations!;
