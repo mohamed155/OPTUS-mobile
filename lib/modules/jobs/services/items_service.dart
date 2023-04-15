@@ -37,16 +37,16 @@ class ItemsService {
 
   Future<void> addTaskCodeItem(AddTaskCodeItemDto model) {
     const url = '${apiBaseUrl}Job/AddTaskCodeItem';
-    return ConnectionService().sendData(url, model);
+    return ConnectionService().postData(url, model);
   }
 
   Future<void> deleteTaskCodeItem(DeleteItemDto model) {
     const url = '${apiBaseUrl}Job/DeleteTaskCodeItem';
-    return ConnectionService().sendData(url, model);
+    return ConnectionService().postData(url, model);
   }
 
   Future<void> saveJobItem(SaveJobItemDto model) {
     const url = '${apiBaseUrl}Job/UpdateJobItem';
-    return ConnectionService().sendData(url, model);
+    return ConnectionService().postData(url, model);
   }
 }

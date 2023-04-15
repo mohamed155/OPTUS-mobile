@@ -27,6 +27,6 @@ class FormsService {
 
   Future<void> saveFormResponse(FormResponseModelDto model) {
     const url = '${apiBaseUrl}Form/SaveFormResponse';
-    return ConnectionService().sendData(url, model);
+    return ConnectionService().postData(url, model);
   }
 }

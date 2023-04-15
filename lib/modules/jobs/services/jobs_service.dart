@@ -92,4 +92,9 @@ class JobsService {
           ),
         );
   }
+
+  Future<void> updateJobVisit(JobVisitModel model) {
+    const url = '${apiBaseUrl}Job/UpdateJobVisit';
+    return ConnectionService().putData(url, model);
+  }
 }

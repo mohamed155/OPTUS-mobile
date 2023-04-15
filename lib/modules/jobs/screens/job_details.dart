@@ -97,8 +97,48 @@ class _JobDetailsScreenState extends State<JobDetailsScreen> {
     );
   }
 
-  Future<JobStatusDto> getJobStatus(int statusId) {
+  Future<JobStatusDto> getJobStatusInfo(int statusId) {
     return JobsService().getJobStatusInfo(statusId);
+  }
+
+  void startJob() {
+    const startedStatusId = 5;
+    getJobStatusInfo(startedStatusId).then((statusInfo) {
+      jobVisit!.jobVisitModelDetailsDto.visitStatusId = statusInfo.jobStatusId;
+      jobVisit!.jobStatusDetailsDto.jobStatus =
+          '${statusInfo.jobStatusCode} - ${statusInfo.jobStatusDesc}';
+      jobVisit!.jobStatusDetailsDto.jobStatusCode = statusInfo.jobStatusCode;
+      jobVisit!.jobStatusDetailsDto.jobStatusDesc = statusInfo.jobStatusDesc;
+      jobVisit!.jobStatusDetailsDto.jobStatusType = statusInfo.jobStatusType;
+      setState(() => {});
+      JobsService()
+          .updateJobVisit(
+        jobVisit!,
+      )
+          .then((_) {
+        loadJobVisitModel();
+      });
+    });
+  }
+
+  void closeJob() {
+    const closedStatusId = 6;
+    getJobStatusInfo(closedStatusId).then((statusInfo) {
+      jobVisit!.jobVisitModelDetailsDto.visitStatusId = statusInfo.jobStatusId;
+      jobVisit!.jobStatusDetailsDto.jobStatus =
+          '${statusInfo.jobStatusCode} - ${statusInfo.jobStatusDesc}';
+      jobVisit!.jobStatusDetailsDto.jobStatusCode = statusInfo.jobStatusCode;
+      jobVisit!.jobStatusDetailsDto.jobStatusDesc = statusInfo.jobStatusDesc;
+      jobVisit!.jobStatusDetailsDto.jobStatusType = statusInfo.jobStatusType;
+      setState(() => {});
+      JobsService()
+          .updateJobVisit(
+        jobVisit!,
+      )
+          .then((_) {
+        loadJobVisitModel();
+      });
+    });
   }
 
   @override
@@ -360,30 +400,42 @@ class _JobDetailsScreenState extends State<JobDetailsScreen> {
               activeIcon: Icons.close,
               overlayColor: Colors.black,
               children: [
-                SpeedDialChild(
-                  label: 'Start job',
-                  backgroundColor: Colors.green,
-                  child: const Icon(
-                    Icons.play_arrow_rounded,
-                    color: Colors.white,
+                if (jobVisit!.jobStatusDetailsDto.jobStatusCode == 'O')
+                  SpeedDialChild(
+                    label: 'Start job',
+                    backgroundColor: Colors.green,
+                    onTap: startJob,
+                    child: const Icon(
+                      Icons.play_arrow_rounded,
+                      color: Colors.white,
+                    ),
+                  )
+                else if (jobVisit!.jobStatusDetailsDto.jobStatusCode == 'S')
+                  SpeedDialChild(
+                    label: 'Close job',
+                    backgroundColor: Colors.white,
+                    onTap: closeJob,
+                    child: const Icon(
+                      Icons.check,
+                      color: Colors.red,
+                    ),
                   ),
-                ),
-                SpeedDialChild(
-                  label: 'Capture',
-                  backgroundColor: Theme.of(context).primaryColor,
-                  child: const Icon(
-                    Icons.camera_alt,
-                    color: Colors.white,
-                  ),
-                ),
-                SpeedDialChild(
-                  label: 'Attach',
-                  backgroundColor: Theme.of(context).primaryColor,
-                  child: const Icon(
-                    Icons.attach_file,
-                    color: Colors.white,
-                  ),
-                ),
+                // SpeedDialChild(
+                //   label: 'Capture',
+                //   backgroundColor: Theme.of(context).primaryColor,
+                //   child: const Icon(
+                //     Icons.camera_alt,
+                //     color: Colors.white,
+                //   ),
+                // ),
+                // SpeedDialChild(
+                //   label: 'Attach',
+                //   backgroundColor: Theme.of(context).primaryColor,
+                //   child: const Icon(
+                //     Icons.attach_file,
+                //     color: Colors.white,
+                //   ),
+                // ),
                 SpeedDialChild(
                   label: 'Docs',
                   backgroundColor: Theme.of(context).primaryColor,

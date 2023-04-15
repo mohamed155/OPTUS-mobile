@@ -1,4 +1,6 @@
-class JobVisitModel {
+import 'package:tech2/interfaces/has_map.dart';
+
+class JobVisitModel implements Mappable {
   JobVisitModel(Map<String, dynamic> json)
       : jobDetailsDto = JobDetailsDto(
           json['jobDetailsDto'] as Map<String, dynamic>,
@@ -217,9 +219,88 @@ class JobVisitModel {
   bool? isCloseIssue;
 
   DateTime? lastUpdated;
+
+  @override
+  Map<String, dynamic> toMap() {
+    return {
+      'jobDetailsDto': jobDetailsDto.toMap(),
+      'siteDetailsDto': siteDetailsDto.toMap(),
+      'jobTypeDetailsDto': jobTypeDetailsDto.toMap(),
+      'projectDetailsDto': projectDetailsDto.toMap(),
+      'jobStatusDetailsDto': jobStatusDetailsDto.toMap(),
+      'jobClassDetailsDto': jobClassDetailsDto.toMap(),
+      'regionDetailsDto': regionDetailsDto.toMap(),
+      'workerJobDetailsDto': workerJobDetailsDto.toMap(),
+      'jobVisitModelDetailsDto': jobVisitModelDetailsDto.toMap(),
+      'originalValuesDto': originalValuesDto.toMap(),
+      'lockClass': lockClass,
+      'customerCreditInfoId': customerCreditInfoId,
+      'summaryLockMessage': summaryLockMessage,
+      'lockMessage': lockMessage,
+      'bigStatus': bigStatus,
+      'sliceLockMessage': sliceLockMessage,
+      'timeOfDayRunTime': timeOfDayRunTime?.toIso8601String(),
+      'status': status,
+      'fulfillmentTotal': fulfillmentTotal,
+      'equipmentTotal': equipmentTotal,
+      'jobTotalTextBox': jobTotalTextBox,
+      'firstCollectionDate': firstCollectionDate?.toIso8601String(),
+      'firstCollectionByWorkerId': firstCollectionByWorkerId,
+      'firstCollectionWorkerName': firstCollectionWorkerName,
+      'secondCollectionDate': secondCollectionDate?.toIso8601String(),
+      'secondCollectionByWorkerId': secondCollectionByWorkerId,
+      'secondCollectionWorkerName': secondCollectionWorkerName,
+      'collectionLetterDate': collectionLetterDate?.toIso8601String(),
+      'collectionLetterByWorkerId': collectionLetterByWorkerId,
+      'collectionLetterWorkerName': collectionLetterWorkerName,
+      'collectionAgencyDate': collectionAgencyDate?.toIso8601String(),
+      'collectionAgencyByWorkerId': collectionAgencyByWorkerId,
+      'collectionAgencyWorkerName': collectionAgencyWorkerName,
+      'sendCollectionLetterDate': sendCollectionLetterDate?.toIso8601String(),
+      'sendCollectionLetterByWorkerId': sendCollectionLetterByWorkerId,
+      'sendCollectionLetterByWorkerName': sendCollectionLetterByWorkerName,
+      'isMissingPaymentAction': isMissingPaymentAction,
+      'oktobillallowed': oktobillallowed,
+      'jobEnterDiscount': jobEnterDiscount,
+      'jobDeleteConfirmedPayment': jobDeleteConfirmedPayment,
+      'jobAllowLockOverride': jobAllowLockOverride,
+      'jobPayRefundLessThan375': jobPayRefundLessThan375,
+      'jobPayRefundBetween375And750': jobPayRefundBetween375And750,
+      'jobPayRefundGreaterThan750': jobPayRefundGreaterThan750,
+      'jobAllowReopenClosedCob': jobAllowReopenClosedCob,
+      'jobLimitedUser': jobLimitedUser,
+      'jobCheckCollectionAgency': jobCheckCollectionAgency,
+      'jobUnClaimGeFinanceInvoice': jobUnClaimGeFinanceInvoice,
+      'jobPayGeFinanceInvoice': jobPayGeFinanceInvoice,
+      'jobChargeToGeFinance': jobChargeToGeFinance,
+      'crmEditStoreWarehouseDetails': crmEditStoreWarehouseDetails,
+      'jobAddNegativeQuantity': jobAddNegativeQuantity,
+      'jobShowExpiredPromotions': jobShowExpiredPromotions,
+      'jobEditClientVisitNumber': jobEditClientVisitNumber,
+      'oktopayallowed': oktopayallowed,
+      'jobChangeReasonCode': jobChangeReasonCode,
+      'jobTickSkipClaimPayment': jobTickSkipClaimPayment,
+      'jobEditClientRefNumber': jobEditClientRefNumber,
+      'jobPicCompletedOverride': jobPicCompletedOverride,
+      'jobPicSmsSentOverride': jobPicSmsSentOverride,
+      'jobClearDirtyTow': jobClearDirtyTow,
+      'jobChangeNpsScore': jobChangeNpsScore,
+      'isUnlockJobVisit': isUnlockJobVisit,
+      'saveJobLogsReqDto': saveJobLogsReqDto?.toMap(),
+      'savePicInformationReqDto': savePicInformationReqDto?.toMap(),
+      'isSendSmsMissingPaymentCall': isSendSmsMissingPaymentCall,
+      'isCheckFirstMissingPaymentCall': isCheckFirstMissingPaymentCall,
+      'isCheckSecondMissingPaymentCall': isCheckSecondMissingPaymentCall,
+      'jobOpenTime': jobOpenTime?.toIso8601String(),
+      'customerEmail': customerEmail,
+      'customerMobile': customerMobile,
+      'isCloseIssue': isCloseIssue,
+      'lastUpdated': DateTime.now().toIso8601String(),
+    };
+  }
 }
 
-class JobDetailsDto {
+class JobDetailsDto implements Mappable {
   JobDetailsDto(Map<String, dynamic> json)
       : jobId = json['jobId'] as int?,
         sourceCustomerId = json['sourceCustomerId'] as int?,
@@ -436,9 +517,108 @@ class JobDetailsDto {
   bool? goodsAtHome;
 
   DateTime? lastUpdated;
+
+  @override
+  Map<String, dynamic> toMap() {
+    return {
+      'jobId': jobId,
+      'sourceCustomerId': sourceCustomerId,
+      'jobSourceProductId': jobSourceProductId,
+      'jobNumber': jobNumber,
+      'cancelDate': cancelDate?.toIso8601String(),
+      'clientJobNumber': clientJobNumber,
+      'completedDate': completedDate?.toIso8601String(),
+      'contactName': contactName,
+      'custContactName': custContactName,
+      'custEmail': custEmail,
+      'jobClassId': jobClassId,
+      'custContact1': custContact1,
+      'custContact2': custContact2,
+      'requestDate': requestDate?.toIso8601String(),
+      'requestDateStr': requestDateStr,
+      'jobDesc': jobDesc,
+      'followUpDate': followUpDate?.toIso8601String(),
+      'followUpTime': followUpTime?.toIso8601String(),
+      'followUpTimeStr': followUpTimeStr,
+      'followUpDateAndTime': followUpDateAndTime,
+      'jobSourceId': jobSourceId,
+      'whlocationId': whlocationId,
+      'jobField1': jobField1,
+      'hnSalesPerson': hnSalesPerson,
+      'whDistance': whDistance,
+      'contractNo': contractNo,
+      'jobSaleWorkerId': jobSaleWorkerId,
+      'jobSaleWorkerIdStr': jobSaleWorkerIdStr,
+      'clientRefNo': clientRefNo,
+      'workerEmail': workerEmail,
+      'workerLeaderEmail': workerLeaderEmail,
+      'quoteProvidedDate': quoteProvidedDate?.toIso8601String(),
+      'npsScore': npsScore,
+      'fsdStartDate': fsdStartDate?.toIso8601String(),
+      'nbnCivilsStartDate': nbnCivilsStartDate?.toIso8601String(),
+      'jobLeadWorkerId': jobLeadWorkerId,
+      'jobLeadWorkerIdStr': jobLeadWorkerIdStr,
+      'routedTo': routedTo,
+      'bal': bal,
+      'balance': balance,
+      'sameVisit': sameVisit,
+      'isLockedJob': isLockedJob,
+      'lockMessage': lockMessage,
+      'lockUserName': lockUserName,
+      'lockedTime': lockedTime?.toIso8601String(),
+      'picComments': picComments,
+      'jobField2': jobField2,
+      'jobField3': jobField3,
+      'jobField4': jobField4,
+      'jobField5': jobField5,
+      'jobField6': jobField6,
+      'jobField8': jobField8,
+      'jobField7': jobField7,
+      'jobField7New': jobField7New,
+      'jobField9': jobField9,
+      'jobField9New': jobField9New,
+      'jobField10': jobField10,
+      'jobField10New': jobField10New,
+      'jobField11': jobField11,
+      'jobField12': jobField12,
+      'jobField13': jobField13,
+      'jobField14': jobField14,
+      'jobField15': jobField15,
+      'jobField16': jobField16,
+      'jobField17': jobField17,
+      'jobField18': jobField18,
+      'jobField19': jobField19,
+      'jobCheck1': jobCheck1,
+      'jobCheck2': jobCheck2,
+      'jobCheck3': jobCheck3,
+      'jobCheck4': jobCheck4,
+      'jobCheck5': jobCheck5,
+      'jobCheck6': jobCheck6,
+      'jobCheck7': jobCheck7,
+      'jobCheck8': jobCheck8,
+      'jobCheck9': jobCheck9,
+      'jobCheck10': jobCheck10,
+      'jobCheck11': jobCheck11,
+      'jobCheck12': jobCheck12,
+      'jobCheck13': jobCheck13,
+      'jobCheck14': jobCheck14,
+      'jobCheck15': jobCheck15,
+      'addressConfirmed': addressConfirmed,
+      'scopeConfirmed': scopeConfirmed,
+      'antennaScope': antennaScope,
+      'newOutletNeededResponse': newOutletNeededResponse,
+      'speakerMountingScope': speakerMountingScope,
+      'roofAccessGiven': roofAccessGiven,
+      'powerPointInLocation': powerPointInLocation,
+      'timeSlotConfirmed': timeSlotConfirmed,
+      'amountOutstanding': amountOutstanding,
+      'goodsAtHome': goodsAtHome,
+      'lastUpdated': lastUpdated?.toIso8601String(),
+    };
+  }
 }
 
-class SiteDetailsDto {
+class SiteDetailsDto implements Mappable {
   SiteDetailsDto(Map<String, dynamic> json)
       : siteId = json['siteId'] as int?,
         latitude = json['latitude'] as double?,
@@ -477,9 +657,32 @@ class SiteDetailsDto {
   String? customField8;
   String? customField9;
   String? customField10;
+
+  @override
+  Map<String, dynamic> toMap() {
+    return {
+      'siteId': siteId,
+      'latitude': latitude,
+      'longitude': longitude,
+      'simpleAddress': simpleAddress,
+      'siteInfo': siteInfo,
+      'siteCustomerId': siteCustomerId,
+      'siteNameSimpleAddress': siteNameSimpleAddress,
+      'customField1': customField1,
+      'customField2': customField2,
+      'customField3': customField3,
+      'customField4': customField4,
+      'customField5': customField5,
+      'customField6': customField6,
+      'customField7': customField7,
+      'customField8': customField8,
+      'customField9': customField9,
+      'customField10': customField10,
+    };
+  }
 }
 
-class JobTypeDetailsDto {
+class JobTypeDetailsDto implements Mappable {
   JobTypeDetailsDto(Map<String, dynamic> json)
       : custMarkerColor = json['custMarkerColor'] as String?,
         rescheduleWizardId = json['rescheduleWizardId'] as int?,
@@ -508,9 +711,28 @@ class JobTypeDetailsDto {
   bool? itSetupSupportQueue;
   bool? operationSupportQueue;
   bool? revenueJobType;
+
+  @override
+  Map<String, dynamic> toMap() {
+    return {
+      'custMarkerColor': custMarkerColor,
+      'rescheduleWizardId': rescheduleWizardId,
+      'scheduleWizardId': scheduleWizardId,
+      'cancelWizardId': cancelWizardId,
+      'closingWizardId': closingWizardId,
+      'flexibleScheduling': flexibleScheduling,
+      'jobTypeCode': jobTypeCode,
+      'truckRoll': truckRoll,
+      'mainJobType': mainJobType,
+      'contractSupportQueue': contractSupportQueue,
+      'itSetupSupportQueue': itSetupSupportQueue,
+      'operationSupportQueue': operationSupportQueue,
+      'revenueJobType': revenueJobType,
+    };
+  }
 }
 
-class ProjectDetailsDto {
+class ProjectDetailsDto implements Mappable {
   ProjectDetailsDto(Map<String, dynamic> json)
       : requireCommentOnStockRemove =
             json['requireCommentOnStockRemove'] as bool?,
@@ -677,9 +899,92 @@ class ProjectDetailsDto {
   String? jobField17Desc;
   String? jobField18Desc;
   String? jobField19Desc;
+
+  @override
+  Map<String, dynamic> toMap() {
+    return {
+      'requireCommentOnStockRemove': requireCommentOnStockRemove,
+      'preInstallMaxCalls': preInstallMaxCalls,
+      'allowCustomerCommunicationTrace': allowCustomerCommunicationTrace,
+      'projectCustomerId': projectCustomerId,
+      'overrideStatusChange': overrideStatusChange,
+      'allowedStatusByJobType': allowedStatusByJobType,
+      'allowOpenClosedJob': allowOpenClosedJob,
+      'allowChangeJobType': allowChangeJobType,
+      'projectName': projectName,
+      'projectCode': projectCode,
+      'projectId': projectId,
+      'isTpgProject': isTpgProject,
+      'projectCodeRegionName': projectCodeRegionName,
+      'jobVisitField1Desc': jobVisitField1Desc,
+      'jobVisitField2Desc': jobVisitField2Desc,
+      'jobVisitField3Desc': jobVisitField3Desc,
+      'jobVisitField4Desc': jobVisitField4Desc,
+      'jobVisitField5Desc': jobVisitField5Desc,
+      'jobVisitField6Desc': jobVisitField6Desc,
+      'jobVisitField7Desc': jobVisitField7Desc,
+      'jobVisitField8Desc': jobVisitField8Desc,
+      'jobVisitField9Desc': jobVisitField9Desc,
+      'jobVisitField10Desc': jobVisitField10Desc,
+      'jobVisitField11Desc': jobVisitField11Desc,
+      'jobVisitField12Desc': jobVisitField12Desc,
+      'jobVisitField13Desc': jobVisitField13Desc,
+      'jobVisitField14Desc': jobVisitField14Desc,
+      'jobVisitField15Desc': jobVisitField15Desc,
+      'jobVisitField16Desc': jobVisitField16Desc,
+      'jobVisitField17Desc': jobVisitField17Desc,
+      'jobVisitField18Desc': jobVisitField18Desc,
+      'jobVisitField19Desc': jobVisitField19Desc,
+      'jobVisitField20Desc': jobVisitField20Desc,
+      'siteField1Desc': siteField1Desc,
+      'siteField2Desc': siteField2Desc,
+      'siteField3Desc': siteField3Desc,
+      'siteField4Desc': siteField4Desc,
+      'siteField5Desc': siteField5Desc,
+      'siteField6Desc': siteField6Desc,
+      'siteField7Desc': siteField7Desc,
+      'siteField8Desc': siteField8Desc,
+      'siteField9Desc': siteField9Desc,
+      'siteField10Desc': siteField10Desc,
+      'check1Desc': check1Desc,
+      'check2Desc': check2Desc,
+      'check3Desc': check3Desc,
+      'check4Desc': check4Desc,
+      'check5Desc': check5Desc,
+      'check6Desc': check6Desc,
+      'check7Desc': check7Desc,
+      'check8Desc': check8Desc,
+      'check9Desc': check9Desc,
+      'check10Desc': check10Desc,
+      'check11Desc': check11Desc,
+      'check12Desc': check12Desc,
+      'check13Desc': check13Desc,
+      'check14Desc': check14Desc,
+      'check15Desc': check15Desc,
+      'jobField1Desc': jobField1Desc,
+      'jobField2Desc': jobField2Desc,
+      'jobField3Desc': jobField3Desc,
+      'jobField4Desc': jobField4Desc,
+      'jobField5Desc': jobField5Desc,
+      'jobField6Desc': jobField6Desc,
+      'jobField7Desc': jobField7Desc,
+      'jobField8Desc': jobField8Desc,
+      'jobField9Desc': jobField9Desc,
+      'jobField10Desc': jobField10Desc,
+      'jobField11Desc': jobField11Desc,
+      'jobField12Desc': jobField12Desc,
+      'jobField13Desc': jobField13Desc,
+      'jobField14Desc': jobField14Desc,
+      'jobField15Desc': jobField15Desc,
+      'jobField16Desc': jobField16Desc,
+      'jobField17Desc': jobField17Desc,
+      'jobField18Desc': jobField18Desc,
+      'jobField19Desc': jobField19Desc,
+    };
+  }
 }
 
-class JobStatusDetailsDto {
+class JobStatusDetailsDto implements Mappable {
   JobStatusDetailsDto(Map<String, dynamic> json)
       : allowChangeInJobDetails = json['allowChangeInJobDetails'] as bool?,
         jobStatusType = json['jobStatusType'] as String,
@@ -696,18 +1001,39 @@ class JobStatusDetailsDto {
   String jobStatus;
   String? quotedProvided;
   String mainJobStatusType;
+
+  @override
+  Map<String, dynamic> toMap() {
+    return {
+      'allowChangeInJobDetails': allowChangeInJobDetails,
+      'jobStatusType': jobStatusType,
+      'jobStatusDesc': jobStatusDesc,
+      'jobStatusCode': jobStatusCode,
+      'jobStatus': jobStatus,
+      'quotedProvided': quotedProvided,
+      'mainJobStatusType': mainJobStatusType,
+    };
+  }
 }
 
-class JobClassDetailsDto {
+class JobClassDetailsDto implements Mappable {
   JobClassDetailsDto(Map<String, dynamic> json)
       : jobClassName = json['jobClassName'] as String?,
         jobClassCode = json['jobClassCode'] as String?;
 
   String? jobClassName;
   String? jobClassCode;
+
+  @override
+  Map<String, dynamic> toMap() {
+    return {
+      'jobClassName': jobClassName,
+      'jobClassCode': jobClassCode,
+    };
+  }
 }
 
-class RegionDetailsDto {
+class RegionDetailsDto implements Mappable {
   RegionDetailsDto(Map<String, dynamic> json)
       : regionName = json['regionName'] as String?,
         timeOffset = json['timeOffset'] as double?,
@@ -722,18 +1048,36 @@ class RegionDetailsDto {
   double? timeOffset;
   DateTime? timeOffsetDateTime;
   DateTime? timeOfDay;
+
+  @override
+  Map<String, dynamic> toMap() {
+    return {
+      'regionName': regionName,
+      'timeOffset': timeOffset,
+      'timeOffsetDateTime': timeOffsetDateTime?.toIso8601String(),
+      'timeOfDay': timeOfDay?.toIso8601String(),
+    };
+  }
 }
 
-class WorkerJobDetailsDto {
+class WorkerJobDetailsDto implements Mappable {
   WorkerJobDetailsDto(Map<String, dynamic> json)
       : workerFullName = json['workerFullName'] as String?,
         createdByWorkerName = json['createdByWorkerName'] as String?;
 
   String? workerFullName;
   String? createdByWorkerName;
+
+  @override
+  Map<String, dynamic> toMap() {
+    return {
+      'workerFullName': workerFullName,
+      'createdByWorkerName': createdByWorkerName,
+    };
+  }
 }
 
-class JobVisitModelDetailsDto {
+class JobVisitModelDetailsDto implements Mappable {
   JobVisitModelDetailsDto(Map<String, dynamic> json)
       : paymentMethodId = json['paymentMethodId'] as int?,
         visitWorkerId = json['visitWorkerId'] as int?,
@@ -970,9 +1314,114 @@ class JobVisitModelDetailsDto {
   String? smsSendDate;
 
   String? overrideRoutingWarningMessage;
+
+  @override
+  Map<String, dynamic> toMap() {
+    return {
+      'paymentMethodId': paymentMethodId,
+      'visitWorkerId': visitWorkerId,
+      'createdByWorkerId': createdByWorkerId,
+      'workerStartTimeAgree': workerStartTimeAgree,
+      'workerFinishTimeAgree': workerFinishTimeAgree,
+      'workerPaymentCollectedAgree': workerPaymentCollectedAgree,
+      'workerPaymentMethodAgree': workerPaymentMethodAgree,
+      'paymentDue': paymentDue,
+      'paymentDueStr': paymentDueStr,
+      'reminderMessage': reminderMessage,
+      'reminderTime': reminderTime?.toIso8601String(),
+      'visitStatusReasonId': visitStatusReasonId,
+      'visitStatusReasonId2': visitStatusReasonId2,
+      'visitStatusReasonId3': visitStatusReasonId3,
+      'supervisorCode': supervisorCode,
+      'startTime': startTime?.toIso8601String(),
+      'finishTime': finishTime?.toIso8601String(),
+      'paymentCollected': paymentCollected,
+      'paymentCollectedStr': paymentCollectedStr,
+      'customerSmsSentDate': customerSmsSentDate?.toIso8601String(),
+      'customerSendsms': customerSendsms,
+      'jobIdRef': jobIdRef,
+      'siteIdRef': siteIdRef,
+      'jobTypeIdRef': jobTypeIdRef,
+      'jobTypeId': jobTypeId,
+      'visitWorkerIdRef': visitWorkerIdRef,
+      'loggedWorkerId': loggedWorkerId,
+      'jobPoints': jobPoints,
+      'preInstallCallAttempts': preInstallCallAttempts,
+      'preInstallCallCompleted': preInstallCallCompleted,
+      'visitStatusId': visitStatusId,
+      'logisticsConfirmed': logisticsConfirmed,
+      'clientVisitNumber': clientVisitNumber,
+      'isShowTimeDifference': isShowTimeDifference,
+      'bookedDate': bookedDate?.toIso8601String(),
+      'bookedDateStr': bookedDateStr,
+      'projectRegionId': projectRegionId,
+      'jobVisitId': jobVisitId,
+      'createdByProcess': createdByProcess,
+      'dateCreated': dateCreated.toIso8601String(),
+      'dateReconciled': dateReconciled?.toIso8601String(),
+      'technicianId': technicianId,
+      'bookedTimeSlot': bookedTimeSlot,
+      'routeSequence': routeSequence,
+      'jobViewedDate': jobViewedDate,
+      'acceptedDate': acceptedDate,
+      'otherFsts': otherFsts,
+      'partner': partner,
+      'product': product,
+      'storeLocation': storeLocation,
+      'pabtimeslot': pabtimeslot,
+      'pabDate': pabDate?.toIso8601String(),
+      'pabDateStr': pabDateStr,
+      'nextCallDate': nextCallDate?.toIso8601String(),
+      'isNextCallDate': isNextCallDate,
+      'isActionDuedate': isActionDuedate,
+      'actionDueTime': actionDueTime?.toIso8601String(),
+      'otdRescheduleRequested': otdRescheduleRequested,
+      'routingAlert': routingAlert,
+      'smsSentDate': smsSentDate?.toIso8601String(),
+      'viewedDate': viewedDate?.toIso8601String(),
+      'acceptDate': acceptDate?.toIso8601String(),
+      'priority': priority,
+      'jobVisitField1': jobVisitField1,
+      'jobVisitField2': jobVisitField2,
+      'jobVisitField3': jobVisitField3,
+      'jobVisitField4': jobVisitField4,
+      'jobVisitField5': jobVisitField5,
+      'jobVisitField6': jobVisitField6,
+      'jobVisitField7': jobVisitField7,
+      'jobVisitField8': jobVisitField8,
+      'jobVisitField9': jobVisitField9,
+      'jobVisitField10': jobVisitField10,
+      'jobVisitField11': jobVisitField11,
+      'jobVisitField12': jobVisitField12,
+      'jobVisitField13': jobVisitField13,
+      'jobVisitField14': jobVisitField14,
+      'jobVisitField15': jobVisitField15,
+      'jobVisitField16': jobVisitField16,
+      'jobVisitField17': jobVisitField17,
+      'jobVisitField18': jobVisitField18,
+      'jobVisitField19': jobVisitField19,
+      'jobVisitField20': jobVisitField20,
+      'customerSatisfaction': customerSatisfaction,
+      'overallInspection': overallInspection,
+      'surveyRequired': surveyRequired,
+      'surveyCompleted': surveyCompleted,
+      'qiRequired': qiRequired,
+      'qiCompleted': qiCompleted,
+      'discontinued': discontinued,
+      'itemTypeId': itemTypeId,
+      'timeSlotId': timeSlotId,
+      'limitedUser': limitedUser,
+      'isRequestSchedule': isRequestSchedule,
+      'technicianName': technicianName,
+      'whPickupLocation': whPickupLocation,
+      'salesRepId': salesRepId,
+      'smsSendDate': smsSendDate,
+      'overrideRoutingWarningMessage': overrideRoutingWarningMessage,
+    };
+  }
 }
 
-class OriginalValuesDto {
+class OriginalValuesDto implements Mappable {
   OriginalValuesDto(Map<String, dynamic> json)
       : jobVisitField1 = json['jobVisitField1'] as String?,
         jobVisitField2 = json['jobVisitField2'] as String?,
@@ -1085,9 +1534,69 @@ class OriginalValuesDto {
   String? jobField17;
   String? jobField18;
   String? jobField19;
+
+  @override
+  Map<String, dynamic> toMap() {
+    return {
+      'jobVisitField1': jobVisitField1,
+      'jobVisitField2': jobVisitField2,
+      'jobVisitField3': jobVisitField3,
+      'jobVisitField4': jobVisitField4,
+      'jobVisitField5': jobVisitField5,
+      'jobVisitField6': jobVisitField6,
+      'jobVisitField7': jobVisitField7,
+      'jobVisitField8': jobVisitField8,
+      'jobVisitField9': jobVisitField9,
+      'jobVisitField10': jobVisitField10,
+      'jobVisitField11': jobVisitField11,
+      'jobVisitField12': jobVisitField12,
+      'jobVisitField13': jobVisitField13,
+      'jobVisitField14': jobVisitField14,
+      'jobVisitField15': jobVisitField15,
+      'jobVisitField16': jobVisitField16,
+      'jobVisitField17': jobVisitField17,
+      'jobVisitField18': jobVisitField18,
+      'jobVisitField19': jobVisitField19,
+      'jobVisitField20': jobVisitField20,
+      'jobCheck1': jobCheck1,
+      'jobCheck2': jobCheck2,
+      'jobCheck3': jobCheck3,
+      'jobCheck4': jobCheck4,
+      'jobCheck5': jobCheck5,
+      'jobCheck6': jobCheck6,
+      'jobCheck7': jobCheck7,
+      'jobCheck8': jobCheck8,
+      'jobCheck9': jobCheck9,
+      'jobCheck10': jobCheck10,
+      'jobCheck11': jobCheck11,
+      'jobCheck12': jobCheck12,
+      'jobCheck13': jobCheck13,
+      'jobCheck14': jobCheck14,
+      'jobCheck15': jobCheck15,
+      'jobField1': jobField1,
+      'jobField2': jobField2,
+      'jobField3': jobField3,
+      'jobField4': jobField4,
+      'jobField5': jobField5,
+      'jobField6': jobField6,
+      'jobField7': jobField7,
+      'jobField8': jobField8,
+      'jobField9': jobField9,
+      'jobField10': jobField10,
+      'jobField11': jobField11,
+      'jobField12': jobField12,
+      'jobField13': jobField13,
+      'jobField14': jobField14,
+      'jobField15': jobField15,
+      'jobField16': jobField16,
+      'jobField17': jobField17,
+      'jobField18': jobField18,
+      'jobField19': jobField19,
+    };
+  }
 }
 
-class SaveJobLogsReqDto {
+class SaveJobLogsReqDto implements Mappable {
   SaveJobLogsReqDto(Map<String, dynamic> json)
       : communicationSaveDtoList =
             List.of(json['communicationSaveDtoList'] as Iterable<dynamic>)
@@ -1096,16 +1605,26 @@ class SaveJobLogsReqDto {
                     item as Map<String, dynamic>,
                   ),
                 )
-                .toList(),
+                .toList(growable: false),
         logDtoList = List.of(json['logDtoList'] as Iterable<dynamic>)
             .map((item) => LogDto(item as Map<String, dynamic>))
-            .toList();
+            .toList(growable: false);
 
   List<CustomerCommunicationSaveDto> communicationSaveDtoList = [];
   List<LogDto> logDtoList = [];
+
+  @override
+  Map<String, dynamic> toMap() {
+    return {
+      'communicationSaveDtoList': communicationSaveDtoList
+          .map((e) => e.toMap())
+          .toList(growable: false),
+      'logDtoList': logDtoList.map((e) => e.toMap()).toList(growable: false),
+    };
+  }
 }
 
-class SavePicInformationReqDto {
+class SavePicInformationReqDto implements Mappable {
   SavePicInformationReqDto(Map<String, dynamic> json)
       : updatedRoutingAlert = json['updatedRoutingAlert'] as String?,
         goodsAtHome = json['goodsAtHome'] as bool?,
@@ -1173,9 +1692,46 @@ class SavePicInformationReqDto {
   int? numericUpDown1;
   int? loggedWorkerId;
   bool? isPICInfoCreated;
+
+  @override
+  Map<String, dynamic> toMap() {
+    return {
+      'updatedRoutingAlert': updatedRoutingAlert,
+      'goodsAtHome': goodsAtHome,
+      'timeSlotConfirmed': timeSlotConfirmed,
+      'addressConfirmed': addressConfirmed,
+      'scopesConfirmed': scopesConfirmed,
+      'amountOutstanding': amountOutstanding,
+      'antennaScopes': antennaScopes,
+      'speakerMountingScopes': speakerMountingScopes,
+      'dwellingType': dwellingType,
+      'storeyDwelling': storeyDwelling,
+      'roofing': roofing,
+      'doesRoofHaveManhole': doesRoofHaveManhole,
+      'cabling': cabling,
+      'newOutletNeeded': newOutletNeeded,
+      'ductRequired': ductRequired,
+      'speciallAdderRequirement': speciallAdderRequirement,
+      'strataBodyCorporatePermissionTaken': strataBodyCorporatePermissionTaken,
+      'mountingSection': mountingSection,
+      'roofAccessGiven': roofAccessGiven,
+      'powerPointInlocationIfWirelessSpeakers':
+          powerPointInlocationIfWirelessSpeakers,
+      'screenSize': screenSize,
+      'picComments': picComments,
+      'picChecked': picChecked,
+      'sMSChecked': sMSChecked,
+      'oldPreInstallCallAttempts': oldPreInstallCallAttempts,
+      'jobVisitId': jobVisitId,
+      'jobId': jobId,
+      'numericUpDown1': numericUpDown1,
+      'loggedWorkerId': loggedWorkerId,
+      'isPICInfoCreated': isPICInfoCreated,
+    };
+  }
 }
 
-class CustomerCommunicationSaveDto {
+class CustomerCommunicationSaveDto implements Mappable {
   CustomerCommunicationSaveDto(Map<String, dynamic> json)
       : customerId = json['customerId'] as int?,
         comment = json['comment'] as String?,
@@ -1188,9 +1744,20 @@ class CustomerCommunicationSaveDto {
   int? reasonId;
   bool requireFollowUp = false;
   int siteId = 0;
+
+  @override
+  Map<String, dynamic> toMap() {
+    return {
+      'customerId': customerId,
+      'comment': comment,
+      'reasonId': reasonId,
+      'requireFollowUp': requireFollowUp,
+      'siteId': siteId,
+    };
+  }
 }
 
-class LogDto {
+class LogDto implements Mappable {
   LogDto(Map<String, dynamic> json)
       : logId = json['logId'] as int,
         id = json['id'] as int?,
@@ -1222,4 +1789,24 @@ class LogDto {
   String? newValue;
   double? amount;
   int? silcarId;
+
+  @override
+  Map<String, dynamic> toMap() {
+    return {
+      'logId': logId,
+      'id': id,
+      'idtype': idtype,
+      'logType': logType,
+      'workerId': workerId,
+      'eventDate': eventDate.toIso8601String(),
+      'logDate': logDate.toIso8601String(),
+      'eventDesc': eventDesc,
+      'tableChanged': tableChanged,
+      'fieldChanged': fieldChanged,
+      'oldValue': oldValue,
+      'newValue': newValue,
+      'amount': amount,
+      'silcarId': silcarId,
+    };
+  }
 }

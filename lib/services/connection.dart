@@ -29,7 +29,7 @@ class ConnectionService {
     }
   }
 
-  Future<Response> sendData(String url, [Mappable? body]) {
+  Future<Response> postData(String url, [Mappable? body]) {
     if (body != null) {
       late final String json;
       if (body is MappableList) {
@@ -40,6 +40,20 @@ class ConnectionService {
       return _http.post(url.toUri(), body: json);
     } else {
       return _http.post(url.toUri());
+    }
+  }
+
+  Future<Response> putData(String url, [Mappable? body]) {
+    if (body != null) {
+      late final String json;
+      if (body is MappableList) {
+        json = JSONConverter().encode(body.toMapList());
+      } else {
+        json = JSONConverter().encode(body.toMap());
+      }
+      return _http.put(url.toUri(), body: json);
+    } else {
+      return _http.put(url.toUri());
     }
   }
 

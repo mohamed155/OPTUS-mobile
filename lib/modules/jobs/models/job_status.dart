@@ -13,7 +13,9 @@ class JobStatusDto {
         ifcompKpicode = json['ifcompKpicode'] as bool,
         allowChangeInJobDetails = json['allowChangeInJobDetails'] as bool,
         discontinued = json['discontinued'] as bool,
-        serverDate = DateTime.parse(json['serverDat'] as String);
+        serverDate = json['serverDat'] != null
+            ? DateTime.parse(json['serverDat'] as String)
+            : null;
 
   int jobStatusId;
   String jobStatusCode;
@@ -28,5 +30,5 @@ class JobStatusDto {
   bool ifcompKpicode;
   bool allowChangeInJobDetails;
   bool discontinued;
-  DateTime serverDate;
+  DateTime? serverDate;
 }

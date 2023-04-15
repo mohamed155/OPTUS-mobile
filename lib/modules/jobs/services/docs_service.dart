@@ -63,6 +63,6 @@ class DocsService {
 
   Future<void> uploadLinkedDocuments(List<LinkedDocumentDto> model) {
     const url = '${s3ApiBaseUrl}Upload/UploadLinkedDocuments';
-    return ConnectionService().sendData(url, MappableList(model));
+    return ConnectionService().postData(url, MappableList(model));
   }
 }
