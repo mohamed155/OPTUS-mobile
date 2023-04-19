@@ -7,6 +7,7 @@ import 'package:tech2/modules/jobs/models/job_form_item.dart';
 import 'package:tech2/modules/jobs/models/job_status.dart';
 import 'package:tech2/modules/jobs/models/job_visit_model.dart';
 import 'package:tech2/services/connection.dart';
+import 'package:tech2/services/regulate_time_zone.dart';
 import 'package:tech2/services/security.dart';
 import 'package:tech2/utilities/json_converter.dart';
 
@@ -60,9 +61,10 @@ class JobsService {
         if (result.statusCode == 403) {
           completer.completeError('Forbidden');
         } else {
+          final json = removeTimeZoneSuffix(result.body);
           completer.complete(
             JobVisitModel(
-              JSONConverter().decode(result.body) as Map<String, dynamic>,
+              JSONConverter().decode(json) as Map<String, dynamic>,
             ),
           );
         }
