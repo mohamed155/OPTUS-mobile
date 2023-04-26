@@ -22,8 +22,8 @@ class JobFormDto {
         frequency = json['frequency'] as String?,
         mandatory = json['mandatory'] as bool,
         filled = json['filled'] as int,
-        formCompleted = json['formCompleted'] as String,
-        formAction = json['formAction'] as String,
+        formCompleted = json['formCompleted'] as String?,
+        formAction = json['formAction'] as String?,
         linkEvent = json['linkEvent'] as String?,
         formResponseId = json['formResponseId'] as int,
         dateCreated = json['dateCreated'] != null
@@ -37,8 +37,8 @@ class JobFormDto {
   String? frequency;
   bool mandatory;
   int filled;
-  String formCompleted;
-  String formAction;
+  String? formCompleted;
+  String? formAction;
   String? linkEvent;
   int formResponseId;
   DateTime? dateCreated;

@@ -6,6 +6,7 @@ import 'package:tech2/modules/jobs/models/job_visit_model.dart';
 import 'package:tech2/modules/jobs/screens/job_location.dart';
 import 'package:tech2/modules/jobs/services/jobs_service.dart';
 import 'package:tech2/services/security.dart';
+import 'package:tech2/services/toast_service.dart';
 import 'package:tech2/utilities/date_formatter.dart';
 
 class JobDetailsScreen extends StatefulWidget {
@@ -103,30 +104,68 @@ class _JobDetailsScreenState extends State<JobDetailsScreen> {
   }
 
   void startJob() {
-    const startedStatusId = 5;
-    getJobStatusInfo(startedStatusId).then((statusInfo) {
-      jobVisit!.jobVisitModelDetailsDto.visitStatusId = statusInfo.jobStatusId;
-      jobVisit!.jobStatusDetailsDto.jobStatus =
-          '${statusInfo.jobStatusCode} - ${statusInfo.jobStatusDesc}';
-      jobVisit!.jobStatusDetailsDto.jobStatusCode = statusInfo.jobStatusCode;
-      jobVisit!.jobStatusDetailsDto.jobStatusDesc = statusInfo.jobStatusDesc;
-      jobVisit!.jobStatusDetailsDto.jobStatusType = statusInfo.jobStatusType;
-      setState(() => {});
-      updateJobVisit();
+    JobsService()
+        .getJobFormWithoutResponse(
+      jobVisit!.jobVisitModelDetailsDto.jobVisitId!,
+      'Started',
+      isMandatory: true,
+    )
+        .then((data) {
+      if (data.isNotEmpty) {
+        ToastService.showErrorMessage(
+            'Sorry, You should first fill mandatory Forms: '
+            '${data.map((form) => form.formName).join(', ')}'
+            ' before starting the job');
+      } else {
+        const startedStatusId = 5;
+        getJobStatusInfo(startedStatusId).then((statusInfo) {
+          jobVisit!.jobVisitModelDetailsDto.visitStatusId =
+              statusInfo.jobStatusId;
+          jobVisit!.jobStatusDetailsDto.jobStatus =
+              '${statusInfo.jobStatusCode} - ${statusInfo.jobStatusDesc}';
+          jobVisit!.jobStatusDetailsDto.jobStatusCode =
+              statusInfo.jobStatusCode;
+          jobVisit!.jobStatusDetailsDto.jobStatusDesc =
+              statusInfo.jobStatusDesc;
+          jobVisit!.jobStatusDetailsDto.jobStatusType =
+              statusInfo.jobStatusType;
+          setState(() => {});
+          updateJobVisit();
+        });
+      }
     });
   }
 
   void closeJob() {
-    const closedStatusId = 6;
-    getJobStatusInfo(closedStatusId).then((statusInfo) {
-      jobVisit!.jobVisitModelDetailsDto.visitStatusId = statusInfo.jobStatusId;
-      jobVisit!.jobStatusDetailsDto.jobStatus =
-          '${statusInfo.jobStatusCode} - ${statusInfo.jobStatusDesc}';
-      jobVisit!.jobStatusDetailsDto.jobStatusCode = statusInfo.jobStatusCode;
-      jobVisit!.jobStatusDetailsDto.jobStatusDesc = statusInfo.jobStatusDesc;
-      jobVisit!.jobStatusDetailsDto.jobStatusType = statusInfo.jobStatusType;
-      setState(() => {});
-      updateJobVisit();
+    JobsService()
+        .getJobFormWithoutResponse(
+      jobVisit!.jobVisitModelDetailsDto.jobVisitId!,
+      'Closed',
+      isMandatory: true,
+    )
+        .then((data) {
+      if (data.isNotEmpty) {
+        ToastService.showErrorMessage(
+            'Sorry, You should first fill mandatory Forms: '
+            '${data.map((form) => form.formName).join(', ')}'
+            ' before closing the job');
+      } else {
+        const closedStatusId = 6;
+        getJobStatusInfo(closedStatusId).then((statusInfo) {
+          jobVisit!.jobVisitModelDetailsDto.visitStatusId =
+              statusInfo.jobStatusId;
+          jobVisit!.jobStatusDetailsDto.jobStatus =
+              '${statusInfo.jobStatusCode} - ${statusInfo.jobStatusDesc}';
+          jobVisit!.jobStatusDetailsDto.jobStatusCode =
+              statusInfo.jobStatusCode;
+          jobVisit!.jobStatusDetailsDto.jobStatusDesc =
+              statusInfo.jobStatusDesc;
+          jobVisit!.jobStatusDetailsDto.jobStatusType =
+              statusInfo.jobStatusType;
+          setState(() => {});
+          updateJobVisit();
+        });
+      }
     });
   }
 

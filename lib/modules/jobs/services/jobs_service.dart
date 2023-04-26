@@ -99,4 +99,23 @@ class JobsService {
     const url = '${apiBaseUrl}Job/UpdateJobVisit';
     return ConnectionService().putData(url, model);
   }
+
+  Future<List<JobFormDto>> getJobFormWithoutResponse(
+    int jobVisitId,
+    String linkEvent, {
+    required bool isMandatory,
+  }) {
+    final url =
+        '${apiBaseUrl}JobForm/GetJobFormWithoutResponse/$jobVisitId/$isMandatory/$linkEvent';
+    return ConnectionService().getData(url).then(
+          (result) => List.of(
+            JSONConverter().decode(result.body) as Iterable<dynamic>,
+          )
+              .map(
+                (formJson) =>
+                    JobFormDto.fromJson(formJson as Map<String, dynamic>),
+              )
+              .toList(),
+        );
+  }
 }
