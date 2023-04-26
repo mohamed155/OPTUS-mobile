@@ -8,6 +8,7 @@ import 'package:tech2/modules/jobs/services/jobs_service.dart';
 import 'package:tech2/services/security.dart';
 import 'package:tech2/services/toast_service.dart';
 import 'package:tech2/utilities/date_formatter.dart';
+import 'package:tech2/widgets/dropdown.dart';
 
 class JobDetailsScreen extends StatefulWidget {
   const JobDetailsScreen({super.key, required this.jobVisitId});
@@ -103,6 +104,67 @@ class _JobDetailsScreenState extends State<JobDetailsScreen> {
     return JobsService().getJobStatusInfo(statusId);
   }
 
+  void showCloseJobPopup() {
+    showDialog<void>(
+      context: context,
+      builder: (_) {
+        return AlertDialog(
+          shadowColor: Colors.transparent,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(10),
+          ),
+          backgroundColor: Colors.transparent,
+          content: Center(
+            child: Container(
+              width: 350,
+              height: 250,
+              padding: const EdgeInsets.all(10),
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(10),
+                color: Colors.white,
+              ),
+              child: Column(
+                children: [
+                  Dropdown<int>(
+                    label: 'Status',
+                    labelColor: Colors.black,
+                    items: const [],
+                    // items: listOfCategories!,
+                    // value: selectedCategoryId,
+                    valueProp: 'key',
+                    labelProp: 'value',
+                    borderColor: Colors.black54,
+                    onChanged: (int? value) => value,
+                    // setState(() => selectedCategoryId = value),
+                  ),
+                  const SizedBox(
+                    height: 20,
+                  ),
+                  Row(
+                    children: [
+                      Expanded(
+                        child: TextButton(
+                          onPressed: () => Navigator.pop(context),
+                          child: const Text('Cancel'),
+                        ),
+                      ),
+                      Expanded(
+                        child: TextButton(
+                          onPressed: closeJob,
+                          child: const Text('OK'),
+                        ),
+                      ),
+                    ],
+                  )
+                ],
+              ),
+            ),
+          ),
+        );
+      },
+    );
+  }
+
   void startJob() {
     JobsService()
         .getJobFormWithoutResponse(
@@ -113,9 +175,9 @@ class _JobDetailsScreenState extends State<JobDetailsScreen> {
         .then((data) {
       if (data.isNotEmpty) {
         ToastService.showErrorMessage(
-            'Sorry, You should first fill mandatory Forms: '
-            '${data.map((form) => form.formName).join(', ')}'
-            ' before starting the job');
+            'Sorry, You should first fill mandatory Forms: \n'
+            '${data.map((form) => form.formName).join('\n')}\n'
+            'before starting the job');
       } else {
         const startedStatusId = 5;
         getJobStatusInfo(startedStatusId).then((statusInfo) {
@@ -147,8 +209,8 @@ class _JobDetailsScreenState extends State<JobDetailsScreen> {
       if (data.isNotEmpty) {
         ToastService.showErrorMessage(
             'Sorry, You should first fill mandatory Forms: '
-            '${data.map((form) => form.formName).join(', ')}'
-            ' before closing the job');
+            '${data.map((form) => form.formName).join('\n')}\n'
+            'before closing the job');
       } else {
         const closedStatusId = 6;
         getJobStatusInfo(closedStatusId).then((statusInfo) {
