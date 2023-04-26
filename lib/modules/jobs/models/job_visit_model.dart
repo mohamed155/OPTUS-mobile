@@ -110,11 +110,7 @@ class JobVisitModel implements Mappable {
                 json['saveJobLogsReqDto'] as Map<String, dynamic>,
               )
             : null,
-        savePicInformationReqDto = json['savePicInformationReqDto'] != null
-            ? SavePicInformationReqDto(
-                json['savePicInformationReqDto'] as Map<String, dynamic>,
-              )
-            : null,
+        savePicInformationReqDto = null,
         isSendSmsMissingPaymentCall =
             json['isSendSmsMissingPaymentCall'] as bool?,
         isCheckFirstMissingPaymentCall =
@@ -1625,40 +1621,38 @@ class SaveJobLogsReqDto implements Mappable {
 }
 
 class SavePicInformationReqDto implements Mappable {
-  SavePicInformationReqDto(Map<String, dynamic> json)
-      : updatedRoutingAlert = json['updatedRoutingAlert'] as String?,
-        goodsAtHome = json['goodsAtHome'] as bool?,
-        timeSlotConfirmed = json['timeSlotConfirmed'] as bool?,
-        addressConfirmed = json['addressConfirmed'] as bool?,
-        scopesConfirmed = json['scopesConfirmed'] as bool?,
-        amountOutstanding = json['amountOutstanding'] as bool?,
-        antennaScopes = json['antennaScopes'] as bool?,
-        speakerMountingScopes = json['speakerMountingScopes'] as bool?,
-        dwellingType = json['dwellingType'] as String?,
-        storeyDwelling = json['storeyDwelling'] as String?,
-        roofing = json['roofing'] as String?,
-        doesRoofHaveManhole = json['doesRoofHaveManhole'] as bool?,
-        cabling = json['cabling'] as String?,
-        newOutletNeeded = json['newOutletNeeded'] as bool?,
-        ductRequired = json['ductRequired'] as String?,
-        speciallAdderRequirement = json['speciallAdderRequirement'] as String?,
-        strataBodyCorporatePermissionTaken =
-            json['strataBodyCorporatePermissionTaken'] as String?,
-        mountingSection = json['mountingSection'] as String?,
-        roofAccessGiven = json['roofAccessGiven'] as bool?,
-        powerPointInlocationIfWirelessSpeakers =
-            json['powerPointInlocationIfWirelessSpeakers'] as bool?,
-        screenSize = json['screenSize'] as String?,
-        picComments = json['picComments'] as String?,
-        picChecked = json['picChecked'] as bool?,
-        sMSChecked = json['sMSChecked'] as bool?,
-        oldPreInstallCallAttempts =
-            json['oldPreInstallCallAttempts'] as String?,
-        jobVisitId = json['jobVisitId'] as int?,
-        jobId = json['jobId'] as int?,
-        numericUpDown1 = json['numericUpDown1'] as int?,
-        loggedWorkerId = json['loggedWorkerId'] as int?,
-        isPICInfoCreated = json['isPICInfoCreated'] as bool?;
+  SavePicInformationReqDto({
+    this.updatedRoutingAlert,
+    this.goodsAtHome,
+    this.timeSlotConfirmed,
+    this.addressConfirmed,
+    this.scopesConfirmed,
+    this.amountOutstanding,
+    this.antennaScopes,
+    this.speakerMountingScopes,
+    this.dwellingType,
+    this.storeyDwelling,
+    this.roofing,
+    this.doesRoofHaveManhole,
+    this.cabling,
+    this.newOutletNeeded,
+    this.ductRequired,
+    this.speciallAdderRequirement,
+    this.strataBodyCorporatePermissionTaken,
+    this.mountingSection,
+    this.roofAccessGiven,
+    this.powerPointInlocationIfWirelessSpeakers,
+    this.screenSize,
+    this.picComments,
+    this.picChecked,
+    this.sMSChecked,
+    this.oldPreInstallCallAttempts,
+    this.jobVisitId,
+    this.jobId,
+    this.numericUpDown1,
+    this.loggedWorkerId,
+    this.isPICInfoCreated,
+  });
 
   String? updatedRoutingAlert;
   bool? goodsAtHome;

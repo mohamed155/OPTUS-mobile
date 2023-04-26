@@ -19,6 +19,7 @@ class APIInterceptors extends InterceptorContract {
           await Amplify.Auth.fetchAuthSession() as CognitoAuthSession;
       // data.baseUrl = apiBaseUrl;
       final idToken = session.userPoolTokensResult.value.idToken;
+      print(idToken.raw);
       data.headers['Authorization'] = 'Bearer ${idToken.raw}';
       data.headers['Content-Type'] = 'application/json';
       data.headers['Cache-Control'] = 'no-cache';

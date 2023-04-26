@@ -5,6 +5,7 @@ import 'package:tech2/modules/jobs/models/job_status.dart';
 import 'package:tech2/modules/jobs/models/job_visit_model.dart';
 import 'package:tech2/modules/jobs/screens/job_location.dart';
 import 'package:tech2/modules/jobs/services/jobs_service.dart';
+import 'package:tech2/services/security.dart';
 import 'package:tech2/utilities/date_formatter.dart';
 
 class JobDetailsScreen extends StatefulWidget {
@@ -111,13 +112,7 @@ class _JobDetailsScreenState extends State<JobDetailsScreen> {
       jobVisit!.jobStatusDetailsDto.jobStatusDesc = statusInfo.jobStatusDesc;
       jobVisit!.jobStatusDetailsDto.jobStatusType = statusInfo.jobStatusType;
       setState(() => {});
-      JobsService()
-          .updateJobVisit(
-        jobVisit!,
-      )
-          .then((_) {
-        loadJobVisitModel();
-      });
+      updateJobVisit();
     });
   }
 
@@ -131,13 +126,37 @@ class _JobDetailsScreenState extends State<JobDetailsScreen> {
       jobVisit!.jobStatusDetailsDto.jobStatusDesc = statusInfo.jobStatusDesc;
       jobVisit!.jobStatusDetailsDto.jobStatusType = statusInfo.jobStatusType;
       setState(() => {});
-      JobsService()
-          .updateJobVisit(
-        jobVisit!,
-      )
-          .then((_) {
-        loadJobVisitModel();
-      });
+      updateJobVisit();
+    });
+  }
+
+  void updateJobVisit() {
+    final savePicInformationReqDto = SavePicInformationReqDto(
+      jobId: jobVisit!.jobDetailsDto.jobId,
+      jobVisitId: jobVisit!.jobVisitModelDetailsDto.jobVisitId,
+      loggedWorkerId: SecurityService.workerId,
+      picChecked: false,
+      sMSChecked: false,
+      goodsAtHome: false,
+      numericUpDown1: 0,
+      newOutletNeeded: false,
+      roofAccessGiven: false,
+      scopesConfirmed: false,
+      addressConfirmed: false,
+      isPICInfoCreated: false,
+      amountOutstanding: false,
+      timeSlotConfirmed: false,
+      speakerMountingScopes: false,
+      powerPointInlocationIfWirelessSpeakers: false,
+      antennaScopes: false,
+    );
+    jobVisit?.savePicInformationReqDto = savePicInformationReqDto;
+    JobsService()
+        .updateJobVisit(
+      jobVisit!,
+    )
+        .then((_) {
+      loadJobVisitModel();
     });
   }
 
