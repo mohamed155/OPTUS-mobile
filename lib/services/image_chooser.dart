@@ -40,7 +40,7 @@ class ImageChooser {
               chooseImageFromSource(ImageSource.gallery)
                   .then(completer.complete);
             },
-          )
+          ),
         ],
         cancelAction: CancelAction(title: const Text('Cancel')),
       );

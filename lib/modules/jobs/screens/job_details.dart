@@ -155,7 +155,7 @@ class _JobDetailsScreenState extends State<JobDetailsScreen> {
                         ),
                       ),
                     ],
-                  )
+                  ),
                 ],
               ),
             ),
@@ -277,7 +277,7 @@ class _JobDetailsScreenState extends State<JobDetailsScreen> {
                 IconButton(
                   onPressed: openJobMap,
                   icon: const Icon(Icons.map_rounded),
-                )
+                ),
               ]
             : [],
       ),
@@ -369,7 +369,7 @@ class _JobDetailsScreenState extends State<JobDetailsScreen> {
                                         style: textStyle,
                                       ),
                                     ],
-                                  )
+                                  ),
                                 ]
                               : [],
                           ...jobVisit!.jobVisitModelDetailsDto.bookedTimeSlot !=
@@ -389,7 +389,7 @@ class _JobDetailsScreenState extends State<JobDetailsScreen> {
                                         style: textStyle,
                                       ),
                                     ],
-                                  )
+                                  ),
                                 ]
                               : [],
                           Row(
@@ -429,7 +429,7 @@ class _JobDetailsScreenState extends State<JobDetailsScreen> {
                                         style: textStyle,
                                       ),
                                     ],
-                                  )
+                                  ),
                                 ]
                               : [],
                           ...jobVisit!.jobDetailsDto.completedDate != null
@@ -450,7 +450,7 @@ class _JobDetailsScreenState extends State<JobDetailsScreen> {
                                         style: textStyle,
                                       ),
                                     ],
-                                  )
+                                  ),
                                 ]
                               : [],
                         ],
@@ -495,7 +495,7 @@ class _JobDetailsScreenState extends State<JobDetailsScreen> {
                     ),
                     const SizedBox(
                       height: 80,
-                    )
+                    ),
                   ],
                 ),
               )

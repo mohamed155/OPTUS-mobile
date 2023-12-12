@@ -43,6 +43,6 @@ class DrawerItems {
     safetySMWS,
     banking,
     stock,
-    notifications
+    notifications,
   ];
 }

@@ -67,7 +67,7 @@ class _ImagePickerState extends State<ImagePicker> {
                 color: Colors.white60,
                 spreadRadius: -1,
                 blurRadius: 1,
-              )
+              ),
             ],
           ),
           child: image != null
@@ -83,7 +83,7 @@ class _ImagePickerState extends State<ImagePicker> {
                           onPressed: _cancelImage,
                           child: const Icon(Icons.close),
                         ),
-                      )
+                      ),
                     ],
                   ),
                 )

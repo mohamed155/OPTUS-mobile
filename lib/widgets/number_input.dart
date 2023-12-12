@@ -44,7 +44,7 @@ class NumberInput extends StatelessWidget {
                         fontSize: 16,
                       ),
                     ),
-                  )
+                  ),
                 ]
               : [],
           ClipRRect(
@@ -85,7 +85,7 @@ class NumberInput extends StatelessWidget {
                 ],
               ),
             ),
-          )
+          ),
         ],
       ),
     );

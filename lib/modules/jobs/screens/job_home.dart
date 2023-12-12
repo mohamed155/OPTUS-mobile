@@ -122,7 +122,7 @@ class _JobsHomeState extends State<JobsHomeScreen> {
               const Text(
                 'You do not have any jobs assigned',
                 style: TextStyle(color: Colors.white),
-              )
+              ),
           ],
         ),
       ),

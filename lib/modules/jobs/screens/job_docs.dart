@@ -212,7 +212,7 @@ class _JobDocumentsState extends State<JobDocuments> {
                             ),
                           ),
                         ],
-                      )
+                      ),
                     ],
                   ),
                 ),
@@ -315,7 +315,7 @@ class _JobDocumentsState extends State<JobDocuments> {
                           const Divider(
                             color: Colors.white24,
                             height: 1,
-                          )
+                          ),
                         ],
                       );
                     },

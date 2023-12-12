@@ -45,7 +45,7 @@ class BulkRoutingParameters implements Mappable {
       'endDate': endDate,
       'includeUnreleased': includeUnreleased,
       'includeNoDate': includeNoDate,
-      'limitedUser': limitedUser
+      'limitedUser': limitedUser,
     };
   }
 }

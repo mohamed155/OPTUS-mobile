@@ -139,14 +139,14 @@ class _LoginScreenState extends State<LoginScreen> {
                             ),
                             const SizedBox(
                               width: 10,
-                            )
+                            ),
                           ]
                         : [],
                     const Text('Login'),
                   ],
                 ),
               ),
-            )
+            ),
           ],
         ),
       ),

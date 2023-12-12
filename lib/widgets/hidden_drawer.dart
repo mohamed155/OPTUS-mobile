@@ -53,7 +53,7 @@ class _HiddenDrawerState extends State<HiddenDrawer> {
             ),
           ),
         ),
-        buildCurrentScreen(context)
+        buildCurrentScreen(context),
       ],
     );
   }
@@ -81,7 +81,7 @@ class _HiddenDrawerState extends State<HiddenDrawer> {
             style: TextStyle(color: Colors.white, fontSize: 20),
           ),
           onTap: SecurityService().logout,
-        )
+        ),
       ],
     );
   }
@@ -117,7 +117,7 @@ class _HiddenDrawerState extends State<HiddenDrawer> {
                 color: Color.fromRGBO(0, 0, 0, 0.2),
                 spreadRadius: 5,
                 blurRadius: 15,
-              )
+              ),
             ],
           ),
           child: ClipRRect(

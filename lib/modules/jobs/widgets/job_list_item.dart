@@ -31,7 +31,7 @@ class JobListItem extends StatelessWidget {
                 color: Colors.white.withOpacity(0.5),
                 spreadRadius: -4,
                 blurRadius: 5,
-              )
+              ),
             ],
           ),
           child: Card(
@@ -47,7 +47,7 @@ class JobListItem extends StatelessWidget {
                   Row(
                     children: [
                       const Text('Type: ', style: labelFontStyle),
-                      Text(jobVisit.jobTypeCode)
+                      Text(jobVisit.jobTypeCode),
                     ],
                   ),
                   Row(
@@ -56,7 +56,7 @@ class JobListItem extends StatelessWidget {
                         'Client Job Number: ',
                         style: labelFontStyle,
                       ),
-                      Text(jobVisit.clientJobNumber)
+                      Text(jobVisit.clientJobNumber),
                     ],
                   ),
                   ...jobVisit.clientVisitNumber != null
@@ -69,9 +69,9 @@ class JobListItem extends StatelessWidget {
                               ),
                               Text(
                                 jobVisit.clientVisitNumber!,
-                              )
+                              ),
                             ],
-                          )
+                          ),
                         ]
                       : [],
                   Row(
@@ -80,7 +80,7 @@ class JobListItem extends StatelessWidget {
                         'Job Number: ',
                         style: labelFontStyle,
                       ),
-                      Text('${jobVisit.jobNumber}')
+                      Text('${jobVisit.jobNumber}'),
                     ],
                   ),
                   Row(
@@ -88,13 +88,13 @@ class JobListItem extends StatelessWidget {
                       const Text('Status: ', style: labelFontStyle),
                       Text(
                         '${jobVisit.jobStatusType}',
-                      )
+                      ),
                     ],
                   ),
                   Row(
                     children: [
                       const Text('State: ', style: labelFontStyle),
-                      Text('${jobVisit.state}')
+                      Text('${jobVisit.state}'),
                     ],
                   ),
                   ...jobVisit.bookedDate != null
@@ -109,9 +109,9 @@ class JobListItem extends StatelessWidget {
                                 DateFormatter().formatDate(
                                   jobVisit.bookedDate!,
                                 ),
-                              )
+                              ),
                             ],
-                          )
+                          ),
                         ]
                       : [],
                 ],

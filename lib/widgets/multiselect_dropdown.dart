@@ -80,9 +80,9 @@ class _MultiselectDropdownState<V> extends State<MultiselectDropdown<V>> {
                                 ),
                               ),
                             ),
-                          )
+                          ),
                         ]
-                      : []
+                      : [],
                 ],
               ),
             ),

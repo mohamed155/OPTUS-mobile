@@ -86,7 +86,7 @@ class _DateRangeInputState extends State<DateRangeInput> {
                         ),
                       ),
                     ],
-                  )
+                  ),
                 ],
               ),
             ),

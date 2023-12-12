@@ -71,9 +71,9 @@ class FormDateField extends FormField<IDynamicFieldConfigModel> {
                               style: TextStyle(
                                 color: Theme.of(state.context).primaryColor,
                               ),
-                            )
+                            ),
                           ]
-                        : []
+                        : [],
                   ],
                 ),
                 const SizedBox(
@@ -96,7 +96,7 @@ class FormDateField extends FormField<IDynamicFieldConfigModel> {
                           style: TextStyle(
                             color: Theme.of(state.context).primaryColor,
                           ),
-                        )
+                        ),
                       ]
                     : [],
                 Builder(
@@ -138,7 +138,7 @@ class FormDateField extends FormField<IDynamicFieldConfigModel> {
                     }
                     return Container();
                   },
-                )
+                ),
               ],
             );
           },

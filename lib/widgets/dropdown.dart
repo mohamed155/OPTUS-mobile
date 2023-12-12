@@ -46,7 +46,7 @@ class Dropdown<T> extends StatelessWidget {
                         fontSize: 16,
                       ),
                     ),
-                  )
+                  ),
                 ]
               : [],
           DecoratedBox(

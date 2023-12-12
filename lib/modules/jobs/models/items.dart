@@ -147,7 +147,7 @@ class JobItemTaskCodesDto implements Mappable {
       'enableOutOfHours': enableOutOfHours,
       'periodEndDate': periodEndDate,
       'visitStatusId': visitStatusId,
-      'navId': navId
+      'navId': navId,
     };
   }
 }
@@ -225,7 +225,7 @@ class AddTaskCodeItemDto implements Mappable {
       'projectId': projectId,
       'loggedWorkerId': loggedWorkerId,
       'isCheckMandatory': isCheckMandatory,
-      'quantityTasks': quantityTasks
+      'quantityTasks': quantityTasks,
     };
   }
 }
@@ -267,7 +267,7 @@ class DeleteItemDto implements Mappable {
       'projectRegionId': projectRegionId,
       'sourceCustomerId': sourceCustomerId,
       'loggedWorkerId': loggedWorkerId,
-      'isShowDeleted': isShowDeleted
+      'isShowDeleted': isShowDeleted,
     };
   }
 }

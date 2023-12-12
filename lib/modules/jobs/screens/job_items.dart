@@ -180,13 +180,13 @@ class _JobItemsState extends State<JobItems> {
                                   Row(
                                     children: [
                                       Text('Code: ', style: labelFontStyle),
-                                      Text(items![index].itemCodeName)
+                                      Text(items![index].itemCodeName),
                                     ],
                                   ),
                                   Row(
                                     children: [
                                       Text('Actual: ', style: labelFontStyle),
-                                      Text(items![index].qty.toString())
+                                      Text(items![index].qty.toString()),
                                     ],
                                   ),
                                   Row(
@@ -195,25 +195,25 @@ class _JobItemsState extends State<JobItems> {
                                         'Paid to worker: ',
                                         style: labelFontStyle,
                                       ),
-                                      Text(items![index].fullName)
+                                      Text(items![index].fullName),
                                     ],
                                   ),
                                   Row(
                                     children: [
                                       Text('Retail: ', style: labelFontStyle),
-                                      Text(items![index].saleAmount)
+                                      Text(items![index].saleAmount),
                                     ],
                                   ),
                                   Row(
                                     children: [
                                       Text('Discount: ', style: labelFontStyle),
-                                      Text(items![index].discountAmount)
+                                      Text(items![index].discountAmount),
                                     ],
                                   ),
                                   Row(
                                     children: [
                                       Text('Net: ', style: labelFontStyle),
-                                      Text(items![index].netAmount)
+                                      Text(items![index].netAmount),
                                     ],
                                   ),
                                   ...items![index].companyName != null
@@ -224,9 +224,9 @@ class _JobItemsState extends State<JobItems> {
                                                 'Company: ',
                                                 style: labelFontStyle,
                                               ),
-                                              Text(items![index].companyName!)
+                                              Text(items![index].companyName!),
                                             ],
-                                          )
+                                          ),
                                         ]
                                       : [],
                                   ...items![index].navId != null
@@ -237,9 +237,9 @@ class _JobItemsState extends State<JobItems> {
                                                 'NAV ID: ',
                                                 style: labelFontStyle,
                                               ),
-                                              Text(items![index].navId!)
+                                              Text(items![index].navId!),
                                             ],
-                                          )
+                                          ),
                                         ]
                                       : [],
                                   Theme(
@@ -263,7 +263,7 @@ class _JobItemsState extends State<JobItems> {
                                                 );
                                                 updateItem(items![index]);
                                               },
-                                            )
+                                            ),
                                           ],
                                         ),
                                         const SizedBox(
@@ -284,7 +284,7 @@ class _JobItemsState extends State<JobItems> {
                                                 );
                                                 updateItem(items![index]);
                                               },
-                                            )
+                                            ),
                                           ],
                                         ),
                                       ],
@@ -301,19 +301,19 @@ class _JobItemsState extends State<JobItems> {
                                   PopupMenuItem(
                                     value: 'delete',
                                     onTap: () => deleteItem(items![index]),
-                                    child: Row(
-                                      children: const [
+                                    child: const Row(
+                                      children: [
                                         Icon(Icons.delete),
                                         SizedBox(
                                           width: 10,
                                         ),
-                                        Text('Delete')
+                                        Text('Delete'),
                                       ],
                                     ),
-                                  )
+                                  ),
                                 ],
                               ),
-                            )
+                            ),
                           ],
                         ),
                       );

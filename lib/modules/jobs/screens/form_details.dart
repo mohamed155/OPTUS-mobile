@@ -170,18 +170,18 @@ class _FormDetailsScreenState extends State<FormDetailsScreen> {
                                     bottom: 10,
                                     right: 0,
                                     child: FloatingActionButton.extended(
-                                      label: Row(
-                                        children: const [
+                                      label: const Row(
+                                        children: [
                                           Text('next'),
                                           SizedBox(
                                             width: 8,
                                           ),
-                                          Icon(Icons.arrow_forward)
+                                          Icon(Icons.arrow_forward),
                                         ],
                                       ),
                                       onPressed: goNextSlide,
                                     ),
-                                  )
+                                  ),
                                 ]
                               : [],
                           ...currentIndex > 0
@@ -194,7 +194,7 @@ class _FormDetailsScreenState extends State<FormDetailsScreen> {
                                       icon: const Icon(Icons.arrow_back),
                                       onPressed: goPrevSlide,
                                     ),
-                                  )
+                                  ),
                                 ]
                               : [],
                           ...currentIndex == model!.listOfFields.length - 1
@@ -203,20 +203,20 @@ class _FormDetailsScreenState extends State<FormDetailsScreen> {
                                     bottom: 10,
                                     right: 0,
                                     child: FloatingActionButton.extended(
-                                      label: Row(
-                                        children: const [
+                                      label: const Row(
+                                        children: [
                                           Text('Save'),
                                           SizedBox(
                                             width: 8,
                                           ),
-                                          Icon(Icons.check)
+                                          Icon(Icons.check),
                                         ],
                                       ),
                                       onPressed: saveForm,
                                     ),
-                                  )
+                                  ),
                                 ]
-                              : []
+                              : [],
                         ],
                       )
                     : Stack(
@@ -236,9 +236,9 @@ class _FormDetailsScreenState extends State<FormDetailsScreen> {
                                       ? [
                                           const SizedBox(
                                             height: 80,
-                                          )
+                                          ),
                                         ]
-                                      : []
+                                      : [],
                                 ],
                               );
                             },
@@ -263,12 +263,12 @@ class _FormDetailsScreenState extends State<FormDetailsScreen> {
                                       ),
                                     )
                                   else
-                                    const Icon(Icons.check)
+                                    const Icon(Icons.check),
                                 ],
                               ),
                               onPressed: loading ? null : saveForm,
                             ),
-                          )
+                          ),
                         ],
                       )
                 : Center(

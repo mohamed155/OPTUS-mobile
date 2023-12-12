@@ -34,7 +34,7 @@ class JobLocationScreen extends StatelessWidget {
           Marker(
             markerId: const MarkerId('job visit location'),
             position: LatLng(latitude, longitude),
-          )
+          ),
         },
       ),
     );

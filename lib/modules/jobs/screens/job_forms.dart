@@ -89,7 +89,7 @@ class _JobFormsScreenState extends State<JobFormsScreen> {
                                   ),
                                   const SizedBox(
                                     height: 5,
-                                  )
+                                  ),
                                 ]
                               : [],
                           Text(
@@ -106,7 +106,7 @@ class _JobFormsScreenState extends State<JobFormsScreen> {
                                     style: const TextStyle(fontSize: 14),
                                   ),
                                 ]
-                              : []
+                              : [],
                         ],
                       ),
                     ),

@@ -13,7 +13,7 @@ class _ImagesScreenState extends State<ImagesScreen> {
     return Scaffold(
       appBar: AppBar(
         actions: [
-          IconButton(onPressed: () {}, icon: const Icon(Icons.camera_alt))
+          IconButton(onPressed: () {}, icon: const Icon(Icons.camera_alt)),
         ],
       ),
     );

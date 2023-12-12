@@ -69,7 +69,7 @@ class _JobsListScreenState extends State<JobsListScreen> {
         appBar: AppBar(
           title: const Text('Jobs List'),
           actions: [
-            IconButton(onPressed: () {}, icon: const Icon(Icons.filter_alt))
+            IconButton(onPressed: () {}, icon: const Icon(Icons.filter_alt)),
           ],
           bottom: const TabBar(
             indicatorColor: Colors.white,

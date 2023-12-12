@@ -44,7 +44,7 @@ class FormResponseModelDto implements Mappable {
     return {
       'isWizard': isWizard,
       'formResponseDto': formResponseDto.toMap(),
-      'listOfFields': listOfFields.map((item) => item.toMap()).toList()
+      'listOfFields': listOfFields.map((item) => item.toMap()).toList(),
     };
   }
 }

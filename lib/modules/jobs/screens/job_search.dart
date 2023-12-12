@@ -247,7 +247,7 @@ class _JobsSearchScreenState extends State<JobsSearchScreen> {
                               ),
                             ),
                           ],
-                        )
+                        ),
                       ],
                 ...isJobSubRegionsLoading
                     ? [loader]
@@ -304,7 +304,7 @@ class _JobsSearchScreenState extends State<JobsSearchScreen> {
                               ),
                             ),
                           ],
-                        )
+                        ),
                       ],
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -391,7 +391,7 @@ class _JobsSearchScreenState extends State<JobsSearchScreen> {
                           setState(() => includeUnreleasedJobs = value),
                     ),
                   ],
-                )
+                ),
               ],
             ),
             ...currentIndex < numOfSlides - 1
@@ -404,7 +404,7 @@ class _JobsSearchScreenState extends State<JobsSearchScreen> {
                         onPressed: goNextSlide,
                         child: const Icon(Icons.arrow_forward),
                       ),
-                    )
+                    ),
                   ]
                 : [],
             ...currentIndex > 0
@@ -417,7 +417,7 @@ class _JobsSearchScreenState extends State<JobsSearchScreen> {
                         onPressed: goPrevSlide,
                         child: const Icon(Icons.arrow_back),
                       ),
-                    )
+                    ),
                   ]
                 : [],
             ...currentIndex == numOfSlides - 1
@@ -443,14 +443,14 @@ class _JobsSearchScreenState extends State<JobsSearchScreen> {
                                 ),
                               )
                             else
-                              const Icon(Icons.search)
+                              const Icon(Icons.search),
                           ],
                         ),
                         onPressed: loadJobs,
                       ),
-                    )
+                    ),
                   ]
-                : []
+                : [],
           ],
         ),
       ),
